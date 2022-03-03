@@ -1,7 +1,43 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function HomeScreen() {
+
+  const [data, setData] = useState([]);
+
+  const loadData = () => {
+
+    axios.get(`http://localhost:3003/test`)
+      .then(res => {
+        const persons = res.data;
+        setData(persons);
+        console.log(persons)
+      })
+      .catch(error => console.log(error));
+  }
+
+
+  useEffect(() => {
+    loadData()
+  }, []);
+
+  
+  const render = () => {
+    let element = data.map((product, index) => {
+      let turn = '';
+
+      turn = <Product
+        key={index}
+        id={product.id}
+        src={product.src}
+        name={product.name}
+        price={product.price}
+      />
+      return turn;
+    })
+    return element;
+  }
 
 
   return (
@@ -36,123 +72,32 @@ export default function HomeScreen() {
           <span className="home__title">Sản phẩm bán chạy</span>
           <div className="block-separation my-3"></div>
           <div className="row row-cols-6 home__products">
-            <Link className="p-1">
-              <div className="home__product">
-                <img src="../assets/img/product1.png" alt="product" width="100%" className="home__product-img"></img>
-                <div className="p-2">
-                  <div className="home__product-name">Pate monge vị gà và rau</div>
-                  <div className="home__product-price">26.000 đ</div>
-                </div>
-              </div>
-            </Link>
-            <Link className="p-1">
-              <div className="home__product">
-                <img src="../assets/img/product1.png" alt="product" width="100%" className="home__product-img"></img>
-                <div className="p-2">
-                  <div className="home__product-name">Pate monge vị gà và rau</div>
-                  <div className="home__product-price">26.000 đ</div>
-                </div>
-              </div>
-            </Link>
-            <Link className="p-1">
-              <div className="home__product">
-                <img src="../assets/img/product1.png" alt="product" width="100%" className="home__product-img"></img>
-                <div className="p-2">
-                  <div className="home__product-name">Pate monge vị gà và rau</div>
-                  <div className="home__product-price">26.000 đ</div>
-                </div>
-              </div>
-            </Link>
-            <Link className="p-1">
-              <div className="home__product">
-                <img src="../assets/img/product1.png" alt="product" width="100%" className="home__product-img"></img>
-                <div className="p-2">
-                  <div className="home__product-name">Pate monge vị gà và rau</div>
-                  <div className="home__product-price">26.000 đ</div>
-                </div>
-              </div>
-            </Link>
-            <Link className="p-1">
-              <div className="home__product">
-                <img src="../assets/img/product1.png" alt="product" width="100%" className="home__product-img"></img>
-                <div className="p-2">
-                  <div className="home__product-name">Pate monge vị gà và rau</div>
-                  <div className="home__product-price">26.000 đ</div>
-                </div>
-              </div>
-            </Link>
-            <Link className="p-1">
-              <div className="home__product">
-                <img src="../assets/img/product1.png" alt="product" width="100%" className="home__product-img"></img>
-                <div className="p-2">
-                  <div className="home__product-name">Pate monge vị gà và rau</div>
-                  <div className="home__product-price">26.000 đ</div>
-                </div>
-              </div>
-            </Link>
+            {render()}
           </div>
         </div>
         <div className="home__container">
           <span className="home__title">Sản phẩm khuyến mãi</span>
           <div className="block-separation my-3"></div>
           <div className="row row-cols-6 home__products">
-            <Link className="p-1">
-              <div className="home__product">
-                <img src="../assets/img/product1.png" alt="product" width="100%" className="home__product-img"></img>
-                <div className="p-2">
-                  <div className="home__product-name">Pate monge vị gà và rau</div>
-                  <div className="home__product-price">26.000 đ</div>
-                </div>
-              </div>
-            </Link>
-            <Link className="p-1">
-              <div className="home__product">
-                <img src="../assets/img/product1.png" alt="product" width="100%" className="home__product-img"></img>
-                <div className="p-2">
-                  <div className="home__product-name">Pate monge vị gà và rau</div>
-                  <div className="home__product-price">26.000 đ</div>
-                </div>
-              </div>
-            </Link>
-            <Link className="p-1">
-              <div className="home__product">
-                <img src="../assets/img/product1.png" alt="product" width="100%" className="home__product-img"></img>
-                <div className="p-2">
-                  <div className="home__product-name">Pate monge vị gà và rau</div>
-                  <div className="home__product-price">26.000 đ</div>
-                </div>
-              </div>
-            </Link>
-            <Link className="p-1">
-              <div className="home__product">
-                <img src="../assets/img/product1.png" alt="product" width="100%" className="home__product-img"></img>
-                <div className="p-2">
-                  <div className="home__product-name">Pate monge vị gà và rau</div>
-                  <div className="home__product-price">26.000 đ</div>
-                </div>
-              </div>
-            </Link>
-            <Link className="p-1">
-              <div className="home__product">
-                <img src="../assets/img/product1.png" alt="product" width="100%" className="home__product-img"></img>
-                <div className="p-2">
-                  <div className="home__product-name">Pate monge vị gà và rau</div>
-                  <div className="home__product-price">26.000 đ</div>
-                </div>
-              </div>
-            </Link>
-            <Link className="p-1">
-              <div className="home__product">
-                <img src="../assets/img/product1.png" alt="product" width="100%" className="home__product-img"></img>
-                <div className="p-2">
-                  <div className="home__product-name">Pate monge vị gà và rau</div>
-                  <div className="home__product-price">26.000 đ</div>
-                </div>
-              </div>
-            </Link>
+
           </div>
         </div>
       </div>
     </div>
   );
+}
+
+function Product(props) {
+  return (
+
+    <Link to={`/${props.id}`} className="p-1">
+      <div className="home__product">
+        <img src={props.src} alt="product" width="100%" className="home__product-img"></img>
+        <div className="p-2">
+          <div className="home__product-name">{props.name}</div>
+          <div className="home__product-price">{props.price} đ</div>
+        </div>
+      </div>
+    </Link>
+  )
 }

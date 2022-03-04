@@ -1,3 +1,6 @@
+@import 'react-slideshow-image/dist/styles.css';
+
+
 :root {
   --primary-color: #91C2CC;
   --primary-hover-color:  #63b9cd;
@@ -134,8 +137,10 @@ main {
   grid-area: main;
   /* position: relative; */
   height: 100%;
+  max-width: 100%;
   /* padding: 1rem; */
   margin-bottom: 30px;
+  background-color: #f7f7f7;
 }
 
 footer {
@@ -531,6 +536,11 @@ textarea:focus-visible {
 }
 
 /* Header */
+.banner {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+}
 
 .header__navbar {
   position: relative;
@@ -630,9 +640,7 @@ textarea:focus-visible {
 
 /* Main */
   /* Home */
-.banner {
-  width: 100%;
-}
+
 
 .category-wrap::before {
   content: "";
@@ -669,10 +677,14 @@ textarea:focus-visible {
 }
 
 .home__products {
+  /* position: relative; */
   margin: 0 -4px;
+  justify-content: left;
+  flex-wrap: nowrap;
 }
 
 .home__product {
+  /* position: absolute; */
   border: 1px solid var(--primary-color);
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 20%);
   border-radius: 2px;
@@ -714,3 +726,19 @@ textarea:focus-visible {
   flex-wrap: nowrap;
 }
 
+/* Slide Show Image */
+
+.each-slide > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: 100%;
+  min-height: 250px;
+}
+
+.each-slide span {
+  padding: 20px;
+  font-size: 20px;
+  background: #efefef;
+  text-align: center;
+}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import Axios from "axios";
 // import Carousel from 'react-elastic-carousel'
 import Product from '../components/Product'
 import { Slide } from 'react-slideshow-image'
@@ -11,7 +11,7 @@ export default function HomeScreen() {
   const [data, setData] = useState([]);
 
   const loadData = () => {
-    axios.get(`http://localhost:3003/home_bestseller`)
+    Axios.get(`http://localhost:3003/home_bestseller`)
       .then(res => {
         const data = res.data;
         setData(data);

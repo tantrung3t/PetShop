@@ -8,7 +8,7 @@ import SigninScreen from './screens/SigninScreen'
 import RegisterScreen from './screens/RegisterScreen';
 
 //mai mot bo
-import Nhap from './components/Nhap';
+import ProductDetail from './components/ProductDetail';
 // import  from './screens/';
 
 
@@ -45,7 +45,7 @@ function App() {
             <Route path='/signin' component={SigninScreen} />
             <Route path='/register' component={RegisterScreen} />
             
-            <Route path='/nhap' component={Nhap} />
+            <Route path='/productdetail' component={ProductDetail} />
         </main>
 
         <footer className='flex'>

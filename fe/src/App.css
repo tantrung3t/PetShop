@@ -693,7 +693,7 @@ textarea:focus-visible {
 }
 
 .home__product-img {
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   border: 1px solid rgb(0 0 0 / 0.05);

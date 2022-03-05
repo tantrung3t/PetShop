@@ -6,15 +6,16 @@ import Product from '../components/Product'
 import { Slide } from 'react-slideshow-image'
 
 export default function HomeScreen() {
+  const url = "http://localhost:3003";
   
   const [data, setData] = useState([]);
 
   const loadData = () => {
     axios.get(`http://localhost:3003/home_bestseller`)
       .then(res => {
-        const persons = res.data;
-        setData(persons);
-        console.log(persons)
+        const data = res.data;
+        setData(data);
+        console.log(data)
       })
       .catch(error => console.log(error));
   }
@@ -30,10 +31,10 @@ export default function HomeScreen() {
 
       return <Product
               key={index}
-              id={product.id}
-              src={product.src}
-              name={product.name}
-              price={product.price}
+              id={product.product_id}
+              src={ url + product.product_image}
+              name={product.product_name}
+              price={product.product_price}
             />
     })
     return element;

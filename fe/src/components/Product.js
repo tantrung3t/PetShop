@@ -6,7 +6,7 @@ export default function Product(props) {
 
     <Link to={`/${props.id}`} className="p-1">
       <div className="home__product">
-        <img src={props.src} alt="product" width="100%" className="home__product-img"></img>
+        <img src={props.src} alt="product" width="100%" height="200px"  className="home__product-img"></img>
         <div className="p-2">
           <div className="home__product-name">{props.name}</div>
           <div className="home__product-price">{props.price} đ</div>

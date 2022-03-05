@@ -6,6 +6,9 @@ import Account from './components/Account';
 import HomeScreen from './screens/HomeScreen';
 import SigninScreen from './screens/SigninScreen'
 import RegisterScreen from './screens/RegisterScreen';
+
+//mai mot bo
+import Nhap from './components/Nhap';
 // import  from './screens/';
 
 
@@ -41,6 +44,8 @@ function App() {
             <Route path='/' exact component={HomeScreen} />
             <Route path='/signin' component={SigninScreen} />
             <Route path='/register' component={RegisterScreen} />
+            
+            <Route path='/nhap' component={Nhap} />
         </main>
 
         <footer className='flex'>

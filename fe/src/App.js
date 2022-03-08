@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, useParams } from 'react-router-dom'
 import './App.css'
 import SearchForm from './components/SearchForm';
 import Account from './components/Account';
@@ -45,7 +45,7 @@ function App() {
             <Route path='/signin' component={SigninScreen} />
             <Route path='/register' component={RegisterScreen} />
             
-            <Route path='/productdetail' component={ProductDetail} />
+            <Route path='/product/:id' component={ProductDetail_Id} />
         </main>
 
         <footer className='flex'>
@@ -56,6 +56,14 @@ function App() {
       </div>
     </Router>
   );
+}
+
+function ProductDetail_Id(){
+  let {id } = useParams();
+
+  return (
+    <ProductDetail id={id}/>
+  )
 }
 
 export default App;

@@ -21,6 +21,7 @@ app.get('/', (req, res) => {
 //import router by function
 require('./app/routers/test.router')(app);
 require('./app/routers/home.router')(app);
+require('./app/routers/product.router')(app);
 
 //get image from backend
 app.get('/image/:id', (req, res) => {

@@ -1,25 +1,42 @@
 import { React, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
-import {axios} from 'axios'
+import axios from 'axios'
 
-export default function Product(props) {
-  const [data, setData] = useState([]);
+export default function ProductDetail(props) {
+  const url = "http://localhost:3003";
+  const [data, setData] = useState(
+    [
+      {
+      product_id: "",
+      product_name: "",
+      product_price: "",
+      product_image: "",
+      product_sold: "",
+      product_description: "",
+      product_brand_name: "",
+      product_type_name: ""
+      }
+      ]
+  );
 
   const loadData = () => {
     axios.get(`http://localhost:3003/product/` + props.id)
       .then(res => {
         const data = res.data;
         setData(data);
-        console.log(data)
       })
       .catch(error => console.log(error));
   }
-  // useEffect(() => {
-  //   loadData()
-  // }, []);
+  
+  useEffect(() => {
+
+    loadData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleClick = () => {
-    alert("Mua hàng");
+    alert("Mua hàng" + props.id);
+    console.log(data[0])
   };
 
   return (
@@ -28,23 +45,23 @@ export default function Product(props) {
       <div className='grid flex beetween'>
         <div className='product__img'>
           <img
-            src='../assets/img/product1.png'
-            alt='image'
+            src={url + data[0].product_image}
+            alt='image_product'
             className='product__img--primary'
           />
         </div>
         <div className='product__info'>
-          <span className='product__name'>Gối nằm Doremon</span>
+          <span className='product__name'>{data[0].product_name}</span>
           <div className='block-separation'></div>
-          <div className='product__price'>100 000 đ</div>
+          <div className='product__price'>{data[0].product_price} đ</div>
           <div className='block-separation'></div>
-          <div className='product__brand'>Thương hiệu: <Link to='' className='primary'>ABC</Link></div>
-          <div className='product__type'>Loại: <Link to='' className='primary'>Thức ăn cho chó</Link></div>
-          <div className='product__description'>GỐI NẰM DOREMONGối nằm Doremon là vật dụng không thể thiếu trong phòng ngủ của bé yêu. Chúng giúp nâng đỡ phần đầu, cổ, vai gáy tạo cảm giác thoải mái nhất cho con.Hiểu được điều này Lamell đã ưu tiên lựa chọn chất liệu êm ái là gòn lông vũ.  Kết hợp với đó là vải mộc 100% Cotton có tác dụng thấm hút mồ hôi tốt. Tất cả đều nhằm mục đích chăm sóc và bảo vệ sức khỏe của bé được tốt nhất.Những tưởng sản phẩm được tạo ra từ những người thợ lành nghề. Nhưng tất cả đều là nỗ lực của các nghệ nhân đã dành cả tâm huyết, thổi hồn vào từng thiết kế. Do vậy, mẹ nên sớm cân nhắc và mua ngay cho bé chiếc gối nằm đẹp, bền, đầy ý nghĩa này.</div>
+          <div className='product__brand'>Thương hiệu: <Link to='' className='primary'>{data[0].product_brand_name}</Link></div>
+          <div className='product__type'>Loại: <Link to='' className='primary'>{data[0].product_type_name}</Link></div>
+          <div className='product__description' dangerouslySetInnerHTML={{__html: data[0].product_description}}></div>
           <div className='block-separation'></div>
           <div className='flex beetween my-2'>
             <span className='product__amount'>Số lượng: 10</span>
-            <span className='product__sold'>Đã bán: 9</span>
+            <span className='product__sold'>Đã bán: {data[0].product_sold}</span>
           </div>
           <div id='order' className='btn btn-primary my-2' onClick={handleClick}>Mua hàng</div>
         </div>

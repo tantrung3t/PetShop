@@ -22,11 +22,19 @@ app.get('/', (req, res) => {
 require('./app/routers/test.router')(app);
 require('./app/routers/home.router')(app);
 require('./app/routers/product.router')(app);
+require('./app/routers/login.router')(app);
 
 //get image from backend
 app.get('/image/:id', (req, res) => {
   res.download('./app/public/image/' + req.params.id);
 })
+
+
+//post login
+// app.post('/login', (req, res) => {
+//   res.send("Hello login")
+// })
+
 
 
 app.listen(port, () => {

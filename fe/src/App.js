@@ -61,10 +61,12 @@ function App() {
 
         <main>
             <Route path='/' exact component={HomeScreen} />
-            <Route path='/signin' component={SigninScreen} />
+            <Route path='/signin' render={() => {
+                                          return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />}} />
+
             <Route path='/register' component={RegisterScreen} />
             
-            <Route path='/product/:id' component={ProductDetail_Id} />
+            <Route path='/products/:id' component={ProductDetail_Id} />
 
             <Route path='/thucancun' component={Thucancun} />
             <Route path='/thucanmeo' component={Thucanmeo} />

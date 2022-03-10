@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom";
 
-localStorage.setItem('user', "");
+// localStorage.setItem('user', "");
 
 const user = localStorage.getItem('user');
 

@@ -51,7 +51,7 @@ function App() {
                   <FontAwesomeIcon icon={faCartShopping} className='header__cart-icon' color='white'/>
                 </div>
                 <div className='header__cart-list'>
-                  aaa
+                
                 </div>
               </div>
               <Account />

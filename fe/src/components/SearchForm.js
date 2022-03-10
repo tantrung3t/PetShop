@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 export default function SearchForm() {
 
@@ -12,7 +14,7 @@ export default function SearchForm() {
                     tp="text"
                     placeholder="Search"
                 />
-                <button className="btn-search"><i className="ti-search"></i></button>
+                <button className="btn-search"><FontAwesomeIcon icon={ faMagnifyingGlass } /></button>
             </form>
         </div>
     );

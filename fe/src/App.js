@@ -19,8 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
 import ProductDetail from './components/ProductDetail';
-
-// import  from './screens/';
+// import {} from '';
 
 
 function App() {
@@ -51,7 +50,8 @@ function App() {
                   <FontAwesomeIcon icon={faCartShopping} className='header__cart-icon' color='white'/>
                 </div>
                 <div className='header__cart-list'>
-                
+                  <img src='../assets/img/no-item.png' alt='img' width='100%' ></img>
+                  <span>Chưa có sản phẩm</span>
                 </div>
               </div>
               <Account />
@@ -61,10 +61,12 @@ function App() {
 
         <main>
             <Route path='/' exact component={HomeScreen} />
-            <Route path='/signin' component={SigninScreen} />
+            <Route path='/signin' render={() => {
+                                          return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />}} />
+
             <Route path='/register' component={RegisterScreen} />
             
-            <Route path='/product/:id' component={ProductDetail_Id} />
+            <Route path='/products/:id' component={ProductDetail_Id} />
 
             <Route path='/thucancun' component={Thucancun} />
             <Route path='/thucanmeo' component={Thucanmeo} />

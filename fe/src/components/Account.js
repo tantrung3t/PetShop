@@ -25,7 +25,7 @@ export default function Account() {
               </span>
             </Link>
             <div>
-              
+              <button>dang xuat</button>
             </div>
           </div>
         )

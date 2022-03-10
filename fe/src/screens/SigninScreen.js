@@ -35,8 +35,6 @@ export default function Account() {
       data: data
     };
 
-    var username
-
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
@@ -76,8 +74,6 @@ export default function Account() {
       },
       data: data
     };
-
-    var username
 
     axios(config)
       .then(function (response) {

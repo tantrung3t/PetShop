@@ -14,7 +14,12 @@ import Phukienthucung from './components/Phukienthucung';
 import Chuongthucung from './components/Chuongthucung';
 
 //mai mot bo
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
+
 import ProductDetail from './components/ProductDetail';
+
 // import  from './screens/';
 
 
@@ -41,6 +46,14 @@ function App() {
               </ul>
 
               <SearchForm />
+              <div className='header__cart'>
+                <div className='header__cart-icon'>
+                  <FontAwesomeIcon icon={faCartShopping} className='header__cart-icon' color='white'/>
+                </div>
+                <div className='header__cart-list'>
+                  aaa
+                </div>
+              </div>
               <Account />
             </div>
           </div>

@@ -34,7 +34,7 @@ export default function ProductDetail(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleClick = () => {
+  const handleOrder = () => {
     alert("Mua hàng" + props.id);
     console.log(data[0])
   };
@@ -63,7 +63,7 @@ export default function ProductDetail(props) {
             <span className='product__amount'>Số lượng: 10</span>
             <span className='product__sold'>Đã bán: {data[0].product_sold}</span>
           </div>
-          <div id='order' className='btn btn-primary my-2' onClick={handleClick}>Mua hàng</div>
+          <div id='order' className='btn btn-primary my-2' onClick={handleOrder}>Mua hàng</div>
         </div>
       </div>
     </div>

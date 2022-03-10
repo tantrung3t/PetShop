@@ -14,6 +14,7 @@ export default function Account() {
   }
 
 
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const dataSubmit = new FormData(event.currentTarget);
@@ -40,6 +41,14 @@ export default function Account() {
       .catch(function (error) {
         console.log(error);
       });
+    }
+
+  const handleSignIn = () => {
+    alert("Đăng nhập thành công!");
+  }
+
+  const handleSignUp = () => {
+    alert("Đăng ký thành công!");
 
   }
 
@@ -54,16 +63,18 @@ export default function Account() {
             <input className="input-sign" type="email" placeholder="Email" />
             <input className="input-sign" type="password" placeholder="Password" />
             <input className="input-sign" type="password" placeholder="Password" />
-            <button className="button-sign">Sign Up</button>
+            <button className="button-sign my-2" onClick={handleSignUp}>Sign Up</button>
           </form>
         </div>
         <div className="form-container sign-in-container">
           <form onSubmit={handleSubmit} className="form-sign">
             <h1 className="h1-sign">Sign in</h1>
+
             <input name="username" className="input-sign" type="text" placeholder="Username" />
             <input name="password" className="input-sign" type="password" placeholder="Password" />
             <h4>Forgot password</h4>
             <button type="submit" className="button-sign">Sign In</button>
+
           </form>
         </div>
         <div className="overlay-container">

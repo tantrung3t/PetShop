@@ -58,8 +58,45 @@ export default function Account() {
 
     }
 
-  const handleSignUp = () => {
-    alert("Đăng ký thành công!");
+  const handleSignUp = (event) => {
+
+    event.preventDefault();
+    const dataSubmit = new FormData(event.currentTarget);
+
+    var data = JSON.stringify({
+      "username": dataSubmit.get('username'),
+      "password": dataSubmit.get('password')
+    });
+
+    var config = {
+      method: 'post',
+      url: 'http://localhost:3003/login',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: data
+    };
+
+    var username
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+
+        if(response.data.name === undefined) {
+          localStorage.setItem('user', "")
+          alert('Dang nhap khong thanh cong')
+        }
+        else {
+          localStorage.setItem('user', response.data.name)
+          localStorage.setItem('token', response.data.token)
+          window.location.reload();
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      
 
   }
 

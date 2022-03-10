@@ -8,6 +8,12 @@ import { faUser, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 const user = localStorage.getItem('user');
 
 export default function Account() {
+
+  const handleSignOff =  () => {
+    localStorage.setItem('user', "");
+    window.location.reload();
+  } 
+
   return (
     <div>
       {
@@ -38,6 +44,7 @@ export default function Account() {
                   }}
                 >Đăng xuất</div>
               </div>
+
             </div>
           </div>
         )

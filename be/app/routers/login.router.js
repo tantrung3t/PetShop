@@ -11,7 +11,7 @@ module.exports = function (router) {
         var username = req.body.username;
         var password = req.body.password;
 
-        var strquery = "SELECT * FROM `accounts` WHERE account_username = '" + username + "' and account_password = '" + password + "'"
+        var strquery = "SELECT accounts.account_id, infomation.info_name FROM `accounts`, infomation WHERE account_username = '" + username + "' and account_password = '" + password + "' and accounts.account_id = infomation.account_id;"
 
         db.query(strquery, function (err, data) {
             if (!err) {
@@ -27,7 +27,8 @@ module.exports = function (router) {
                     return res.json({
                         status: 200,
                         message: 'OK',
-                        token: token
+                        token: token,
+                        name: data[0].info_name
                     })
                 }
             }

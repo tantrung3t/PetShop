@@ -6,8 +6,18 @@ import Account from './components/Account';
 import HomeScreen from './screens/HomeScreen';
 import SigninScreen from './screens/SigninScreen'
 import RegisterScreen from './screens/RegisterScreen';
+
+import Thucancun from './components/Thucancun';
+import Thucanmeo from './components/Thucanmeo';
+import Dochoithucung from './components/Dochoithucung';
+import Phukienthucung from './components/Phukienthucung';
+import Chuongthucung from './components/Chuongthucung';
+
+//mai mot bo
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
+
 import ProductDetail from './components/ProductDetail';
 // import {} from '';
 
@@ -51,10 +61,18 @@ function App() {
 
         <main>
             <Route path='/' exact component={HomeScreen} />
-            <Route path='/signin' component={SigninScreen} />
+            <Route path='/signin' render={() => {
+                                          return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />}} />
+
             <Route path='/register' component={RegisterScreen} />
             
-            <Route path='/product/:id' component={ProductDetail_Id} />
+            <Route path='/products/:id' component={ProductDetail_Id} />
+
+            <Route path='/thucancun' component={Thucancun} />
+            <Route path='/thucanmeo' component={Thucanmeo} />
+            <Route path='/dochoithucung' component={Dochoithucung} />
+            <Route path='/phukienthucung' component={Phukienthucung} />
+            <Route path='/chuongthucung' component={Chuongthucung} />
         </main>
 
         <footer className='flex'>

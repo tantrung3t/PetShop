@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
-// localStorage.setItem('user', "Khiem pham");
+// localStorage.setItem('user', "");
 
 const user = localStorage.getItem('user');
 

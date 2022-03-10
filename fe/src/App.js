@@ -3,9 +3,12 @@ import { BrowserRouter as Router, Route, Link, useParams } from 'react-router-do
 import './App.css'
 import SearchForm from './components/SearchForm';
 import Account from './components/Account';
+import ProductDetail from './components/ProductDetail';
+
 import HomeScreen from './screens/HomeScreen';
 import SigninScreen from './screens/SigninScreen'
 import RegisterScreen from './screens/RegisterScreen';
+import ProductsScreen from './screens/ProductsScreen';
 
 import Thucancun from './components/Thucancun';
 import Thucanmeo from './components/Thucanmeo';
@@ -13,12 +16,10 @@ import Dochoithucung from './components/Dochoithucung';
 import Phukienthucung from './components/Phukienthucung';
 import Chuongthucung from './components/Chuongthucung';
 
-//mai mot bo
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
-import ProductDetail from './components/ProductDetail';
 // import {} from '';
 
 
@@ -34,7 +35,7 @@ function App() {
               </Link>
               <ul className='navbar'>
                 <li className='nav-item'>
-                  <Link to='/' className='nav-link'>Sản Phẩm</Link>
+                  <Link to='/products' className='nav-link'>Sản Phẩm</Link>
                 </li>
                 <li>
                   <Link to='/' className='nav-link'>Nhãn Hàng</Link>
@@ -62,9 +63,9 @@ function App() {
         <main>
             <Route path='/' exact component={HomeScreen} />
             <Route path='/signin' render={() => {
-                                          return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />}} />
-
+              return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />}} />
             <Route path='/register' component={RegisterScreen} />
+            <Route path='/products' component={ProductsScreen} />
             
             <Route path='/products/:id' component={ProductDetail_Id} />
 

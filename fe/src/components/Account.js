@@ -8,6 +8,12 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 const user = localStorage.getItem('user');
 
 export default function Account() {
+
+  const handleSignOff =  () => {
+    localStorage.setItem('user', "");
+    window.location.reload();
+  } 
+
   return (
     <div className="account-wrap link">
       {
@@ -25,7 +31,7 @@ export default function Account() {
               </span>
             </Link>
             <div>
-              <button>dang xuat</button>
+              <button onClick={handleSignOff}>dang xuat</button>
             </div>
           </div>
         )

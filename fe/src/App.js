@@ -3,9 +3,12 @@ import { BrowserRouter as Router, Route, Link, useParams } from 'react-router-do
 import './App.css'
 import SearchForm from './components/SearchForm';
 import Account from './components/Account';
+import ProductDetail from './components/ProductDetail';
+
 import HomeScreen from './screens/HomeScreen';
 import SigninScreen from './screens/SigninScreen'
 import RegisterScreen from './screens/RegisterScreen';
+import ProductsScreen from './screens/ProductsScreen';
 
 import Thucancun from './components/Thucancun';
 import Thucanmeo from './components/Thucanmeo';
@@ -13,14 +16,15 @@ import Dochoithucung from './components/Dochoithucung';
 import Phukienthucung from './components/Phukienthucung';
 import Chuongthucung from './components/Chuongthucung';
 
+
 import Allproduct from './components/Allproduct';
 
 //mai mot bo
 
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
-import ProductDetail from './components/ProductDetail';
 // import {} from '';
 
 
@@ -64,6 +68,7 @@ function App() {
         <main>
             <Route path='/' exact component={HomeScreen} />
             <Route path='/signin' render={() => {
+
                                           return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />}} />
 
             <Route path='/products' component={Allproduct} />
@@ -72,6 +77,12 @@ function App() {
             {/* Cho nay bi loi nen can phai sua lai ne */}
             {/* Loi bi chen them the <div> cua ulr /products roi moi den /:id */}
             <Route path='/product/:id' component={ProductDetail_Id} />
+
+            <Route path='/register' component={RegisterScreen} />
+            <Route path='/products' component={ProductsScreen} />
+            
+            <Route path='/products/:id' component={ProductDetail_Id} />
+
 
             <Route path='/thucancun' component={Thucancun} />
             <Route path='/thucanmeo' component={Thucanmeo} />

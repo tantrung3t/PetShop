@@ -6,9 +6,10 @@ import Account from './components/Account';
 import HomeScreen from './screens/HomeScreen';
 import SigninScreen from './screens/SigninScreen'
 import RegisterScreen from './screens/RegisterScreen';
-
-//mai mot bo
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import ProductDetail from './components/ProductDetail';
+
 // import  from './screens/';
 
 
@@ -35,6 +36,14 @@ function App() {
               </ul>
 
               <SearchForm />
+              <div className='header__cart'>
+                <div className='header__cart-icon'>
+                  <FontAwesomeIcon icon={faCartShopping} className='header__cart-icon' color='white'/>
+                </div>
+                <div className='header__cart-list'>
+                  aaa
+                </div>
+              </div>
               <Account />
             </div>
           </div>

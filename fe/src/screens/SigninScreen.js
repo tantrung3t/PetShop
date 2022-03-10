@@ -24,6 +24,14 @@ export default function Account() {
     setIsContainerActive('');
   }
 
+  const handleSignIn = () => {
+    alert("Đăng nhập thành công!");
+  }
+
+  const handleSignUp = () => {
+    alert("Đăng ký thành công!");
+  }
+
   return (
 
     <div className="body-sign">
@@ -35,7 +43,7 @@ export default function Account() {
             <input className="input-sign" type="email" placeholder="Email" />
             <input className="input-sign" type="password" placeholder="Password" />
             <input className="input-sign" type="password" placeholder="Password" />
-            <button className="button-sign">Sign Up</button>
+            <button className="button-sign my-2" onClick={handleSignUp}>Sign Up</button>
           </form>
         </div>
         <div className="form-container sign-in-container">
@@ -43,8 +51,8 @@ export default function Account() {
             <h1 className="h1-sign">Sign in</h1>
             <input className="input-sign" type="email" placeholder="Email" />
             <input className="input-sign" type="password" placeholder="Password" />
-            <h4>Forgot password</h4>
-            <button className="button-sign">Sign In</button>
+            {/* <h4>Forgot password</h4> */}
+            <button className="button-sign my-2" onClick={handleSignIn}>Sign In</button>
           </form>
         </div>
         <div className="overlay-container">

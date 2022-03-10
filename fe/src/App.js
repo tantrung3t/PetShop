@@ -13,6 +13,8 @@ import Dochoithucung from './components/Dochoithucung';
 import Phukienthucung from './components/Phukienthucung';
 import Chuongthucung from './components/Chuongthucung';
 
+import Allproduct from './components/Allproduct';
+
 //mai mot bo
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -34,7 +36,7 @@ function App() {
               </Link>
               <ul className='navbar'>
                 <li className='nav-item'>
-                  <Link to='/' className='nav-link'>Sản Phẩm</Link>
+                  <Link to='/products' className='nav-link'>Sản Phẩm</Link>
                 </li>
                 <li>
                   <Link to='/' className='nav-link'>Nhãn Hàng</Link>
@@ -64,9 +66,12 @@ function App() {
             <Route path='/signin' render={() => {
                                           return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />}} />
 
-            <Route path='/register' component={RegisterScreen} />
-            
-            <Route path='/products/:id' component={ProductDetail_Id} />
+            <Route path='/products' component={Allproduct} />
+
+
+            {/* Cho nay bi loi nen can phai sua lai ne */}
+            {/* Loi bi chen them the <div> cua ulr /products roi moi den /:id */}
+            <Route path='/product/:id' component={ProductDetail_Id} />
 
             <Route path='/thucancun' component={Thucancun} />
             <Route path='/thucanmeo' component={Thucanmeo} />

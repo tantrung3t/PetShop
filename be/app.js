@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 require('./app/routers/test.router')(app);
 require('./app/routers/home.router')(app);
 require('./app/routers/product.router')(app);
-require('./app/routers/login.router')(app);
+require('./app/routers/account.router')(app);
 
 //get image from backend
 app.get('/image/:id', (req, res) => {

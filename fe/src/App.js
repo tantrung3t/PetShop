@@ -1,14 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, useParams } from 'react-router-dom'
 import './App.css'
 import SearchForm from './components/SearchForm';
 import Account from './components/Account';
 import HomeScreen from './screens/HomeScreen';
 import SigninScreen from './screens/SigninScreen'
 import RegisterScreen from './screens/RegisterScreen';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import ProductDetail from './components/ProductDetail';
 
-//mai mot bo
-import Nhap from './components/Nhap';
 // import  from './screens/';
 
 
@@ -35,6 +36,14 @@ function App() {
               </ul>
 
               <SearchForm />
+              <div className='header__cart'>
+                <div className='header__cart-icon'>
+                  <FontAwesomeIcon icon={faCartShopping} className='header__cart-icon' color='white'/>
+                </div>
+                <div className='header__cart-list'>
+                  aaa
+                </div>
+              </div>
               <Account />
             </div>
           </div>
@@ -45,7 +54,7 @@ function App() {
             <Route path='/signin' component={SigninScreen} />
             <Route path='/register' component={RegisterScreen} />
             
-            <Route path='/nhap' component={Nhap} />
+            <Route path='/product/:id' component={ProductDetail_Id} />
         </main>
 
         <footer className='flex'>
@@ -56,6 +65,14 @@ function App() {
       </div>
     </Router>
   );
+}
+
+function ProductDetail_Id(){
+  let {id } = useParams();
+
+  return (
+    <ProductDetail id={id}/>
+  )
 }
 
 export default App;

@@ -9,8 +9,7 @@ import RegisterScreen from './screens/RegisterScreen';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import ProductDetail from './components/ProductDetail';
-
-// import  from './screens/';
+// import {} from '';
 
 
 function App() {
@@ -41,7 +40,8 @@ function App() {
                   <FontAwesomeIcon icon={faCartShopping} className='header__cart-icon' color='white'/>
                 </div>
                 <div className='header__cart-list'>
-                  aaa
+                  <img src='../assets/img/no-item.png' alt='img' width='100%' ></img>
+                  <span>Chưa có sản phẩm</span>
                 </div>
               </div>
               <Account />

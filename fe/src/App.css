@@ -339,8 +339,14 @@ textarea:focus-visible {
   justify-content: center;
 }
 
-.beetween{
+.beetween {
   justify-content: space-between;
+}
+
+.left {
+  align-items: center;
+  justify-content: left;
+  flex-wrap: nowrap;
 }
 
 .m-1 {
@@ -631,6 +637,11 @@ textarea:focus-visible {
 .header__cart {
   position: relative;
   top: 10px;
+  cursor: pointer;
+}
+
+.header__cart:hover .header__cart-list{
+  display: flex;
 }
 
 .header__cart-icon{
@@ -650,7 +661,6 @@ textarea:focus-visible {
 
 .header__cart-list {
   position: absolute;
-  display: none;
   top: 100%;
   right: -20px;
   width: 400px;
@@ -658,6 +668,11 @@ textarea:focus-visible {
   border-radius: 2px;
   background-color: white;
   box-shadow: 0 1px 3em 0 rgb(0 0 0 / 20%);
+  display: none;
+  align-items: center;
+  justify-content: left;
+  flex-direction: column;
+  color: #000;
 }
 
 .header__cart-list::before {
@@ -672,12 +687,26 @@ textarea:focus-visible {
 
 /* Account */
 .header__account {
+  width: 110px;
   padding: 13px 0px;
   border-radius: 50px;
   color: var(--black-color);
 }
 
+.header__account span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* display: -webkit-box; */
+  /* -webkit-box-orient: vertical; */
+  /* -webkit-line-clamp: 1; */
+}
+
 .header__account i {
+  width: 33px;
+  min-width: 33px;
+  height: 33px;
+  min-height: 33px;
   padding: 8px;
   border: 1px solid var(--primary-hover-color);
   border-radius: 50%;

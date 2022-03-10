@@ -1,22 +1,11 @@
 import React, { useState } from "react"
 import "./SigninScreen.css"
+import axios from "axios"
 
 export default function Account() {
 
-  //  const signUpButton = document.getElementById('signUp');
-  //    const signInButton = document.getElementById('signIn');
-  //   const container = document.getElementById('container');
-
-  //   signUpButton.addEventListener('click', () => {
-  //     container.classList.add("right-panel-active");
-  //   });
-
-  //   signInButton.addEventListener('click', () => {
-  //     container.classList.remove("right-panel-active");
-  //   });
-
   const [isContainerActive, setIsContainerActive] = useState('');
-  
+
   const changeSignUp = () => {
     setIsContainerActive('right-panel-active');
   }
@@ -24,12 +13,42 @@ export default function Account() {
     setIsContainerActive('');
   }
 
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const dataSubmit = new FormData(event.currentTarget);
+
+
+    var data = JSON.stringify({
+      "username": dataSubmit.get('username'),
+      "password": dataSubmit.get('password')
+    });
+
+    var config = {
+      method: 'post',
+      url: 'http://localhost:3003/login',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: data
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  }
+
   return (
 
     <div className="body-sign">
       <div className={`container-sign ${isContainerActive}`}>
         <div className="form-container sign-up-container">
-          <form className="form-sign" action="#">
+          <form className="form-sign">
             <h1 className="h1-sign">Create Account</h1>
             <input className="input-sign" type="text" placeholder="Name" />
             <input className="input-sign" type="email" placeholder="Email" />
@@ -39,12 +58,12 @@ export default function Account() {
           </form>
         </div>
         <div className="form-container sign-in-container">
-          <form className="form-sign" action="#">
+          <form onSubmit={handleSubmit} className="form-sign">
             <h1 className="h1-sign">Sign in</h1>
-            <input className="input-sign" type="email" placeholder="Email" />
-            <input className="input-sign" type="password" placeholder="Password" />
+            <input name="username" className="input-sign" type="text" placeholder="Username" />
+            <input name="password" className="input-sign" type="password" placeholder="Password" />
             <h4>Forgot password</h4>
-            <button className="button-sign">Sign In</button>
+            <button type="submit" className="button-sign">Sign In</button>
           </form>
         </div>
         <div className="overlay-container">

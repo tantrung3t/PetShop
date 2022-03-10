@@ -70,21 +70,21 @@ export default function HomeScreen() {
       <center className="home__title my-4">Sản phẩm của T2K Shop</center>
       <div className="category-wrap my-4">
         <div className="row center my-2">
-          <Link to='/'>
+          <Link to='/thucancun'>
             <img src="../assets/img/thuc-an-cho.png" alt="Thức ăn chó" width='200px' className="category-item"></img>
           </Link>
-          <Link to='/'>
+          <Link to='/thucanmeo'>
             <img src="../assets/img/thuc-an-meo.png" alt="Thức ăn mèo" width='200px' className="category-item"></img>
           </Link>
-          <Link to='/'>
+          <Link to='/dochoithucung'>
             <img src="../assets/img/do-choi-thu-cung.png" alt="Đồ chơi thú cưng" width='200px' className="category-item"></img>
           </Link>
         </div>
         <div className="row center my-2">
-          <Link to='/'>
+          <Link to='/phukienthucung'>
             <img src="../assets/img/phu-kien-thu-cung.png" alt="Phụ kiện thú cưng" width='200px' className="category-item"></img>
           </Link>
-          <Link to='/'>
+          <Link to='/chuongthucung'>
             <img src="../assets/img/chuong-thu-cung.png" alt="Chuồng thú cưng" width='200px' className="category-item"></img>
           </Link>
         </div>

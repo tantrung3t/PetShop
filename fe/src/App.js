@@ -7,6 +7,12 @@ import HomeScreen from './screens/HomeScreen';
 import SigninScreen from './screens/SigninScreen'
 import RegisterScreen from './screens/RegisterScreen';
 
+import Thucancun from './components/Thucancun';
+import Thucanmeo from './components/Thucanmeo';
+import Dochoithucung from './components/Dochoithucung';
+import Phukienthucung from './components/Phukienthucung';
+import Chuongthucung from './components/Chuongthucung';
+
 //mai mot bo
 import ProductDetail from './components/ProductDetail';
 // import  from './screens/';
@@ -46,6 +52,12 @@ function App() {
             <Route path='/register' component={RegisterScreen} />
             
             <Route path='/product/:id' component={ProductDetail_Id} />
+
+            <Route path='/thucancun' component={Thucancun} />
+            <Route path='/thucanmeo' component={Thucanmeo} />
+            <Route path='/dochoithucung' component={Dochoithucung} />
+            <Route path='/phukienthucung' component={Phukienthucung} />
+            <Route path='/chuongthucung' component={Chuongthucung} />
         </main>
 
         <footer className='flex'>

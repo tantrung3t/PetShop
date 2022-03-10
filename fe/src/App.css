@@ -848,8 +848,8 @@ textarea:focus-visible {
 
 #order {
   font-size: 20px;
-  position: absolute;
-  right: 54px;
+  position: relative;
+  left: 71%;
 }
 
 

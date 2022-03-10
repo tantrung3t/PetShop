@@ -60,4 +60,34 @@ module.exports = function (router) {
         }
     })
 
+    router.post('/signup', function (req, res) {
+        var username_sign_up = req.body.username_sign_up;
+        var password_sign_up = req.body.password_sign_up;
+        var name_sign_up = req.body.name_sign_up;
+        var email_sign_up = req.body.email_sign_up;
+
+        var strquery_add_username_password = "INSERT INTO `accounts`(`account_username`, `account_password`) VALUES ('"+ username_sign_up +"','" + password_sign_up + "')"
+        //them tai khoan va mat khau vao csdl
+        db.query(strquery_add_username_password, function (err, data){
+            //khong tao duoc
+            if(err || data.length == 0) return res.json("Tạo tài khoản thất bại!")
+            //tao dc
+            else{
+                var strquery_account_id = "SELECT * FROM `accounts` WHERE account_username = '"+ username_sign_up + "'"
+                //thuc hien cau lenh truy van de tim account_id vua tao
+                db.query(strquery_account_id, function (err, data){
+                    var strquery_add_info_with_account_id = "INSERT INTO `infomation` (`account_id`,`info_name`, `info_email`) VALUES ('"+ data[0].account_id +"', '"+ name_sign_up +"', '"+ email_sign_up +"')"
+                    
+                    db.query(strquery_add_info_with_account_id, function (err, data){
+                        return res.json({
+                            status: 200,
+                            message: 'OK'
+                        })
+                    })
+                })
+            }
+            
+        })
+        })
+
 }

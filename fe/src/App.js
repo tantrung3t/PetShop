@@ -17,6 +17,11 @@ import Phukienthucung from './components/Phukienthucung';
 import Chuongthucung from './components/Chuongthucung';
 
 
+import Allproduct from './components/Allproduct';
+
+//mai mot bo
+
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
@@ -63,11 +68,21 @@ function App() {
         <main>
             <Route path='/' exact component={HomeScreen} />
             <Route path='/signin' render={() => {
-              return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />}} />
+
+                                          return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />}} />
+
+            <Route path='/products' component={Allproduct} />
+
+
+            {/* Cho nay bi loi nen can phai sua lai ne */}
+            {/* Loi bi chen them the <div> cua ulr /products roi moi den /:id */}
+            <Route path='/product/:id' component={ProductDetail_Id} />
+
             <Route path='/register' component={RegisterScreen} />
             <Route path='/products' component={ProductsScreen} />
             
             <Route path='/products/:id' component={ProductDetail_Id} />
+
 
             <Route path='/thucancun' component={Thucancun} />
             <Route path='/thucanmeo' component={Thucanmeo} />

@@ -39,7 +39,7 @@ export default function Account() {
       .then(function (response) {
         console.log(JSON.stringify(response.data));
 
-        if(response.data.name === undefined) {
+        if (response.data.name === undefined) {
           localStorage.setItem('user', "")
           alert('Dang nhap khong thanh cong')
         }
@@ -52,47 +52,61 @@ export default function Account() {
       .catch(function (error) {
         console.log(error);
       });
-      
 
-    }
+
+  }
 
   const handleSignUp = (event) => {
 
     event.preventDefault();
     const dataSubmit = new FormData(event.currentTarget);
 
+
     var data = JSON.stringify({
-      "username": dataSubmit.get('username'),
-      "password": dataSubmit.get('password')
+      "username_sign_up": dataSubmit.get('username_sign-up'),
+      "password_sign_up": dataSubmit.get('password_sign-up'),
+      "name_sign_up": dataSubmit.get('name_sign-up'),
+      "email_sign_up": dataSubmit.get('email_sign-up'),
     });
 
-    var config = {
-      method: 'post',
-      url: 'http://localhost:3003/login',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: data
-    };
+    if (dataSubmit.get('username_sign-up') === '' || dataSubmit.get('password_sign-up') === '' || dataSubmit.get('re_password_sign-up') === '' || dataSubmit.get('password_sign-up') === '' || dataSubmit.get('email_sign-up') === '') {
+      alert("Bạn hãy điền đầy đủ thông tin để tiến hành đăng ký!")
+    }
+    if (dataSubmit.get('password_sign-up') !== dataSubmit.get('re_password_sign-up')) {
+      alert("Mật khẩu nhập lại không đúng")
+    }
+    else {
+      console.log(data)
 
+      var config = {
+        method: 'post',
+        url: 'http://localhost:3003/signup',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: data
+      };
+
+      axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+
+
+
+
+<<<<<<< HEAD
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+=======
 
-        if(response.data.name === undefined) {
-          localStorage.setItem('user', "")
-          alert('Dang nhap khong thanh cong')
-        }
-        else {
-          localStorage.setItem('user', response.data.name)
-          localStorage.setItem('token', response.data.token)
-          window.location.reload();
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-      
+>>>>>>> 16076f8523029e3e1fb563bdcfedb3251a7b7692
+
 
   }
 
@@ -103,11 +117,11 @@ export default function Account() {
         <div className="form-container sign-up-container">
           <form className="form-sign" onSubmit={handleSignUp}>
             <h1 className="h1-sign">Tạo tài khoản</h1>
-            <input className="input-sign" type="text" placeholder="Tên đăng nhập" />
-            <input className="input-sign" type="password" placeholder="Nhập mật khẩu" />
-            <input className="input-sign" type="password" placeholder="Nhập lại mật khẩu" />
-            <input className="input-sign" type="text" placeholder="Nhập họ tên" />
-            <input className="input-sign" type="email" placeholder="Nhập email" />
+            <input name="username_sign-up" className="input-sign" type="text" placeholder="Tên đăng nhập" />
+            <input name="password_sign-up" className="input-sign" type="password" placeholder="Nhập mật khẩu" />
+            <input name="re_password_sign-up" className="input-sign" type="password" placeholder="Nhập lại mật khẩu" />
+            <input name="name_sign-up" className="input-sign" type="text" placeholder="Nhập họ tên" />
+            <input name="email_sign-up" className="input-sign" type="email" placeholder="Nhập email" />
 
             <button type="submit" className="button-sign my-2">Đăng ký</button>
           </form>

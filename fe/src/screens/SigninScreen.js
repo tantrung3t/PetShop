@@ -95,6 +95,7 @@ export default function Account() {
           console.log(error);
         });
     }
+  }
 
   return (
 

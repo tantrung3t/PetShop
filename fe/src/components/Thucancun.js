@@ -1,44 +1,53 @@
-import React from "react"
-import Product from "./Product" 
-export default function Thucancun(){
-    return(
+import { React, useState, useEffect } from "react"
+import Product from "./Product"
+import Axios from "axios"
+
+export default function Thucancun() {
+
+    const url = "http://localhost:3003";
+
+    const [data, setData] = useState([]);
+
+    const loadData = () => {
+        Axios.get(`http://localhost:3003/products/thucancun`)
+            .then(res => {
+                const data = res.data;
+                setData(data);
+                console.log(data)
+            })
+            .catch(error => console.log(error));
+    }
+
+
+    useEffect(() => {
+        loadData()
+    }, []);
+
+
+    const render = () => {
+        let element = data.map((product, index) => {
+            return <Product
+                key={index}
+                id={product.product_id}
+                src={url + product.product_image}
+                name={product.product_name}
+                price={product.product_price}
+            />
+        })
+        return element;
+    }
+
+    return (
         <div>
             <h5>Trang chủ / Sản phẩm / Thức ăn cún</h5>
             <div className="row center my-2">
-              <img width="800px" height="250" alt="Thức ăn cún" src="https://petshopsaigon.vn/wp-content/uploads/2019/08/pet-shop-sai-gon-1.jpg"></img>
+                <img width="800px" height="250" alt="Thức ăn cún" src="https://petshopsaigon.vn/wp-content/uploads/2019/08/pet-shop-sai-gon-1.jpg"></img>
             </div>
             <div className="row center my-40">
-            <h1>Thức ăn cún</h1>
+                <h1>Thức ăn cún</h1>
             </div>
             <div className="row center my-2">
-            <Product
-                key={1}
-                id={1}
-                src={'https://www.petcity.vn/media/product/250_3690_'}
-                name={'Thức ăn cao cấp NutriSource thịt'}
-                price={20000}
-            />
-            <Product
-                key={2}
-                id={2}
-                src={'https://www.petcity.vn/media/product/250_3537_smartheart.jpg'}
-                name={'SmartHeart - Thức ăn dinh dưỡng'}
-                price={170000}
-            />
-            <Product
-                key={3}
-                id={3}
-                src={'https://www.petcity.vn/media/product/250_4683_z2315270662193_0f380be800fb596c747fdbe50beff58a.jpg'}
-                name={'ANF - 6Free - Thức ăn hạt hữu cơ'}
-                price={90000}
-            />
-            <Product
-                key={4}
-                id={4}
-                src={'https://www.petcity.vn/media/product/250_2115_monge_pate_th____heo_100g.jpg'}
-                name={'Monge-Pate thịt heo 100g'}
-                price={27000}
-            />
+                {render()}
             </div>
         </div>
     )

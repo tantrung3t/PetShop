@@ -17,7 +17,6 @@ import Phukienthucung from './components/Phukienthucung';
 import Chuongthucung from './components/Chuongthucung';
 
 
-import Allproduct from './components/Allproduct';
 
 //mai mot bo
 
@@ -71,7 +70,7 @@ function App() {
 
                                           return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />}} />
 
-            <Route path='/products' component={Allproduct} />
+            
 
 
             {/* Cho nay bi loi nen can phai sua lai ne */}

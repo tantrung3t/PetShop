@@ -31,15 +31,15 @@ export default function Account() {
   const render = () => {
     let element = data.map((product, index) => {
 
-      return <div className="row row-cols-5">
-                <Product
-                  key={index}
+      return (
+        <Product
+                  key={'sp' + product.product_id}
                   id={product.product_id}
                   src={url + product.product_image}
                   name={product.product_name}
                   price={product.product_price}
                 />
-              </div>
+      )    
     })
     return element;
   }
@@ -64,7 +64,7 @@ export default function Account() {
           </div>
         </div>
         <div className="col-10 products px-1">
-          {/* <div className="row row-cols-5"> */}
+          <div className="row row-cols-5">
             {/* <Link to='/' className="p-1">
               <div className="home__product">
                 <img src="../assets/img/product1.png" alt="img" width="100%" height="200px" className="home__product-img"></img>
@@ -74,8 +74,8 @@ export default function Account() {
                 </div>
               </div>
             </Link> */}
-            {/* {render} */}
-          {/* </div> */}
+            {render()}
+          </div>
         </div>
       </div>
     </div>

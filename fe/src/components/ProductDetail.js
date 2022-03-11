@@ -1,8 +1,14 @@
 import { React, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+// import PropTypes from 'prop-types';
+
 
 export default function ProductDetail(props) {
+  // ProductDetail.propTypes = {
+  //   props: PropTypes.string
+  // }
+
   const url = "http://localhost:3003";
   const [data, setData] = useState(
     [
@@ -16,7 +22,7 @@ export default function ProductDetail(props) {
       product_brand_name: "",
       product_type_name: ""
       }
-      ]
+    ]
   );
 
   const loadData = () => {
@@ -67,6 +73,6 @@ export default function ProductDetail(props) {
         </div>
       </div>
     </div>
-
   )
+  
 }

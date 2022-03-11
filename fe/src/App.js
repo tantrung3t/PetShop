@@ -17,7 +17,6 @@ import Phukienthucung from './components/Phukienthucung';
 import Chuongthucung from './components/Chuongthucung';
 
 
-
 //mai mot bo
 
 
@@ -67,12 +66,8 @@ function App() {
         <main>
             <Route path='/' exact component={HomeScreen} />
             <Route path='/signin' render={() => {
-
-                                          return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />}} />
-
-            
-
-
+              return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />}}
+            />
             {/* Cho nay bi loi nen can phai sua lai ne */}
             {/* Loi bi chen them the <div> cua ulr /products roi moi den /:id */}
             <Route path='/product/:id' component={ProductDetail_Id} />
@@ -101,7 +96,7 @@ function App() {
 }
 
 function ProductDetail_Id(){
-  let {id } = useParams();
+  let { id } = useParams();
 
   return (
     <ProductDetail id={id}/>

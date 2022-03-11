@@ -1,6 +1,5 @@
 @import 'react-slideshow-image/dist/styles.css';
 
-
 :root {
   --primary-color: #91c2cc;
   --primary-light-color: #91c2cc80;
@@ -201,6 +200,25 @@ textarea:focus-visible {
   outline: 1px solid var(--primary-color);
 }
 
+.flex {
+  display: flex;
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
+.beetween {
+  justify-content: space-between;
+}
+
+.left {
+  align-items: center;
+  justify-content: left;
+  flex-wrap: nowrap;
+}
+
 .row {
   display: flex;  
   flex-wrap: wrap;
@@ -208,12 +226,18 @@ textarea:focus-visible {
 }
 
 .row.center {
-  align-items: center;
-  justify-content: center;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .row.top {
-  align-items: flex-start;
+  align-items: flex-start !important;
+}
+
+.row.left {
+  align-items: center !important;
+  justify-content: left !important;
+  flex-wrap: wrap !important;
 }
 
 .row.flex-column {
@@ -327,25 +351,6 @@ textarea:focus-visible {
 .col-12 {
   flex: 0 0 auto;
   width: 100%;
-}
-
-.flex {
-  display: flex;
-}
-
-.center {
-  align-items: center;
-  justify-content: center;
-}
-
-.beetween {
-  justify-content: space-between;
-}
-
-.left {
-  align-items: center;
-  justify-content: left;
-  flex-wrap: nowrap;
 }
 
 .m-1 {

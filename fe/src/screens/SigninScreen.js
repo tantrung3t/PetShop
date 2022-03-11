@@ -96,20 +96,6 @@ export default function Account() {
         });
     }
 
-
-
-
-<<<<<<< HEAD
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-=======
-
->>>>>>> 16076f8523029e3e1fb563bdcfedb3251a7b7692
-
-
-  }
-
   return (
 
     <div className="body-sign">

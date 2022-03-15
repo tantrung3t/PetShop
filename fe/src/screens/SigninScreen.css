@@ -57,7 +57,7 @@
 	align-items: center;
 	flex-direction: column;
 	font-family: 'Montserrat', sans-serif;
-	height: 100vh;
+	height: 60vh;
 	margin: 70px 0 50px;
 }
 
@@ -121,7 +121,7 @@
 	height: 100%;
 	overflow: hidden;
 	transition: transform 0.6s ease-in-out;
-	z-index: 100;
+	z-index: 90;
 }
 
 .container-sign.right-panel-active .overlay-container{

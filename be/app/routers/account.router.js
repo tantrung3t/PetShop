@@ -17,13 +17,13 @@ module.exports = function (router) {
             if (!err) {
                 if (data.length == 0) {
                     return res.json({
-                        status: 200,
-                        message: 'Fail',
+                        status: 400,
+                        message: 'Fail Login',
                         token: null
                     })
                 }
                 else {
-                    var token = jwt.sign(data[0].account_id, secretKey)
+                    var token = jwt.sign({id: data[0].account_id}, secretKey, { expiresIn: '1h'} )
                     return res.json({
                         status: 200,
                         message: 'OK',
@@ -44,18 +44,20 @@ module.exports = function (router) {
         try {
             var token = req.params.token
 
-            //kiem tra neu token hop len thi tra kq = account_id
-            var kq = jwt.verify(token, secretKey)
+            //kiem tra neu token hop len thi tra kq = {id: id tai khoan , iat: thoi gian dang nhap, exp: thoi gian het han}
+            // get id user user data.id
+            var data = jwt.verify(token, secretKey)
             return res.json({
                 message: 'Ok',
-                id: kq
+                data: data
             })
 
         }
         catch (error) {
             //tra ve loi nieu token khong hop le
             return res.json({
-                message: 'Sai token dang nhap',
+                status: 401,
+                message: 'Token expires or Deny',
             })
         }
     })

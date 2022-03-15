@@ -88,6 +88,33 @@ product.get_chuong_thu_cung = function (result) {
     })
 }
 
+//Add products
+product.add_product = function (product_data, result) {
+
+    var strquery = "INSERT INTO `products`(`product_brand_id`, `product_type_id`, `product_name`, `product_price`, `product_description`, `product_amount`, `product_sold`, `product_image`) VALUES ('"+ product_data.product_brand_id +"','"+product_data.product_type_id+"','"+ product_data.product_name +"','"+ product_data.product_price +"','"+ product_data.product_description +"','" + product_data.product_amount +"','" + product_data.product_sold +"','" + product_data.product_image+ "')"
+
+    db.query(strquery, function (err) {
+        if (err) {
+            result({
+                status: 400,
+                message: "Fail to add product to database"
+            });
+        }
+        else {
+            result({
+                status: 200,
+                message: "Add product to database successfully"
+            });
+        }
+    })
+
+    // var data = {
+    //     status: 200,
+    //     message: "OK"
+    // }
+    // result(data)
+}
+
 
 
 

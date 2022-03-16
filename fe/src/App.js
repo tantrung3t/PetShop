@@ -16,6 +16,8 @@ import Dochoithucung from './components/Dochoithucung';
 import Phukienthucung from './components/Phukienthucung';
 import Chuongthucung from './components/Chuongthucung';
 
+import Thongke from './components/Thongke'
+
 
 //mai mot bo
 
@@ -83,6 +85,8 @@ function App() {
             <Route path='/dochoithucung' component={Dochoithucung} />
             <Route path='/phukienthucung' component={Phukienthucung} />
             <Route path='/chuongthucung' component={Chuongthucung} />
+
+            <Route path='/thongke' component={Thongke} />
         </main>
 
         <footer className='flex'>

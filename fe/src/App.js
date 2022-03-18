@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, useParams } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Link, useParams, useRouteMatch } from 'react-router-dom'
 import './App.css'
 import SearchForm from './components/SearchForm';
 import Account from './components/Account';
@@ -9,6 +9,7 @@ import HomeScreen from './screens/HomeScreen';
 import SigninScreen from './screens/SigninScreen'
 import RegisterScreen from './screens/RegisterScreen';
 import ProductsScreen from './screens/ProductsScreen';
+import AdminScreen from './screens/AdminScreen'
 
 import Thucancun from './components/Thucancun';
 import Thucanmeo from './components/Thucanmeo';
@@ -17,6 +18,7 @@ import Phukienthucung from './components/Phukienthucung';
 import Chuongthucung from './components/Chuongthucung';
 
 import Thongke from './components/Thongke'
+import AdminProduct from './components/AdminProduct'
 
 
 //mai mot bo
@@ -86,7 +88,9 @@ function App() {
             <Route path='/phukienthucung' component={Phukienthucung} />
             <Route path='/chuongthucung' component={Chuongthucung} />
 
-            <Route path='/thongke' component={Thongke} />
+            
+
+            <Route path='/admin' component={Admin} />
         </main>
 
         <footer className='flex'>
@@ -104,6 +108,17 @@ function ProductDetail_Id(){
 
   return (
     <ProductDetail id={id}/>
+  )
+}
+
+function Admin(){
+  let { path } = useRouteMatch();
+  return(
+    <Switch>
+      <Route exact path={path} component={AdminScreen} />
+      <Route path='/admin/sanpham' component={AdminProduct} />
+      <Route path='/admin/thongke' component={Thongke} />
+    </Switch>
   )
 }
 

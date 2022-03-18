@@ -1,6 +1,6 @@
 import React from "react";
 
-import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 export default function Thongke() {
 
@@ -20,10 +20,13 @@ export default function Thongke() {
                 <Line type="monotone" dataKey="uv" stroke="#8884d8" />
                 <Line type="monotone" dataKey="pv" stroke="#000000" />
                 {/* màu đường lưới */}
-                <CartesianGrid stroke="#ccc" />
+                <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
                 {/* tên trên cột dưới chân */}
                 <XAxis dataKey="name" />
                 <YAxis />
+                <Tooltip />
+                {/* mô tả line */}
+                <Legend />
             </LineChart>
         </div>
     );

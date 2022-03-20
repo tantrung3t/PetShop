@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import './AdminProduct.css';
 
 const modalStyle = {
@@ -10,14 +11,20 @@ const modalStyle = {
     'alignItems': 'center'
 }
 
+const bodyStyle = {
+    'paddingLeft': '120px',
+    'paddingRight': '120px',
+}
+
 const divStyle1 = {
-    'paddingLeft': '10px',
+
     'display': 'flex',
     'borderBottom': '1px solid #91c2cc',
-    'width': '90%',
+    'width': '100%',
     'height': '60px',
     'justifyContent': 'space-between',
     'alignItems': 'center'
+
 };
 
 const divStyle2 = {
@@ -30,6 +37,12 @@ const divStyle3 = {
     'fontWeight': 'bold',
     'color': '#005d80'
 };
+
+const divStyleScroll = {
+    'width': '100%',
+    'height': '400px',
+    'overflow': 'auto',
+}
 const divStyle4 = {
     'width': '160px',
     'fontSize': '700',
@@ -61,11 +74,28 @@ const buttonStyle2 = {
     'fontSize': '12px',
     'fontWeight': 'bold',
 };
-
+const preview = {
+    'margin': '10px',
+    'border': '2px dashed #91c2cc',
+    'width': '25vw',
+    'height': '25vh',
+    'fontSize': '22px',
+    'position': 'relative',
+    'borderRadius': '6px',
+    'overflow': 'hidden',
+    'display': 'flex',
+    'alignItems': 'center',
+    'justifyContent': 'center',
+    'flexDirection': 'column',
+    'cursor': 'pointer',
+}
 export default function AdminProduct() {
 
     const [hide, setHide] = useState("modal");
-    const [id, setID] = useState("");
+    const [titleModal, settitleModal] = useState("");
+    const [CKdata, setCKData] = useState();
+    const [image, setImage] = useState("");
+    const [isUploaded, setIsUploaded] = useState(false);
 
     const data = [
         {
@@ -111,11 +141,15 @@ export default function AdminProduct() {
     }
 
     const edit_product = (index, id) => {
-        setID(id);
-        alert("Chỉnh sửa sản phẩm có id = " + id + " và index = " + index);
+        settitleModal("Chỉnh sửa cho sản phẩm có ID = " + id + " index = " + index);
         setHide("modal");
     }
 
+    const add_product = () => {
+        settitleModal("Thêm sản phẩm mới")
+        setHide("modal");
+
+    }
     const close_modal = () => {
         setHide("modal hide");
     }
@@ -136,8 +170,26 @@ export default function AdminProduct() {
         })
         return element;
     }
+
+    function handleImageChange(e) {
+        if (e.target.files && e.target.files[0]) {
+            let reader = new FileReader();
+
+
+            reader.onload = function (e) {
+                setImage(e.target.result)
+                setIsUploaded(true)
+            }
+
+            reader.readAsDataURL(e.target.files[0])
+        }
+    }
+
     return (
-        <div>
+        <div style={bodyStyle}>
+            <div>
+                <button onClick={add_product}>Thêm sản phẩm</button>
+            </div>
             <div style={divStyle1}>
                 <div style={divStyle3}>
                     ID
@@ -158,11 +210,13 @@ export default function AdminProduct() {
                     Tuỳ chỉnh
                 </div>
             </div>
-            {renderList()}
+            <div style={divStyleScroll}>
+                {renderList()}
+            </div>
             <div className={hide}>
                 <div className="modal__inner">
                     <div className="modal__header">
-                        <p>Chỉnh sửa cho sản phẩm có id = {id}</p>
+                        <p>{titleModal}</p>
                     </div>
                     <div className="modal__body">
                         <div style={modalStyle}>
@@ -172,11 +226,64 @@ export default function AdminProduct() {
                             </div>
                             <div>
                                 <h2>Thương hiệu</h2>
-                                <input type="text" />
+                                <select id="product_brand">
+                                    <option value="volvo">Volvo</option>
+                                    <option value="saab">Saab</option>
+                                    <option value="opel">Opel</option>
+                                    <option value="audi">Audi</option>
+                                </select>
                             </div>
                             <div>
                                 <h2>Giá bán</h2>
                                 <input type="text" />
+                            </div>
+                        </div>
+                        <div style={modalStyle}>
+                            <h2>Mô tả sản phẩm</h2>
+                        </div>
+                        <div style={modalStyle}>
+                            <CKEditor
+                                editor={ClassicEditor}
+                                data=""
+                                onReady={editor => {
+                                    // You can store the "editor" and use when it is needed.
+                                    // console.log('Editor is ready to use!', editor);
+                                    editor.editing.view.change((writer) => {
+                                        writer.setStyle(
+                                            "height",
+                                            "200px",
+                                            editor.editing.view.document.getRoot()
+                                        );
+
+
+                                    });
+
+                                }}
+                                onChange={(event, editor) => {
+                                    const data = editor.getData();
+                                    setCKData(data);
+                                    console.log(CKdata);
+                                }}
+                            />
+                            <div style={preview}>
+                                {
+                                    !isUploaded ? (
+                                        <>
+                                            <label htmlFor="upload-input">
+                                                Upload
+                                            </label>
+                                            <input
+                                                hidden
+                                                type="file"
+                                                id="upload-input"
+                                                accept=".jpg,.jpeg,.png"
+                                                onChange={handleImageChange}
+                                            />
+                                        </>
+                                    ) : (
+                                        <img id="uploaded-img" src={image} alt="uploaded-img" />
+                                    )
+                                }
                             </div>
                         </div>
                     </div>

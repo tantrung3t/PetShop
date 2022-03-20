@@ -38,7 +38,7 @@
     overflow: hidden;
     animation: showModal linear 0.2s;
     position: relative;
-    margin: 200px auto;
+    margin: 100px auto;
   }
   
   @keyframes showModal {

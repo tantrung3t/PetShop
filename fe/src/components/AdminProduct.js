@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import './AdminProduct.css';
+
+const modalStyle = {
+    'paddingLeft': '10px',
+    'display': 'flex',
+    'width': '90%',
+    'justifyContent': 'space-between',
+    'alignItems': 'center'
+}
 
 const divStyle1 = {
-    'padding-left': '10px',
+    'paddingLeft': '10px',
     'display': 'flex',
-    'borderTop': '1px solid #91c2cc',
+    'borderBottom': '1px solid #91c2cc',
     'width': '90%',
     'height': '60px',
-    'justify-content': 'space-between',
-    'align-items': 'center'
+    'justifyContent': 'space-between',
+    'alignItems': 'center'
 };
 
 const divStyle2 = {
@@ -19,21 +29,43 @@ const divStyle3 = {
     'fontSize': '700',
     'fontWeight': 'bold',
     'color': '#005d80'
-    
+};
+const divStyle4 = {
+    'width': '160px',
+    'fontSize': '700',
+    'fontWeight': 'bold',
+    'color': '#005d80'
 };
 const buttonStyle1 = {
-    'padding' : '5px',
+    'padding': '10px 20px',
     'margin': '3px 3px 3px 3px',
-    'color': '#f44235',
+    'outline': 'none',
+    'border': 'none',
+    'backgroundColor': '#e33939',
+    'color': '#f7f7f7',
+    'borderRadius': '6px',
+    'cursor': 'pointer',
+    'fontSize': '12px',
+    'fontWeight': 'bold',
 };
 
 const buttonStyle2 = {
-    'padding' : '5px',
+    'padding': '10px 20px',
     'margin': '3px 3px 3px 3px',
-    'color': '#005d80',
+    'outline': 'none',
+    'border': 'none',
+    'backgroundColor': '#1e931c',
+    'color': '#f7f7f7',
+    'borderRadius': '6px',
+    'cursor': 'pointer',
+    'fontSize': '12px',
+    'fontWeight': 'bold',
 };
 
 export default function AdminProduct() {
+
+    const [hide, setHide] = useState("modal");
+    const [id, setID] = useState("");
 
     const data = [
         {
@@ -74,16 +106,32 @@ export default function AdminProduct() {
         }
     ]
 
+    const delete_product = (index, id) => {
+        alert("Đã xoá sản phẩm có id = " + id + " và index = " + index);
+    }
+
+    const edit_product = (index, id) => {
+        setID(id);
+        alert("Chỉnh sửa sản phẩm có id = " + id + " và index = " + index);
+        setHide("modal");
+    }
+
+    const close_modal = () => {
+        setHide("modal hide");
+    }
     const renderList = () => {
         let element = data.map((product, index) => {
 
             return <Item
                 key={index}
+                index={index}
                 product_id={product.product_id}
                 product_name={product.product_name}
                 product_price={product.product_price}
                 product_sold={product.product_sold}
                 product_brand_name={product.product_brand_name}
+                buttonDelete={(index, product_id) => { delete_product(index, product_id) }}
+                buttonEdit={(index, product_id) => { edit_product(index, product_id) }}
             />
         })
         return element;
@@ -106,16 +154,49 @@ export default function AdminProduct() {
                 <div style={divStyle3}>
                     Thương hiệu
                 </div>
-                <div style={divStyle3}>
+                <div style={divStyle4}>
                     Tuỳ chỉnh
                 </div>
             </div>
             {renderList()}
+            <div className={hide}>
+                <div className="modal__inner">
+                    <div className="modal__header">
+                        <p>Chỉnh sửa cho sản phẩm có id = {id}</p>
+                    </div>
+                    <div className="modal__body">
+                        <div style={modalStyle}>
+                            <div>
+                                <h2>Tên sản phẩm</h2>
+                                <input type="text" />
+                            </div>
+                            <div>
+                                <h2>Thương hiệu</h2>
+                                <input type="text" />
+                            </div>
+                            <div>
+                                <h2>Giá bán</h2>
+                                <input type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="modal__footer">
+                        <button className="modal-save" onClick={close_modal}>Lưu</button>
+                        <button className="modal-cancel" onClick={close_modal}>Huỷ</button>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
 
 function Item(props) {
+    const buttonDelete = () => {
+        props.buttonDelete(props.index, props.product_id)
+    }
+    const buttonEdit = () => {
+        props.buttonEdit(props.index, props.product_id)
+    }
     return (
         <div style={divStyle1}>
             <div style={divStyle2}>
@@ -133,9 +214,9 @@ function Item(props) {
             <div style={divStyle2}>
                 {props.product_brand_name}
             </div>
-            <div style={divStyle2}>
-                <button style={buttonStyle1}>Xoá</button>
-                <button style={buttonStyle2}>Chỉnh</button>
+            <div style={divStyle4}>
+                <button className="button-sanpham-hover" onClick={buttonDelete} style={buttonStyle1}>Xoá</button>
+                <button className="button-sanpham-hover" onClick={buttonEdit} style={buttonStyle2}>Sửa</button>
             </div>
         </div>
     )

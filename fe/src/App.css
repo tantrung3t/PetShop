@@ -194,6 +194,11 @@ ul {
   list-style-type: none;
 }
 
+img {
+  border-radius: inherit;
+  object-fit: contain;
+}
+
 select:focus-visible,
 textarea:focus-visible {
   /* color: var(--primary-color); */
@@ -370,7 +375,7 @@ textarea:focus-visible {
 }
 
 .mx-1 {
-  margin: 4px !important;
+  margin: 0 4px !important;
 }
 
 .mx-2 {
@@ -653,6 +658,16 @@ textarea:focus-visible {
   font-size: 24px;
 }
 
+.header__cart-icon::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  /* background-color: red; */
+  width: 100%;
+  height: 15px;
+}
+
+
 /* .header__cart::after {
   content: "";
   position: absolute;
@@ -665,21 +680,21 @@ textarea:focus-visible {
 
 .header__cart-list {
   position: absolute;
-  top: 100%;
-  right: -20px;
+  top: 90%;
+  right: -8px;
   width: 400px;
-  min-height: 250px;
-  border-radius: 2px;
+  max-height: 500px;
+  overflow-y: scroll;
+  border-radius: 8px;
   background-color: white;
   box-shadow: 0 1px 3em 0 rgb(0 0 0 / 20%);
   display: none;
-  align-items: center;
   justify-content: left;
   flex-direction: column;
   color: #000;
 }
 
-.header__cart-list::before {
+/* .header__cart-list::before {
   content: "";
   position: absolute;
   top: -20px;
@@ -687,7 +702,7 @@ textarea:focus-visible {
   border-width: 10px 16px;
   border-style:solid;
   border-color: transparent transparent var(--white-color) transparent;
-}
+} */
 
 /* Account */
 .account-wrap {
@@ -750,9 +765,9 @@ i {
 .account__selection::before {
   content: "";
   position: absolute;
-  width: 25%;
+  width: 35%;
   height: 20px;
-  transform: translate(90px, -8px);
+  transform: translate(76px, -17px);
   /* background: #2A26E3; */
 }
 
@@ -818,7 +833,8 @@ i {
 }
 
 .home__product-img {
-  background-size: cover;
+  object-fit: contain;
+  /* background-size: cover; */
   background-repeat: no-repeat;
   background-position: center;
   border: 1px solid rgb(0 0 0 / 0.05);
@@ -839,9 +855,26 @@ i {
 }
 
 .home__product-price {
-  color: red;
-  
+  color: red; 
 }
+
+.home__product--cart {
+  display: flex;
+  justify-content: left;
+  line-height: 1;
+}
+
+.home__product-name--cart {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+}
+
+.home__product-price--cart {
+
+}
+
 
   /* Product Details */
 .path {
@@ -908,9 +941,7 @@ i {
 }
 
 #order {
-  font-size: 20px;
-  position: relative;
-  left: 71%;
+  font-size: 16px;
 }
 
   /* All Products */
@@ -965,6 +996,7 @@ i {
   align-items: center;
   justify-content: center;
   background-size: 100%;
+  background-repeat: no-repeat;
   min-height: 250px;
 }
 
@@ -975,10 +1007,102 @@ i {
   text-align: center;
 }
 
-.mr-5 {
-  margin-right: 32px;
-}
-
 #logout {
   width: 100%;
 }
+
+.buttons_added {
+  opacity:1;
+  display:-ms-inline-flexbox;
+  display:inline-flex;
+  white-space:nowrap;
+  vertical-align:top;
+}
+.is-form {
+  overflow:hidden;
+  position:relative;
+  background-color:#f9f9f9;
+  height:2.2rem;
+  width:1.9rem;
+  padding:0;
+  text-shadow:1px 1px 1px #fff;
+  border:1px solid #ddd;
+}
+.is-form:focus,.input-text:focus {
+  outline:none;
+}
+.is-form.minus {
+  border-radius:4px 0 0 4px;
+}
+.is-form.plus {
+  border-radius:0 4px 4px 0;
+}
+.input-qty {
+  background-color:#fff;
+  height:2.2rem;
+  text-align:center;
+  font-size:1rem;
+  display:inline-block;
+  vertical-align:top;
+  margin:0;
+  border-top:1px solid #ddd;
+  border-bottom:1px solid #ddd;
+  border-left:0;
+  border-right:0;
+  padding:0;
+}
+.input-qty::-webkit-outer-spin-button,.input-qty::-webkit-inner-spin-button {
+  -webkit-appearance:none;
+  margin:0;
+}
+
+/* Quatity */
+
+.qty--wrap {
+  display: inline-flex;
+  display:-ms-inline-flexbox;
+  white-space: nowrap;
+  vertical-align: top;
+  width: 120px;
+}
+
+.qty__btn {
+  height: 100%;
+  width: 100%;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  background-color: #f9f9f9;
+  padding: 0;
+  border-radius: 0px;
+}
+
+.qty__btn:focus,.qty__input:focus-visible {
+  outline:none;
+}
+.qty__btn.minus {
+  border-radius:4px 0 0 4px;
+}
+.qty__btn.plus {
+  border-radius:0 4px 4px 0;
+}
+
+.qty__input {
+  background-color:#fff;
+  height:100%;
+  width: 100%;
+  display:inline-block;
+  text-align:center;
+  font-size:1rem;
+  vertical-align:top;
+  margin:0;
+  border-top:1px solid #ddd;
+  border-bottom:1px solid #ddd;
+  border-left:0;
+  border-right:0;
+  padding:0;
+}
+
+.qty__input::-webkit-inner-spin-button, .qty__input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+

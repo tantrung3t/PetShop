@@ -15,7 +15,7 @@ app.use(body_Parser.urlencoded({extended: false}));
 app.use(body_Parser.json());
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Hello!!')
 })
 
 //import router by function
@@ -51,6 +51,14 @@ app.post('/image', (req, res) => {
 // app.post('/login', (req, res) => {
 //   res.send("Hello login")
 // })
+
+// Shopping Cart - Khiem
+app.get('/api/cart', (req, res) => {
+  res.send('cart')
+})
+app.post('/api/cart', (req, res) => {
+	console.log(req.body)
+})
 
 
 

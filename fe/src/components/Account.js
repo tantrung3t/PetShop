@@ -18,7 +18,7 @@ export default function Account() {
     <div>
       {
         user === "" ? (
-          <div className="account-wrap link mr-5">
+          <div className="account-wrap link mr-4">
             <Link to="/signin" className="header__account">
               <span className="flex left">
                 <i className="flex center"><FontAwesomeIcon icon={faUser} fontSize={20} /></i>Tài khoản

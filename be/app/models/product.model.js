@@ -5,7 +5,7 @@ const product = function () {
 }
 
 product.get_product_id = function (id, result) {
-    var strquery = "SELECT  products.product_id, products.product_name, products.product_price, products.product_image, products.product_sold, products.product_description, products_brand.product_brand_name, products_type.product_type_name   FROM `products`, products_brand, products_type WHERE products.product_brand_id = products_brand.product_brand_id and products.product_type_id = products_type.product_type_id and products.product_id = " + id;
+    var strquery = "SELECT  products.product_id, products.product_name, products.product_price, products.product_image, products.product_amount, products.product_sold, products.product_description, products_brand.product_brand_name, products_type.product_type_name   FROM `products`, products_brand, products_type WHERE products.product_brand_id = products_brand.product_brand_id and products.product_type_id = products_type.product_type_id and products.product_id = " + id;
     db.query(strquery, function (err, data) {
         if (err) {
             result(null);
@@ -17,7 +17,7 @@ product.get_product_id = function (id, result) {
 }
 
 product.get_all_product = function (id, result) {
-    var strquery = "SELECT  products.product_id, products.product_name, products.product_price, products.product_image, products.product_sold , products_brand.product_brand_name, products_type.product_type_name   FROM `products`, products_brand, products_type WHERE products.product_brand_id = products_brand.product_brand_id and products.product_type_id = products_type.product_type_id";
+    var strquery = "SELECT  products.product_id, products.product_name, products.product_price, products.product_image, products.product_amount, products.product_sold , products_brand.product_brand_name, products_type.product_type_name   FROM `products`, products_brand, products_type WHERE products.product_brand_id = products_brand.product_brand_id and products.product_type_id = products_type.product_type_id";
     db.query(strquery, function (err, data) {
         if (err) {
             result(null);
@@ -29,7 +29,7 @@ product.get_all_product = function (id, result) {
 }
 
 product.get_thu_an_cun = function (result) {
-    var strquery = "SELECT  products.product_id, products.product_name, products.product_price, products.product_image, products.product_sold , products_brand.product_brand_name, products_type.product_type_name   FROM `products`, products_brand, products_type WHERE products.product_brand_id = products_brand.product_brand_id and products.product_type_id = products_type.product_type_id and products_type.product_type_id = 1";
+    var strquery = "SELECT  products.product_id, products.product_name, products.product_price, products.product_image, products.product_amount, products.product_sold , products_brand.product_brand_name, products_type.product_type_name   FROM `products`, products_brand, products_type WHERE products.product_brand_id = products_brand.product_brand_id and products.product_type_id = products_type.product_type_id and products_type.product_type_id = 1";
     db.query(strquery, function (err, data) {
         if (err) {
             result(null);
@@ -41,7 +41,7 @@ product.get_thu_an_cun = function (result) {
 }
 
 product.get_thu_an_meo = function (result) {
-    var strquery = "SELECT  products.product_id, products.product_name, products.product_price, products.product_image, products.product_sold , products_brand.product_brand_name, products_type.product_type_name   FROM `products`, products_brand, products_type WHERE products.product_brand_id = products_brand.product_brand_id and products.product_type_id = products_type.product_type_id and products_type.product_type_id = 2";
+    var strquery = "SELECT  products.product_id, products.product_name, products.product_price, products.product_image, products.product_amount, products.product_sold , products_brand.product_brand_name, products_type.product_type_name   FROM `products`, products_brand, products_type WHERE products.product_brand_id = products_brand.product_brand_id and products.product_type_id = products_type.product_type_id and products_type.product_type_id = 2";
     db.query(strquery, function (err, data) {
         if (err) {
             result(null);
@@ -53,7 +53,7 @@ product.get_thu_an_meo = function (result) {
 }
 
 product.get_do_choi_thu_cung = function (result) {
-    var strquery = "SELECT  products.product_id, products.product_name, products.product_price, products.product_image, products.product_sold , products_brand.product_brand_name, products_type.product_type_name   FROM `products`, products_brand, products_type WHERE products.product_brand_id = products_brand.product_brand_id and products.product_type_id = products_type.product_type_id and products_type.product_type_id = 3";
+    var strquery = "SELECT  products.product_id, products.product_name, products.product_price, products.product_image, products.product_amount, products.product_sold , products_brand.product_brand_name, products_type.product_type_name   FROM `products`, products_brand, products_type WHERE products.product_brand_id = products_brand.product_brand_id and products.product_type_id = products_type.product_type_id and products_type.product_type_id = 3";
     db.query(strquery, function (err, data) {
         if (err) {
             result(null);
@@ -65,7 +65,7 @@ product.get_do_choi_thu_cung = function (result) {
 }
 
 product.get_phu_kien_thu_cung = function (result) {
-    var strquery = "SELECT  products.product_id, products.product_name, products.product_price, products.product_image, products.product_sold , products_brand.product_brand_name, products_type.product_type_name   FROM `products`, products_brand, products_type WHERE products.product_brand_id = products_brand.product_brand_id and products.product_type_id = products_type.product_type_id and products_type.product_type_id = 4";
+    var strquery = "SELECT  products.product_id, products.product_name, products.product_price, products.product_image, products.product_amount, products.product_sold , products_brand.product_brand_name, products_type.product_type_name   FROM `products`, products_brand, products_type WHERE products.product_brand_id = products_brand.product_brand_id and products.product_type_id = products_type.product_type_id and products_type.product_type_id = 4";
     db.query(strquery, function (err, data) {
         if (err) {
             result(null);
@@ -77,7 +77,7 @@ product.get_phu_kien_thu_cung = function (result) {
 }
 
 product.get_chuong_thu_cung = function (result) {
-    var strquery = "SELECT  products.product_id, products.product_name, products.product_price, products.product_image, products.product_sold , products_brand.product_brand_name, products_type.product_type_name   FROM `products`, products_brand, products_type WHERE products.product_brand_id = products_brand.product_brand_id and products.product_type_id = products_type.product_type_id and products_type.product_type_id = 5";
+    var strquery = "SELECT  products.product_id, products.product_name, products.product_price, products.product_image, products.product_amount, products.product_sold , products_brand.product_brand_name, products_type.product_type_name   FROM `products`, products_brand, products_type WHERE products.product_brand_id = products_brand.product_brand_id and products.product_type_id = products_type.product_type_id and products_type.product_type_id = 5";
     db.query(strquery, function (err, data) {
         if (err) {
             result(null);

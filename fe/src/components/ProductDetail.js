@@ -13,17 +13,20 @@ export default function ProductDetail(props) {
   const [data, setData] = useState(
     [
       {
-      product_id: "",
-      product_name: "",
-      product_price: "",
-      product_image: "",
-      product_sold: "",
-      product_description: "",
-      product_brand_name: "",
-      product_type_name: ""
+        product_id: "",
+        product_name: "",
+        product_price: "",
+        product_image: "",
+        product_amount: "",
+        product_sold: "",
+        product_description: "",
+        product_brand_name: "",
+        product_type_name: ""
       }
     ]
   );
+  const [qty, setQty] = useState(1);
+  localStorage.setItem('qty', qty);
 
   const loadData = () => {
     axios.get(`http://localhost:3003/product/` + props.id)
@@ -32,18 +35,37 @@ export default function ProductDetail(props) {
         setData(data);
       })
       .catch(error => console.log(error));
-  }
-  
-  useEffect(() => {
 
+  }
+
+  useEffect(() => {
     loadData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
   const handleOrder = () => {
-    alert("Mua hàng" + props.id);
-    console.log(data[0])
+    console.log(data[0]);
+    alert("Bạn đã thêm sản phẩm vào giỏ hàng.")
+    axios.post('http://localhost:3003/api/cart', {
+      product: data[0],
+      quantity: localStorage.getItem('qty')
+    })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
+
+  const handleIncrease = () => {
+    setQty(qty + 1);
+  }
+
+  const handleDecrease = () => {
+    setQty(qty - 1);
+  }
+
 
   return (
     <div>
@@ -63,16 +85,25 @@ export default function ProductDetail(props) {
           <div className='block-separation'></div>
           <div className='product__brand'>Thương hiệu: <Link to='' className='primary'>{data[0].product_brand_name}</Link></div>
           <div className='product__type'>Loại: <Link to='' className='primary'>{data[0].product_type_name}</Link></div>
-          <div className='product__description' dangerouslySetInnerHTML={{__html: data[0].product_description}}></div>
+          <div className='product__description' dangerouslySetInnerHTML={{ __html: data[0].product_description }}></div>
           <div className='block-separation'></div>
           <div className='flex beetween my-2'>
-            <span className='product__amount'>Số lượng: 10</span>
+            <span className='product__amount'>Số lượng: {data[0].product_amount}</span>
             <span className='product__sold'>Đã bán: {data[0].product_sold}</span>
           </div>
-          <div id='order' className='btn btn-primary my-2' onClick={handleOrder}>Mua hàng</div>
+          <div className='flex beetween'>
+            <div className='qty--wrap'>
+              <input className='qty__btn minus' type='button' value='-' onClick={handleDecrease} disabled={qty === 0}/>
+              <input className='qty__input' type='number' min='1' max={data[0].product_amount} value={qty} 
+
+              />
+              <input className='qty__btn plus' type='button' value='+' onClick={handleIncrease} disabled={qty >= data[0].product_amount}/>
+            </div>
+            <div id='order' className='btn btn-primary' onClick={handleOrder}>Mua hàng</div>
+          </div>
         </div>
       </div>
     </div>
   )
-  
+
 }

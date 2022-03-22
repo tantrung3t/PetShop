@@ -28,6 +28,23 @@ require('./app/routers/account.router')(app);
 app.get('/image/:id', (req, res) => {
   res.download('./app/public/image/' + req.params.id);
 })
+//upload image to backend
+app.post('/image', (req, res) => {
+  if(req.file === null){
+      return res.status(400).json({message: 'No file uploaded'});
+  }
+  
+  const file = req.files.file;
+
+  file.mv(`${__dirname}/app/public/image/${file.name}`, err =>{
+      if(err){
+          return res.status(500).send(err);
+      }
+
+      res.json({fileName: file.name, filePath: `/image/${file.name}`});
+  });
+});
+
 
 
 //post login
@@ -38,5 +55,6 @@ app.get('/image/:id', (req, res) => {
 
 
 app.listen(port, () => {
+  console.log(__dirname)
   console.log(`Listening on port ${port}`)
 })

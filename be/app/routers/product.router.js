@@ -12,4 +12,7 @@ module.exports = function(router) {
 
     //add product
     router.post('/products', productController.add_product);
+
+    //get product brand
+    router.get('/products/brand', productController.get_product_brand)
 }

@@ -88,6 +88,20 @@ product.get_chuong_thu_cung = function (result) {
     })
 }
 
+product.get_product_brand = function (result) {
+    var strquery = "SELECT * FROM `products_brand`";
+    db.query(strquery, function (err, data) {
+        if (err) {
+            result(null);
+        }
+        else {
+            result(data);
+        }
+    })
+}
+
+
+
 //Add products
 product.add_product = function (product_data, result) {
 

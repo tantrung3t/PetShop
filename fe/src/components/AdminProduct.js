@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
+import axios from 'axios';
+
 import './AdminProduct.css';
 
 const modalStyle = {
     'paddingLeft': '10px',
     'display': 'flex',
-    'width': '90%',
+    'width': '100%',
     'justifyContent': 'space-between',
+    'alignItems': 'center'
+}
+const modalStyle2 = {
+    'paddingLeft': '10px',
+    'display': 'flex',
+    'width': '100%',
     'alignItems': 'center'
 }
 
@@ -75,10 +84,10 @@ const buttonStyle2 = {
     'fontWeight': 'bold',
 };
 const preview = {
-    'margin': '10px',
+    'marginLeft': '10px',
     'border': '2px dashed #91c2cc',
-    'width': '25vw',
-    'height': '25vh',
+    'width': '320px',
+    'height': '240px',
     'fontSize': '22px',
     'position': 'relative',
     'borderRadius': '6px',
@@ -93,9 +102,44 @@ export default function AdminProduct() {
 
     const [hide, setHide] = useState("modal");
     const [titleModal, settitleModal] = useState("");
-    const [CKdata, setCKData] = useState();
     const [image, setImage] = useState("");
+    const [imageUpload, setImageUpload] = useState("")
     const [isUploaded, setIsUploaded] = useState(false);
+    const [dataProductBrand, setDataProductBrand] = useState([]);
+
+    //state product upload
+    // const [product_name, setProduct_name] = useState("");
+    // const [product_brand_id, setProduct_brand_id] = useState("");
+    // const [product_type_id, setProduct_type_id] = useState("");
+    // const [product_price, setProduct_price] = useState("");
+    // const [product_amount, setProduct_amount] = useState("");
+    const [product_description, setProduct_description] = useState("");
+
+
+    //init data product brand
+    useEffect(() => {
+
+        loadData_product_brand()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    //call and render product brand
+    const loadData_product_brand = () => {
+        axios.get(`http://localhost:3003/products/brand`)
+            .then(res => {
+                const data = res.data;
+                setDataProductBrand(data)
+            })
+            .catch(error => console.log(error));
+    }
+    const render_product_brand = () => {
+        let element = dataProductBrand.map((brand, index) => {
+
+            return <option key={index} value={brand.product_brand_id}>{brand.product_brand_name}</option>
+        })
+        return element;
+    }
+    //
 
     const data = [
         {
@@ -143,11 +187,24 @@ export default function AdminProduct() {
     const edit_product = (index, id) => {
         settitleModal("Chỉnh sửa cho sản phẩm có ID = " + id + " index = " + index);
         setHide("modal");
+        setIsUploaded(true);
+        setImage("https://pdp.edu.vn/wp-content/uploads/2021/06/hinh-anh-hoat-hinh-de-thuong-1.jpg")
+
     }
 
     const add_product = () => {
         settitleModal("Thêm sản phẩm mới")
+        setIsUploaded(false);
+        setImage("");
         setHide("modal");
+
+    }
+    const save_modal = () => {
+        // alert("Đã lưu")
+        // setIsUploaded(false);
+        // setImage("");
+        // setProduct_image("")
+        // uploadImage()
 
     }
     const close_modal = () => {
@@ -175,14 +232,64 @@ export default function AdminProduct() {
         if (e.target.files && e.target.files[0]) {
             let reader = new FileReader();
 
-
             reader.onload = function (e) {
                 setImage(e.target.result)
                 setIsUploaded(true)
             }
 
             reader.readAsDataURL(e.target.files[0])
+
+            setImageUpload(e.target.files[0])
         }
+    }
+
+    const handleSubmit = (event) => {
+        let formData = new FormData();
+        formData.append('file', imageUpload);
+        event.preventDefault();
+        const dataSubmit = new FormData(event.currentTarget);
+
+
+        axios.post('http://localhost:3003/image',
+            formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+        ).then(function (res) {
+            //upload image thanh cong thì gửi toàn bộ thông tin sản phẩm lên backend
+            const dataProduct = {
+                "token": localStorage.getItem('token'),
+                "product_brand_id": dataSubmit.get('product_brand_id'),
+                "product_type_id": dataSubmit.get('product_type_id'),
+                "product_name": dataSubmit.get('product_name'),
+                "product_price": dataSubmit.get('product_price'),
+                "product_description": product_description,
+                "product_amount": dataSubmit.get('product_amount'),
+                "product_sold": "0",
+                "product_image": res.data.filePath
+            }
+            axios({
+                method: 'post',
+                url: 'http://localhost:3003/products',
+                data: dataProduct
+            })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            console.log(dataProduct)
+        })
+            .catch(function () {
+                console.log('FAILURE!!');
+            });
+
+        //
+
+
+
     }
 
     return (
@@ -214,84 +321,113 @@ export default function AdminProduct() {
                 {renderList()}
             </div>
             <div className={hide}>
-                <div className="modal__inner">
-                    <div className="modal__header">
-                        <p>{titleModal}</p>
-                    </div>
-                    <div className="modal__body">
-                        <div style={modalStyle}>
-                            <div>
-                                <h2>Tên sản phẩm</h2>
-                                <input type="text" />
-                            </div>
-                            <div>
-                                <h2>Thương hiệu</h2>
-                                <select id="product_brand">
-                                    <option value="volvo">Volvo</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="opel">Opel</option>
-                                    <option value="audi">Audi</option>
-                                </select>
-                            </div>
-                            <div>
-                                <h2>Giá bán</h2>
-                                <input type="text" />
-                            </div>
+                <form onSubmit={handleSubmit}>
+                    <div className="modal__inner">
+                        <div className="modal__header">
+                            <p>{titleModal}</p>
                         </div>
-                        <div style={modalStyle}>
-                            <h2>Mô tả sản phẩm</h2>
-                        </div>
-                        <div style={modalStyle}>
-                            <CKEditor
-                                editor={ClassicEditor}
-                                data=""
-                                onReady={editor => {
-                                    // You can store the "editor" and use when it is needed.
-                                    // console.log('Editor is ready to use!', editor);
-                                    editor.editing.view.change((writer) => {
-                                        writer.setStyle(
-                                            "height",
-                                            "200px",
-                                            editor.editing.view.document.getRoot()
-                                        );
+                        <div className="modal__body">
+                            <div style={modalStyle}>
+                                <div>
+                                    <h3>Tên sản phẩm</h3>
+                                    <input name="product_name" className="input-add-product" type="text" placeholder="Nhập tên sản phẩm" />
+                                </div>
+                                <div>
+                                    <h3>Thương hiệu</h3>
+                                    <select name="product_brand_id" className="input-add-product" id="product_brand">
+                                        {render_product_brand()}
+                                    </select>
+                                </div>
+                                <div>
+                                    <h3>Loại sản phẩm</h3>
+                                    <select name="product_type_id" className="input-add-product" id="product_brand">
+                                        <option value="1">Thức ăn cún</option>
+                                        <option value="2">Thức ăn mèo</option>
+                                        <option value="3">Đồ chơi thú cưng</option>
+                                        <option value="4">Phụ kiện thú cưng</option>
+                                        <option value="5">Chuồng thú cưng</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <h3>Giá bán</h3>
+                                    <input name="product_price" className="input-add-product" type="number" placeholder="Nhập giá sản phẩm" />
+                                </div>
+                                <div>
+                                    <h3>Số lượng</h3>
+                                    <input name="product_amount" className="input-add-product" type="number" placeholder="Nhập số lượng" />
+                                </div>
+                            </div>
+                            <div style={modalStyle2}>
+                                <div style={{ width: '635px', height: '300px' }}>
+                                    <h3>Mô tả sản phẩm</h3>
+
+                                    <div>
+                                        <CKEditor
+                                            editor={ClassicEditor}
+                                            data=""
+                                            onReady={editor => {
+                                                // You can store the "editor" and use when it is needed.
+                                                // console.log('Editor is ready to use!', editor);
+                                                editor.editing.view.change((writer) => {
+                                                    writer.setStyle(
+                                                        "height",
+                                                        "200px",
+                                                        editor.editing.view.document.getRoot()
+                                                    );
 
 
-                                    });
+                                                });
 
-                                }}
-                                onChange={(event, editor) => {
-                                    const data = editor.getData();
-                                    setCKData(data);
-                                    console.log(CKdata);
-                                }}
-                            />
-                            <div style={preview}>
-                                {
-                                    !isUploaded ? (
-                                        <>
-                                            <label htmlFor="upload-input">
-                                                Upload
-                                            </label>
-                                            <input
-                                                hidden
-                                                type="file"
-                                                id="upload-input"
-                                                accept=".jpg,.jpeg,.png"
-                                                onChange={handleImageChange}
-                                            />
-                                        </>
-                                    ) : (
-                                        <img id="uploaded-img" src={image} alt="uploaded-img" />
-                                    )
-                                }
+                                            }}
+                                            onChange={(event, editor) => {
+                                                const data = editor.getData();
+                                                setProduct_description(data);
+                                                // console.log(product_description);
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                                <div style={{ width: '400px', height: '300px' }}>
+
+                                    <div style={modalStyle}>
+                                        <h3 style={{ paddingLeft: '10px' }}>Hình ảnh sản phẩm</h3>
+                                        <button>Đổi</button>
+                                    </div>
+                                    <div style={preview}>
+                                        {
+                                            !isUploaded ? (
+                                                <>
+                                                    <label htmlFor="upload-input" className="upload-image">
+                                                        <img src='../assets/img/image_upload.svg' alt='logo' width='50px' ></img>
+                                                        <div>Tải ảnh lên</div>
+                                                        <input
+                                                            hidden
+                                                            type="file"
+                                                            id="upload-input"
+                                                            accept=".jpg,.jpeg,.png"
+                                                            onChange={handleImageChange}
+                                                        />
+                                                    </label>
+
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <img id="uploaded-img" src={image} alt="uploaded-img" />
+                                                </>
+
+                                            )
+                                        }
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
+                        <div className="modal__footer">
+                            <button type="submit" className="modal-save" onClick={save_modal}>Lưu</button>
+                            <button className="modal-cancel" onClick={close_modal}>Huỷ</button>
+                        </div>
                     </div>
-                    <div className="modal__footer">
-                        <button className="modal-save" onClick={close_modal}>Lưu</button>
-                        <button className="modal-cancel" onClick={close_modal}>Huỷ</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     )

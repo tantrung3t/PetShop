@@ -49,6 +49,13 @@ exports.get_chuong_thu_cung = function (req, res) {
     })
 }
 
+exports.get_product_brand = function (req, res) {
+    product.get_product_brand(function (data) {
+        res.send(data);
+    })
+}
+
+
 
 //add product
 

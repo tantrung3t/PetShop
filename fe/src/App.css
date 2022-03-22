@@ -553,15 +553,20 @@ textarea:focus-visible {
   }
 }
 
-.nav-link:hover {
+/* .nav-link:hover {
   background-color: var(--primary-hover-color);
   color: var(--black-color);
-}
+} */
 
 .nav-link.disabled {
   color: #6c757d;
   pointer-events: none;
   cursor: default;
+}
+
+.active {
+  background-color: var(--primary-hover-color);
+  color: #000;
 }
 
 /* Header */

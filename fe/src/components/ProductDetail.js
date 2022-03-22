@@ -93,9 +93,9 @@ export default function ProductDetail(props) {
           </div>
           <div className='flex beetween'>
             <div className='qty--wrap'>
-              <input className='qty__btn minus' type='button' value='-' onClick={handleDecrease} disabled={qty === 0}/>
+              <input className='qty__btn minus' type='button' value='-' onClick={handleDecrease} disabled={qty === 1}/>
               <input className='qty__input' type='number' min='1' max={data[0].product_amount} value={qty} 
-
+                pattern='/\d{1}'
               />
               <input className='qty__btn plus' type='button' value='+' onClick={handleIncrease} disabled={qty >= data[0].product_amount}/>
             </div>

@@ -1,5 +1,6 @@
 import {React} from 'react';
 import {Link} from 'react-router-dom'
+import axios from 'axios';
 
 export default function Product(props) {
   return (
@@ -17,8 +18,16 @@ export default function Product(props) {
 }
 
 export function ProductCart(props) {
+
   const handleRemoveCart = () => {
-    console.log("xóa")
+    // console.log("xóa")
+    axios.delete('http://localhost:3003/api/cart/' + props.id)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   return (

@@ -64,8 +64,60 @@ function App() {
   // }
   // showCart(productCart);
 
-  // const handlerShowCart = () => {
+  // const handleShowCart = () => {
   // }
+
+  const navLinks = [
+    {
+      name: 'Sản Phẩm',
+      to: '/products',
+      exact: false
+    },
+    {
+      name: 'Nhãn Hàng',
+      to: '/brand',
+      exact: false
+    },
+    {
+      name: 'Giới Thiệu',
+      to: '/',
+      exact: true
+    }
+  ];
+
+  const NavLink = ({ lable, to, isExact }) => {
+    return (
+      <Route
+        path={to}
+        exact={isExact}
+        children = {({ match }) => {
+          var active = match ? 'active' : '';
+          return (
+            <li className='nav-item'>
+              <Link to={to} className={'nav-link ' + active}>{lable}</Link>
+            </li>
+          );
+        }}
+      />
+    );
+  }
+
+  const showNavLink = (navLinks) => {
+    let result = null; 
+    if(navLinks.length > 0) {
+      result = navLinks.map((navLink, index) => {
+        return (
+          <NavLink
+            key={index}
+            lable={navLink.name}
+            to={navLink.to}
+            isExact={navLink.exact}
+          />
+        );
+      });
+    }
+    return result;
+  }
 
   return (
     <Router>
@@ -77,15 +129,7 @@ function App() {
                 <img src='../assets/img/logo.svg' alt='logo' width='200px' ></img>
               </Link>
               <ul className='navbar'>
-                <li className='nav-item'>
-                  <Link to='/products' className='nav-link'>Sản Phẩm</Link>
-                </li>
-                <li>
-                  <Link to='/' className='nav-link'>Nhãn Hàng</Link>
-                </li>
-                <li>
-                  <Link to='/' className='nav-link'>Giới Thiệu</Link>
-                </li>
+                {showNavLink(navLinks)}
               </ul>
 
               <SearchForm />
@@ -114,7 +158,7 @@ function App() {
                         )
                       }
                       <div className='btn btn-primary' onClick={() => document.location.href ="/cart"}>Xem Giỏ Hàng</div>
-                      {/* <div className='btn btn-primary' onClick={handlerShowCart}>Xem Giỏ Hàng</div> */}
+                      {/* <div className='btn btn-primary' onClick={handleShowCart}>Xem Giỏ Hàng</div> */}
                     </div>
                   )
                 }

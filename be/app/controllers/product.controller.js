@@ -90,3 +90,58 @@ exports.add_product = function (req, res) {
         })
     }
 }
+
+//edit product
+exports.edit_product = function (req, res) {
+    var token = req.body.token;
+
+    var product_edit_data = {
+        "product_id": req.body.product_id,
+        "product_brand_id": req.body.product_brand_id,
+        "product_type_id": req.body.product_type_id,
+        "product_name": req.body.product_name,
+        "product_price": req.body.product_price,
+        "product_description": req.body.product_description,
+        "product_amount": req.body.product_amount,
+        "product_image": req.body.product_image
+    }
+    try {
+        //kiem tra neu token hop len thi tra kq = account_id
+        var kq = jwt.verify(token, secretKey)
+        product.edit_product(product_edit_data, function (data) {
+            res.send(data);
+        })
+
+    }
+    catch (error) {
+        //tra ve loi nieu token het han hoac khong hop le
+        return res.json({
+            status: 401,
+            message: 'Token expires or Deny',
+        })
+    }
+}
+
+//delete product
+
+exports.delete_product = function (req, res) {
+    var token = req.body.token;
+
+    var product_id = req.body.product_id
+    
+    try {
+        //kiem tra neu token hop len thi tra kq = account_id
+        var kq = jwt.verify(token, secretKey)
+        product.delete_product(product_id, function (data) {
+            res.send(data);
+        })
+
+    }
+    catch (error) {
+        //tra ve loi nieu token het han hoac khong hop le
+        return res.json({
+            status: 401,
+            message: 'Token expires or Deny',
+        })
+    }
+}

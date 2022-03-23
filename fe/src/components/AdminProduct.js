@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import axios from 'axios';
 
 import './AdminProduct.css';
 
+const localhost = "http://localhost:3003"
+
 const modalStyle = {
     'paddingLeft': '10px',
+    'paddingRight': '10px',
     'display': 'flex',
     'width': '100%',
     'justifyContent': 'space-between',
@@ -15,8 +20,10 @@ const modalStyle = {
 }
 const modalStyle2 = {
     'paddingLeft': '10px',
+    'paddingRight': '10px',
     'display': 'flex',
     'width': '100%',
+    'justifyContent': 'space-between',
     'alignItems': 'center'
 }
 
@@ -48,7 +55,7 @@ const divStyle3 = {
 };
 
 const divStyleScroll = {
-    'width': '100%',
+    'width': '101%',
     'height': '400px',
     'overflow': 'auto',
 }
@@ -85,8 +92,9 @@ const buttonStyle2 = {
 };
 const preview = {
     'marginLeft': '10px',
+    'paddingRight': '10px',
     'border': '2px dashed #91c2cc',
-    'width': '320px',
+    'width': '310px',
     'height': '240px',
     'fontSize': '22px',
     'position': 'relative',
@@ -100,25 +108,29 @@ const preview = {
 }
 export default function AdminProduct() {
 
-    const [hide, setHide] = useState("modal");
+    const [hide, setHide] = useState("hide");
     const [titleModal, settitleModal] = useState("");
     const [image, setImage] = useState("");
     const [imageUpload, setImageUpload] = useState("")
     const [isUploaded, setIsUploaded] = useState(false);
     const [dataProductBrand, setDataProductBrand] = useState([]);
+    const [data, setData] = useState([]);
+    const [isAddProductNew, setIsAddProductNew] = useState(true);
 
     //state product upload
+    const [product_id, setProduct_id] = useState("");
     // const [product_name, setProduct_name] = useState("");
     // const [product_brand_id, setProduct_brand_id] = useState("");
     // const [product_type_id, setProduct_type_id] = useState("");
     // const [product_price, setProduct_price] = useState("");
     // const [product_amount, setProduct_amount] = useState("");
+    const [product_image, setProduct_image] = useState("");
     const [product_description, setProduct_description] = useState("");
 
 
     //init data product brand
     useEffect(() => {
-
+        loadData_products();
         loadData_product_brand()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -139,56 +151,55 @@ export default function AdminProduct() {
         })
         return element;
     }
-    //
 
-    const data = [
-        {
-            product_id: 7,
-            product_name: "Pate vị gà cho chó lớn",
-            product_price: 50000,
-            product_image: "/image/patevigachocholon.png",
-            product_sold: 47,
-            product_brand_name: "Smartheart",
-            product_type_name: "Thức ăn cho cún"
-        },
-        {
-            product_id: 8,
-            product_name: "Thức ăn dinh dưỡng",
-            product_price: 50000,
-            product_image: "/image/thucandinhduong.png",
-            product_sold: 34,
-            product_brand_name: "Smartheart",
-            product_type_name: "Thức ăn cho cún"
-        },
-        {
-            product_id: 9,
-            product_name: "Thức ăn hạt hữu cơ",
-            product_price: 140000,
-            product_image: "/image/thucanhathuuco.png",
-            product_sold: 32,
-            product_brand_name: "ANF",
-            product_type_name: "Thức ăn cho mèo"
-        },
-        {
-            product_id: 10,
-            product_name: "Thức ăn hạt hữu cơ cho mèo con",
-            product_price: 120000,
-            product_image: "/image/thucanhathuucochomeocon.png",
-            product_sold: 21,
-            product_brand_name: "ANF",
-            product_type_name: "Thức ăn cho mèo"
-        }
-    ]
-
-    const delete_product = (index, id) => {
-        alert("Đã xoá sản phẩm có id = " + id + " và index = " + index);
+    //call data products
+    const loadData_products = () => {
+        axios.get(`http://localhost:3003/products`)
+            .then(res => {
+                const data = res.data;
+                setData(data)
+            })
+            .catch(error => console.log(error));
     }
 
-    const edit_product = (index, id) => {
+    const delete_product = (id) => {
+        const dataDeleteProduct = {
+            "token": localStorage.getItem('token'),
+            "product_id": id
+        }
+        axios({
+            method: 'post',
+            url: 'http://localhost:3003/products/delete',
+            data: dataDeleteProduct
+        })
+            .then(function (response) {
+                console.log(response);
+                alert("Sản phẩm đã được xoá!")
+                loadData_products()
+            })
+            .catch(function (error) {
+                console.log(error);
+                alert("Không thể xoá sản phẩm ngày bây giờ vui lòng thử lại!")
+            });
+
+    }
+
+    const edit_product = (index, id, product_name, product_type_id, product_brand_id, product_price, product_amount, product_description, product_image) => {
         settitleModal("Chỉnh sửa cho sản phẩm có ID = " + id + " index = " + index);
         setHide("modal");
         setIsUploaded(true);
-        setImage("https://pdp.edu.vn/wp-content/uploads/2021/06/hinh-anh-hoat-hinh-de-thuong-1.jpg")
+        setIsAddProductNew(false);
+        setImage(localhost + product_image);
+        setProduct_image(product_image);
+        setProduct_id(id);
+
+        document.getElementById("product_name").value = product_name;
+        document.getElementById("product_type_id").value = product_type_id;
+        document.getElementById("product_brand_id").value = product_brand_id;
+        document.getElementById("product_price").value = product_price;
+        document.getElementById("product_amount").value = product_amount;
+
+        setProduct_description(product_description)
 
     }
 
@@ -197,18 +208,27 @@ export default function AdminProduct() {
         setIsUploaded(false);
         setImage("");
         setHide("modal");
+        setIsAddProductNew(true);
 
-    }
-    const save_modal = () => {
-        // alert("Đã lưu")
-        // setIsUploaded(false);
-        // setImage("");
-        // setProduct_image("")
-        // uploadImage()
+        document.getElementById("product_name").value = "";
+        document.getElementById("product_type_id").value = 1;
+        document.getElementById("product_brand_id").value = 1;
+        document.getElementById("product_price").value = "";
+        document.getElementById("product_amount").value = "";
+        setProduct_description("")
 
     }
     const close_modal = () => {
+        loadData_products();
         setHide("modal hide");
+    }
+    const exit_modal = (e) => {
+        if (e.target == e.currentTarget) close_modal();
+    }
+    const clear_all = () => {
+        setIsUploaded(false);
+        setProduct_description("");
+        setImageUpload("")
     }
     const renderList = () => {
         let element = data.map((product, index) => {
@@ -221,8 +241,13 @@ export default function AdminProduct() {
                 product_price={product.product_price}
                 product_sold={product.product_sold}
                 product_brand_name={product.product_brand_name}
-                buttonDelete={(index, product_id) => { delete_product(index, product_id) }}
-                buttonEdit={(index, product_id) => { edit_product(index, product_id) }}
+                product_brand_id={product.product_brand_id}
+                product_type_id={product.product_type_id}
+                product_amount={product.product_amount}
+                product_description={product.product_description}
+                product_image={product.product_image}
+                buttonDelete={(product_id) => { delete_product(product_id) }}
+                buttonEdit={(index, product_id, product_name, product_type_id, product_brand_id, product_price, product_amount, product_description, product_image) => { edit_product(index, product_id, product_name, product_type_id, product_brand_id, product_price, product_amount, product_description, product_image) }}
             />
         })
         return element;
@@ -244,49 +269,124 @@ export default function AdminProduct() {
     }
 
     const handleSubmit = (event) => {
+
         let formData = new FormData();
         formData.append('file', imageUpload);
         event.preventDefault();
         const dataSubmit = new FormData(event.currentTarget);
 
+        if (isAddProductNew) {
+            axios.post('http://localhost:3003/image',
+                formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+            ).then(function (res) {
+                //upload image thanh cong thì gửi toàn bộ thông tin sản phẩm lên backend
+                const dataAddProduct = {
+                    "token": localStorage.getItem('token'),
+                    "product_brand_id": dataSubmit.get('product_brand_id'),
+                    "product_type_id": dataSubmit.get('product_type_id'),
+                    "product_name": dataSubmit.get('product_name'),
+                    "product_price": dataSubmit.get('product_price'),
+                    "product_description": product_description,
+                    "product_amount": dataSubmit.get('product_amount'),
+                    "product_sold": "0",
+                    "product_image": res.data.filePath
+                }
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:3003/products',
+                    data: dataAddProduct
+                })
+                    .then(function (response) {
+                        console.log(response);
+                        alert("Sản phẩm đã được thêm!")
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        alert("Không thể thêm sản phẩm ngày bây giờ vui lòng thử lại!")
+                    });
+                console.log(dataAddProduct)
+            })
+                .catch(function () {
+                    console.log('FAILURE!!');
+                    alert("Vui lòng nhập đầy đủ các trường để thực hiện thêm sản phẩm!")
+                });
 
-        axios.post('http://localhost:3003/image',
-            formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
+        }
+        else {
+            if (imageUpload === "") {
+                const dataFixProduct = {
+                    "product_id": product_id,
+                    "token": localStorage.getItem('token'),
+                    "product_brand_id": dataSubmit.get('product_brand_id'),
+                    "product_type_id": dataSubmit.get('product_type_id'),
+                    "product_name": dataSubmit.get('product_name'),
+                    "product_price": dataSubmit.get('product_price'),
+                    "product_description": product_description,
+                    "product_amount": dataSubmit.get('product_amount'),
+                    "product_sold": "0",
+                    "product_image": product_image
+                }
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:3003/products/edit',
+                    data: dataFixProduct
+                })
+                    .then(function (response) {
+                        console.log(response);
+                        alert('Sản phẩm đã được chỉnh sửa thành công!')
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        alert('Không thể chỉnh sửa sản phẩm vào lúc này vui lòng thử lại!')
+                    });
+            }
+            else {
+                axios.post('http://localhost:3003/image',
+                    formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+                ).then(function (res) {
+                    //upload image thanh cong thì gửi toàn bộ thông tin sản phẩm lên backend
+                    const dataFixProduct = {
+                        "product_id": product_id,
+                        "token": localStorage.getItem('token'),
+                        "product_brand_id": dataSubmit.get('product_brand_id'),
+                        "product_type_id": dataSubmit.get('product_type_id'),
+                        "product_name": dataSubmit.get('product_name'),
+                        "product_price": dataSubmit.get('product_price'),
+                        "product_description": product_description,
+                        "product_amount": dataSubmit.get('product_amount'),
+                        "product_sold": "0",
+                        "product_image": res.data.filePath
+                    }
+                    axios({
+                        method: 'post',
+                        url: 'http://localhost:3003/products/edit',
+                        data: dataFixProduct
+                    })
+                        .then(function (response) {
+                            console.log(response);
+                            alert('Sản phẩm đã được chỉnh sửa thành công!')
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            alert('Không thể chỉnh sửa sản phẩm vào lúc này vui lòng thử lại!')
+                        });
+                    console.log(dataFixProduct)
+                })
+                    .catch(function () {
+                        console.log('FAILURE!!');
+                        alert('Không thể chỉnh sửa sản phẩm vào lúc này vui lòng thử lại!')
+                    });
             }
         }
-        ).then(function (res) {
-            //upload image thanh cong thì gửi toàn bộ thông tin sản phẩm lên backend
-            const dataProduct = {
-                "token": localStorage.getItem('token'),
-                "product_brand_id": dataSubmit.get('product_brand_id'),
-                "product_type_id": dataSubmit.get('product_type_id'),
-                "product_name": dataSubmit.get('product_name'),
-                "product_price": dataSubmit.get('product_price'),
-                "product_description": product_description,
-                "product_amount": dataSubmit.get('product_amount'),
-                "product_sold": "0",
-                "product_image": res.data.filePath
-            }
-            axios({
-                method: 'post',
-                url: 'http://localhost:3003/products',
-                data: dataProduct
-            })
-                .then(function (response) {
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            console.log(dataProduct)
-        })
-            .catch(function () {
-                console.log('FAILURE!!');
-            });
 
-        //
 
 
 
@@ -294,8 +394,8 @@ export default function AdminProduct() {
 
     return (
         <div style={bodyStyle}>
-            <div>
-                <button onClick={add_product}>Thêm sản phẩm</button>
+            <div style={{ float: 'right' }}>
+                <button onClick={add_product} className="button-add-product">Thêm sản phẩm</button>
             </div>
             <div style={divStyle1}>
                 <div style={divStyle3}>
@@ -308,7 +408,10 @@ export default function AdminProduct() {
                     Giá bán
                 </div>
                 <div style={divStyle3}>
-                    Số lượng bán
+                    Đã bán
+                </div>
+                <div style={divStyle3}>
+                    Còn lại
                 </div>
                 <div style={divStyle3}>
                     Thương hiệu
@@ -320,27 +423,24 @@ export default function AdminProduct() {
             <div style={divStyleScroll}>
                 {renderList()}
             </div>
-            <div className={hide}>
-                <form onSubmit={handleSubmit}>
-                    <div className="modal__inner">
-                        <div className="modal__header">
-                            <p>{titleModal}</p>
-                        </div>
+            <div className={hide} onClick={exit_modal}>
+
+                <div className="modal__inner">
+
+                    <div className="modal__header">
+                        <p>{titleModal}</p>
+                        <FontAwesomeIcon icon={faXmarkCircle} fontSize={35} onClick={close_modal} />
+                    </div>
+                    <form onSubmit={handleSubmit}>
                         <div className="modal__body">
                             <div style={modalStyle}>
                                 <div>
                                     <h3>Tên sản phẩm</h3>
-                                    <input name="product_name" className="input-add-product" type="text" placeholder="Nhập tên sản phẩm" />
-                                </div>
-                                <div>
-                                    <h3>Thương hiệu</h3>
-                                    <select name="product_brand_id" className="input-add-product" id="product_brand">
-                                        {render_product_brand()}
-                                    </select>
+                                    <input id="product_name" name="product_name" className="input-add-product" type="text" placeholder="Nhập tên sản phẩm" />
                                 </div>
                                 <div>
                                     <h3>Loại sản phẩm</h3>
-                                    <select name="product_type_id" className="input-add-product" id="product_brand">
+                                    <select id="product_type_id" name="product_type_id" className="input-add-product" >
                                         <option value="1">Thức ăn cún</option>
                                         <option value="2">Thức ăn mèo</option>
                                         <option value="3">Đồ chơi thú cưng</option>
@@ -349,12 +449,19 @@ export default function AdminProduct() {
                                     </select>
                                 </div>
                                 <div>
-                                    <h3>Giá bán</h3>
-                                    <input name="product_price" className="input-add-product" type="number" placeholder="Nhập giá sản phẩm" />
+                                    <h3>Thương hiệu</h3>
+                                    <select id="product_brand_id" name="product_brand_id" className="input-add-product" >
+                                        {render_product_brand()}
+                                    </select>
                                 </div>
-                                <div>
+
+                                <div style={{ width: '150px' }}>
+                                    <h3>Giá bán</h3>
+                                    <input id="product_price" name="product_price" className="input-add-product" type="number" placeholder="Nhập giá sản phẩm" />
+                                </div>
+                                <div style={{ width: '150px' }}>
                                     <h3>Số lượng</h3>
-                                    <input name="product_amount" className="input-add-product" type="number" placeholder="Nhập số lượng" />
+                                    <input id="product_amount" name="product_amount" className="input-add-product" type="number" placeholder="Nhập số lượng" />
                                 </div>
                             </div>
                             <div style={modalStyle2}>
@@ -364,7 +471,7 @@ export default function AdminProduct() {
                                     <div>
                                         <CKEditor
                                             editor={ClassicEditor}
-                                            data=""
+                                            data={product_description}
                                             onReady={editor => {
                                                 // You can store the "editor" and use when it is needed.
                                                 // console.log('Editor is ready to use!', editor);
@@ -391,7 +498,6 @@ export default function AdminProduct() {
 
                                     <div style={modalStyle}>
                                         <h3 style={{ paddingLeft: '10px' }}>Hình ảnh sản phẩm</h3>
-                                        <button>Đổi</button>
                                     </div>
                                     <div style={preview}>
                                         {
@@ -412,7 +518,17 @@ export default function AdminProduct() {
                                                 </>
                                             ) : (
                                                 <>
-                                                    <img id="uploaded-img" src={image} alt="uploaded-img" />
+                                                    <label htmlFor="upload-input">
+                                                        <input
+                                                            hidden
+                                                            type="file"
+                                                            id="upload-input"
+                                                            accept=".jpg,.jpeg,.png"
+                                                            onChange={handleImageChange}
+                                                        />
+                                                        <img className="uploaded-img" id="uploaded-img" src={image} alt="uploaded-img" />
+                                                    </label>
+
                                                 </>
 
                                             )
@@ -422,12 +538,16 @@ export default function AdminProduct() {
 
                             </div>
                         </div>
+
+
+
                         <div className="modal__footer">
-                            <button type="submit" className="modal-save" onClick={save_modal}>Lưu</button>
-                            <button className="modal-cancel" onClick={close_modal}>Huỷ</button>
+                            <button type="submit" className="modal-save">Lưu</button>
+                            <button type="reset" className="modal-cancel" onClick={clear_all}>Xoá tất cả</button>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+
             </div>
         </div>
     )
@@ -435,10 +555,10 @@ export default function AdminProduct() {
 
 function Item(props) {
     const buttonDelete = () => {
-        props.buttonDelete(props.index, props.product_id)
+        props.buttonDelete(props.product_id)
     }
     const buttonEdit = () => {
-        props.buttonEdit(props.index, props.product_id)
+        props.buttonEdit(props.index, props.product_id, props.product_name, props.product_type_id, props.product_brand_id, props.product_price, props.product_amount, props.product_description, props.product_image)
     }
     return (
         <div style={divStyle1}>
@@ -453,6 +573,9 @@ function Item(props) {
             </div>
             <div style={divStyle2}>
                 {props.product_sold}
+            </div>
+            <div style={divStyle2}>
+                {props.product_amount - props.product_sold}
             </div>
             <div style={divStyle2}>
                 {props.product_brand_name}

@@ -13,6 +13,12 @@ module.exports = function(router) {
     //add product
     router.post('/products', productController.add_product);
 
+    //edit product
+    router.post('/products/edit', productController.edit_product);
+
+    //delete product
+    router.post('/products/delete', productController.delete_product)
+
     //get product brand
     router.get('/products/brand', productController.get_product_brand)
 }

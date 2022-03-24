@@ -5,7 +5,7 @@ import axios from 'axios';
 export default function Product(props) {
   return (
 
-    <Link to={`/product/${props.id}`} className="p-1">
+    <Link to={`/products/${props.id}`} className="p-1">
       <div className="home__product">
         <img src={props.src} alt="img" width="100%" height="200px"  className="home__product-img"></img>
         <div className="p-2">

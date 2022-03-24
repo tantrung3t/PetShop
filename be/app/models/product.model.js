@@ -175,6 +175,19 @@ product.delete_product = function (product_id, result) {
     })
 }
 
+//get all product from shopping_cart in database
+product.get_product_in_shopping_cart = function (account_id, result){
+    var strquery = "SELECT shopping_cart.product_id, products.product_image, products.product_price, products.product_name, shopping_cart.shopping_cart_amount FROM `shopping_cart`, `products` WHERE products.isDelete = 0 and shopping_cart.product_id = products.product_id and shopping_cart.account_id = " + account_id
+    db.query(strquery, function (err, data) {
+        if (err || data.length == 0) {
+            result(null);
+        }
+        else {
+            result(data);
+        }
+    })
+
+}
 
 
 

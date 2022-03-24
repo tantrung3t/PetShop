@@ -45,10 +45,13 @@ function App() {
 
   
   const loadData = () => {
-    axios.get(`http://localhost:3003/products`)
+    axios.get(`http://localhost:3003/products/cart/` + localStorage.getItem('token'))
       .then(res => {
         const data = res.data;
-        setProductCart(data);
+        if(data !== "") setProductCart(data);
+        console.log(productCart);
+        console.log(data);
+        
       }) 
       .catch(error => console.log(error));
 
@@ -133,7 +136,7 @@ function App() {
                   <FontAwesomeIcon icon={faCartShopping} className='header__cart-icon' color='white' />
                 </Link>
                 {
-                  productMiniCartItem.length === 0 ? (
+                  productCart.length === 0 ? (
                     <div className='header__cart-list center'>
                       <img src='../assets/img/no-item.png' alt='img' width='100%'></img>
                       <span>Chưa có sản phẩm</span>
@@ -142,7 +145,7 @@ function App() {
                     <div className='header__cart-list'>
                       <span className='px-2' style={{textTransform: "capitalize"}}>Sản phẩm mới thêm</span>
                       {
-                        productMiniCartItem.map((product, index) =>
+                        productCart.map((product, index) =>
                           <ProductMiniCartItem
                             key={index}
                             id={product.product_id}
@@ -172,10 +175,8 @@ function App() {
           />
           {/* Cho nay bi loi nen can phai sua lai ne */}
           {/* Loi bi chen them the <div> cua ulr /products roi moi den /:id */}
-          <Route path='/product/:id' component={ProductDetail_Id} />
 
-          <Route path='/products' component={ProductsScreen} />
-          <Route path='/products/:id' component={ProductDetail_Id} />
+          <Route path='/products' component={Products} />
 
           <Route path='/cart' component={CartScreen} />
           <Route path='/admin' component={Admin} />
@@ -203,7 +204,15 @@ function ProductDetail_Id() {
     <ProductDetail id={id} />
   )
 }
-
+function Products(){
+  let { path } = useRouteMatch();
+  return (
+    <Switch>
+      <Route exact path={path} component={ProductsScreen} />
+      <Route path='/products/:id' component={ProductDetail_Id} />
+    </Switch>
+  )
+}
 function Admin() {
   let { path } = useRouteMatch();
   return (

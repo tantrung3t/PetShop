@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { BrowserRouter as Router, Switch, Route, Link, useParams, useRouteMatch } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Link, useParams, useRouteMatch  } from 'react-router-dom'
 import axios from 'axios';  
 
 // import { Redirect } from 'react-router'
@@ -40,21 +40,29 @@ function App() {
   const [productCart, setProductCart] = useState([]);
 
   useEffect(() => {
+    checkToken()
     loadData()
   }, []);
 
-  
+  const checkToken = () => {
+    axios.get(`http://localhost:3003/private/` + localStorage.getItem('token'))
+      .then(res => {
+        const data = res.data;
+        console.log(data)
+        if(data.status === 401){
+          localStorage.setItem('user', "")
+        }
+        
+      }) 
+      .catch(error => console.log(error));
+  }
   const loadData = () => {
     axios.get(`http://localhost:3003/products/cart/` + localStorage.getItem('token'))
       .then(res => {
         const data = res.data;
-        if(data !== "") setProductCart(data);
-        console.log(productCart);
-        console.log(data);
-        
+        if(data.status !== 401) setProductCart(data);
       }) 
       .catch(error => console.log(error));
-
   }
   
   // const showCart = (cart) => {

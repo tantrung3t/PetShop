@@ -53,12 +53,12 @@ app.post('/image', (req, res) => {
 // })
 
 // Shopping Cart - Khiem
-app.get('/api/cart', (req, res) => {
-  res.send('cart')
-})
-app.post('/api/cart', (req, res) => {
-	console.log(req.body)
-})
+// app.get('/api/cart', (req, res) => {
+//   res.send('cart')
+// })
+// app.post('/api/cart', (req, res) => {
+// 	console.log(req.body)
+// })
 
 
 

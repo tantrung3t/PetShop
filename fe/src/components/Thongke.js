@@ -1,6 +1,6 @@
 import React from "react";
 
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { LineChart, BarChart, Bar, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 export default function Thongke() {
 
@@ -14,7 +14,7 @@ export default function Thongke() {
 
     return (
         <div>
-            Thống kê danh thu
+            Thống kê danh thu đường
             <LineChart width={600} height={300} data={data}>
                 {/* biểu đồ đường */}
                 <Line type="monotone" dataKey="uv" stroke="#8884d8" />
@@ -28,6 +28,20 @@ export default function Thongke() {
                 {/* mô tả line */}
                 <Legend />
             </LineChart>
+            Thống kê theo cột
+            <BarChart width={600} height={300} data={data}>
+                {/* biểu đồ đường */}
+                {/* màu đường lưới */}
+                <CartesianGrid strokeDasharray="3 3" />
+                {/* tên trên cột dưới chân */}
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                {/* mô tả Bar */}
+                <Legend />
+                <Bar dataKey="uv" fill="#8884d8" />
+                <Bar dataKey="pv" fill="#82ca9d" />
+            </BarChart>
         </div>
     );
 }

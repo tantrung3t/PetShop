@@ -21,4 +21,7 @@ module.exports = function(router) {
 
     //get product brand
     router.get('/products/brand', productController.get_product_brand)
+
+    //get product in shopping cart
+    router.get('/products/cart/:id', productController.get_product_in_shopping_cart) 
 }

@@ -123,7 +123,6 @@ exports.edit_product = function (req, res) {
 }
 
 //delete product
-
 exports.delete_product = function (req, res) {
     var token = req.body.token;
 
@@ -135,6 +134,28 @@ exports.delete_product = function (req, res) {
         product.delete_product(product_id, function (data) {
             res.send(data);
         })
+
+    }
+    catch (error) {
+        //tra ve loi nieu token het han hoac khong hop le
+        return res.json({
+            status: 401,
+            message: 'Token expires or Deny',
+        })
+    }
+}
+
+//
+exports.get_product_in_shopping_cart = function (req, res) {
+    var token = req.params.id;
+    
+    try {
+        //kiem tra neu token hop len thi tra kq = account_id
+        var kq = jwt.verify(token, secretKey)
+        // product.delete_product(product_id, function (data) {
+        //     res.send(data);
+        // })
+        res.send(token);
 
     }
     catch (error) {

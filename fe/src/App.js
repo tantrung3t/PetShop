@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { BrowserRouter as Router, Switch, Route, Link, useParams, useRouteMatch } from 'react-router-dom'
+import axios from 'axios';  
+
 // import { Redirect } from 'react-router'
 import './App.css'
 import SearchForm from './components/SearchForm';
@@ -35,30 +37,23 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 function App() {
   const url = "http://localhost:3003";
 
-  const productCart = [
-    {
-      product_id: 1,
-      product_name: 'Lồng vận chuyểnLồng vận chuyểnLồng vận chuyểnLồng vận chuyểnLồng vận chuyển',
-      product_price: 509000,
-      product_image: '/image/longvanchuyen.png',
-      product_sold: 14,
-      product_description: '<p><strong>Lồng vận chuyển Ferplast Atlas Professional 70 (91x61x67cm)</strong><br>Có nắp cà tiện dụng, thiết kế hiện đại thoáng mát, giúp thú cưng nhà bạn cực kỳ thoải mái trong các chuyến đi xa.Lồng vận chuyển cho chó mèo, chất liệu tốt, bền, đẹp, chắc chắn.</p><p>Chất liệu nhựa cao cấp, không chứa chất độc hại, không gây kích ứng</p><p>Vali đạt chuẩn qui định IATA giúp có thể vận chuyển dễ dàng thú cưng khi đi máy bay, tàu thủy hoặc tàu hỏa. Với thiết kế khóa an toàn, tay cầm tiện lợi cùng với loại nhựa tốt đến từ Ý sẽ tạo sự an toàn nhất cho thú cưng.</p><p>Kích thước: 91x61x67cm</p>',
-      product_brand_name: 'Ferplast',
-      product_type_name: 'Chuồng thú cưng'
-    },
-    {
-      product_id: 1,
-      product_name: 'Lồng vận chuyển',
-      product_price: 509000,
-      product_image: '/image/longvanchuyen.png',
-      product_sold: 14,
-      product_description: '<p><strong>Lồng vận chuyển Ferplast Atlas Professional 70 (91x61x67cm)</strong><br>Có nắp cà tiện dụng, thiết kế hiện đại thoáng mát, giúp thú cưng nhà bạn cực kỳ thoải mái trong các chuyến đi xa.Lồng vận chuyển cho chó mèo, chất liệu tốt, bền, đẹp, chắc chắn.</p><p>Chất liệu nhựa cao cấp, không chứa chất độc hại, không gây kích ứng</p><p>Vali đạt chuẩn qui định IATA giúp có thể vận chuyển dễ dàng thú cưng khi đi máy bay, tàu thủy hoặc tàu hỏa. Với thiết kế khóa an toàn, tay cầm tiện lợi cùng với loại nhựa tốt đến từ Ý sẽ tạo sự an toàn nhất cho thú cưng.</p><p>Kích thước: 91x61x67cm</p>',
-      product_brand_name: 'Ferplast',
-      product_type_name: 'Chuồng thú cưng'
-    }
-  ]
-  console.log(productCart)
+  const [productCart, setProductCart] = useState([]);
 
+  useEffect(() => {
+    loadData()
+  }, []);
+
+  
+  const loadData = () => {
+    axios.get(`http://localhost:3003/products`)
+      .then(res => {
+        const data = res.data;
+        setProductCart(data);
+      }) 
+      .catch(error => console.log(error));
+
+  }
+  
   // const showCart = (cart) => {
   //   cart.length === 0 ? console.log("rong") : console.log(cart);
   // }

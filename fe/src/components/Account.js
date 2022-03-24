@@ -40,6 +40,7 @@ export default function Account() {
                 <div id="logout" className="btn btn-primary"
                   onClick={() => {
                     localStorage.setItem("user", "");
+                    localStorage.setItem("token", "");
                     document.location.href = '/signin';
                   }}
                 >Đăng xuất</div>

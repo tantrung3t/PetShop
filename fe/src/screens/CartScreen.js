@@ -33,8 +33,8 @@ export default function CartScreens() {
     axios.get(`http://localhost:3003/products/cart/` + localStorage.getItem('token'))
       .then(res => {
         const data = res.data;
-        if (data.status !== 401) setProductsCart(data);
-      })
+        if(data.status !== 401) setProductsCart(data);      
+      }) 
       .catch(error => console.log(error));
 
   }

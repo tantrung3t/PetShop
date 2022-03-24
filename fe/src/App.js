@@ -7,7 +7,7 @@ import './App.css'
 import SearchForm from './components/SearchForm';
 import Account from './components/Account';
 import ProductDetail from './components/ProductDetail';
-import { ProductCart } from './components/Product';
+import { ProductMiniCartItem } from './components/Product';
 
 import HomeScreen from './screens/HomeScreen';
 import SigninScreen from './screens/SigninScreen'
@@ -57,7 +57,7 @@ function App() {
   // const showCart = (cart) => {
   //   cart.length === 0 ? console.log("rong") : console.log(cart);
   // }
-  // showCart(productCart);
+  // showCart(productMiniCartItem);
 
   // const handleShowCart = () => {
   // }
@@ -133,7 +133,7 @@ function App() {
                   <FontAwesomeIcon icon={faCartShopping} className='header__cart-icon' color='white' />
                 </Link>
                 {
-                  productCart.length === 0 ? (
+                  productMiniCartItem.length === 0 ? (
                     <div className='header__cart-list center'>
                       <img src='../assets/img/no-item.png' alt='img' width='100%'></img>
                       <span>Chưa có sản phẩm</span>
@@ -142,8 +142,8 @@ function App() {
                     <div className='header__cart-list'>
                       <span className='px-2' style={{textTransform: "capitalize"}}>Sản phẩm mới thêm</span>
                       {
-                        productCart.map((product, index) =>
-                          <ProductCart
+                        productMiniCartItem.map((product, index) =>
+                          <ProductMiniCartItem
                             key={index}
                             id={product.product_id}
                             src={url + product.product_image}
@@ -199,7 +199,6 @@ function App() {
 
 function ProductDetail_Id() {
   let { id } = useParams();
-
   return (
     <ProductDetail id={id} />
   )

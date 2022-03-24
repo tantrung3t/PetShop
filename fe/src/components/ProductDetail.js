@@ -1,7 +1,8 @@
 import { React, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-// import PropTypes from 'prop-types';
+
+import QuantityButton from '../components/QuantityButton';
 
 
 export default function ProductDetail(props) {
@@ -25,8 +26,6 @@ export default function ProductDetail(props) {
       }
     ]
   );
-  const [qty, setQty] = useState(1);
-  localStorage.setItem('qty', qty);
 
   const loadData = () => {
     axios.get(`http://localhost:3003/product/` + props.id)
@@ -44,27 +43,20 @@ export default function ProductDetail(props) {
 
 
   const handleOrder = () => {
-    console.log(data[0]);
-    alert("Bạn đã thêm sản phẩm vào giỏ hàng.")
     axios.post('http://localhost:3003/api/cart', {
       product: data[0],
       quantity: localStorage.getItem('qty')
     })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    
+    // console.log(data[0]);
+    alert("Bạn đã thêm sản phẩm vào giỏ hàng.")
   };
-
-  const handleIncrease = () => {
-    setQty(qty + 1);
-  }
-
-  const handleDecrease = () => {
-    setQty(qty - 1);
-  }
 
 
   return (
@@ -92,14 +84,8 @@ export default function ProductDetail(props) {
             <span className='product__sold'>Đã bán: {data[0].product_sold}</span>
           </div>
           <div className='flex beetween'>
-            <div className='qty--wrap'>
-              <input className='qty__btn minus' type='button' value='-' onClick={handleDecrease} disabled={qty === 1}/>
-              <input className='qty__input' type='number' min='1' max={data[0].product_amount} value={qty} 
-                pattern='/\d{1}'
-              />
-              <input className='qty__btn plus' type='button' value='+' onClick={handleIncrease} disabled={qty >= data[0].product_amount}/>
-            </div>
-            <div id='order' className='btn btn-primary' onClick={handleOrder}>Mua hàng</div>
+            <QuantityButton product_amount={data[0].product__amount} />
+            <button id='order' className='btn btn-primary' onClick={handleOrder} disabled={data[0].product_amount < 1}>Mua hàng</button>
           </div>
         </div>
       </div>

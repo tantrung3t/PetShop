@@ -60,8 +60,15 @@ app.post('/api/cart', (req, res) => {
 	console.log(req.body)
 })
 
+app.get('/api/cart/delete', (req, res) => {
+  res.send('cart delete')
+})
+app.post('/api/cart/delete', (req, res) => {
+	console.log(req.body)
+})
 
 
+// 
 app.listen(port, () => {
   console.log(__dirname)
   console.log(`Listening on port ${port}`)

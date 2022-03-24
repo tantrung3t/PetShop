@@ -1000,7 +1000,8 @@ i {
 
 .category__heading {
   text-transform: capitalize;
-  margin-top: 0;
+  margin: 0;
+  padding-top: 4px;
 }
 
 .category__list {

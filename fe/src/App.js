@@ -38,7 +38,7 @@ function App() {
   const url = "http://localhost:3003";
 
   const [productCart, setProductCart] = useState([]);
-
+  console.log(productCart);
   useEffect(() => {
     loadData()
   }, []);
@@ -133,7 +133,7 @@ function App() {
                   <FontAwesomeIcon icon={faCartShopping} className='header__cart-icon' color='white' />
                 </Link>
                 {
-                  productMiniCartItem.length === 0 ? (
+                  productCart.length === 0 ? (
                     <div className='header__cart-list center'>
                       <img src='../assets/img/no-item.png' alt='img' width='100%'></img>
                       <span>Chưa có sản phẩm</span>
@@ -142,7 +142,7 @@ function App() {
                     <div className='header__cart-list'>
                       <span className='px-2' style={{textTransform: "capitalize"}}>Sản phẩm mới thêm</span>
                       {
-                        productMiniCartItem.map((product, index) =>
+                        productCart.map((product, index) =>
                           <ProductMiniCartItem
                             key={index}
                             id={product.product_id}

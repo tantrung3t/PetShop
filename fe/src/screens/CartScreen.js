@@ -23,7 +23,7 @@ export default function CartScreens() {
     {
       product:
       {
-        product_id: 1,
+        product_id: 2,
         product_name: 'Lồng vận chuyểnLồng vận chuyểnLồng vận chuyểnLồng vận chuyểnLồng vận chuyển',
         product_price: 509000,
         product_image: '/image/longvanchuyen.png',
@@ -33,7 +33,7 @@ export default function CartScreens() {
         product_brand_name: 'Ferplast',
         product_type_name: 'Chuồng thú cưng'
       },
-      quantity: 5
+      quantity: 3
     }
   ]
 

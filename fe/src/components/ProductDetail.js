@@ -39,7 +39,7 @@ export default function ProductDetail(props) {
 
   useEffect(() => {
     loadData()
-  }, []);
+  }, [props.id]);
 
 
   const handleOrder = () => {

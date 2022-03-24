@@ -27,7 +27,7 @@ export default function HomeScreen() {
 
   
   const render = () => {
-    // if(data.length === 0) return <div></div>
+    if(data.length === 0) return <div></div>
     let element = data.map((product, index) => {
       return <Product
               key={index}

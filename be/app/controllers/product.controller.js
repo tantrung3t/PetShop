@@ -145,17 +145,17 @@ exports.delete_product = function (req, res) {
     }
 }
 
-//
+//get product in shopping cart
 exports.get_product_in_shopping_cart = function (req, res) {
     var token = req.params.id;
     
     try {
         //kiem tra neu token hop len thi tra kq = account_id
         var kq = jwt.verify(token, secretKey)
-        // product.delete_product(product_id, function (data) {
-        //     res.send(data);
-        // })
-        res.send(token);
+        var account_id = kq.id;
+        product.get_product_in_shopping_cart(account_id, function (data) {
+            res.send(data);
+        })
 
     }
     catch (error) {

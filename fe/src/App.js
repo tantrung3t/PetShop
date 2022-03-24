@@ -38,19 +38,20 @@ function App() {
   const url = "http://localhost:3003";
 
   const [productCart, setProductCart] = useState([]);
-  console.log(productCart);
+
   useEffect(() => {
     loadData()
   }, []);
 
   
   const loadData = () => {
-    axios.get(`http://localhost:3003/products`)
-      .then(res => {
-        const data = res.data;
-        setProductCart(data);
-      }) 
-      .catch(error => console.log(error));
+      axios.get(`http://localhost:3003/products/cart/` + localStorage.getItem('token'))
+        .then(res => {
+          const data = res.data;
+          if(data.status !== 401) setProductCart(data);
+          // console.log(data);
+        }) 
+        .catch(error => console.log(error))
 
   }
   
@@ -172,10 +173,8 @@ function App() {
           />
           {/* Cho nay bi loi nen can phai sua lai ne */}
           {/* Loi bi chen them the <div> cua ulr /products roi moi den /:id */}
-          <Route path='/product/:id' component={ProductDetail_Id} />
 
-          <Route path='/products' component={ProductsScreen} />
-          <Route path='/products/:id' component={ProductDetail_Id} />
+          <Route path='/products' component={Products} />
 
           <Route path='/cart' component={CartScreen} />
           <Route path='/admin' component={Admin} />
@@ -203,7 +202,15 @@ function ProductDetail_Id() {
     <ProductDetail id={id} />
   )
 }
-
+function Products(){
+  let { path } = useRouteMatch();
+  return (
+    <Switch>
+      <Route exact path={path} component={ProductsScreen} />
+      <Route path='/products/:id' component={ProductDetail_Id} />
+    </Switch>
+  )
+}
 function Admin() {
   let { path } = useRouteMatch();
   return (

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+// import ReactDOM from 'react-dom';
 import axios from 'axios'
 // import QuantityButton from './QuantityButton'
 import { Link } from "react-router-dom";
@@ -16,11 +17,6 @@ export default function CartItem(props) {
       });
   }
 
-  const [isCheck, setIsCheck] = useState(false);
-  const handleOnChange = () => {
-    setIsCheck(!isCheck);
-  }
-
   const [qty, setQty] = useState( props.quantity || 1 );
   localStorage.setItem('qty', qty);
 
@@ -31,8 +27,17 @@ export default function CartItem(props) {
   const handleDecrease = () => {
     setQty(qty - 1);
   }
+  
+  var money = props.price * qty;
 
+  const handleTotal = () => {
+    // if(ReactDOM.findDOMNode().id("cbx") )
+    var checkbox = document.getElementById("cbx" + props.id);
+    checkbox.checked ? total = money : total = 0 
+    console.log(total);
+  }
 
+  useEffect( () => handleTotal(),[props])
   return (
     <div className="my-3">
       <div className="cart__item">
@@ -41,8 +46,9 @@ export default function CartItem(props) {
             id={"cbx" + props.id}
             className="cbx__item"
             type={"checkbox"}
-            checked={isCheck}
-            onChange={handleOnChange}
+            name={props.id}
+            checked={props.isCheck}
+            onChange={props.handleOnChange}
           />
         </div>
         <Link to={'/product/' + props.id} className="flex " style={{ flex: "1", textAlign: "left" }}>
@@ -63,10 +69,11 @@ export default function CartItem(props) {
           />
           <input className='qty__btn plus' type='button' value='+' onClick={handleIncrease} disabled={qty >= props.amount} />
         </div>
-        {/* <span className="cart__item--qty">{props.quantity}</span> */}
-        <span className="cart__item--total">{props.price * qty}</span>
+        <span className="cart__item--money">{money}</span>
         <div className="cart__item--delete link " onClick={handleRemoveCart}>Xóa</div>
       </div>
     </div>
   );
 }
+
+var total = 0;

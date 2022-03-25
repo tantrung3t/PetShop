@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons'
@@ -28,8 +29,8 @@ const modalStyle2 = {
 }
 
 const bodyStyle = {
-  'paddingLeft': '120px',
-  'paddingRight': '120px',
+  // 'paddingLeft': '120px',
+  // 'paddingRight': '120px',
 }
 
 const divStyle1 = {
@@ -105,6 +106,25 @@ const preview = {
   'justifyContent': 'center',
   'flexDirection': 'column',
   'cursor': 'pointer',
+}
+const box3 = {
+  width: '200px',
+  height: '200px',
+  margin: '10px',
+  backgroundColor: '#f7f7f7',
+  padding: '10px',
+  border: 'none',
+  borderRadius: '10px',
+  // boxShadow: '0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07)'
+}
+const box4 = {
+  width: "81%",
+  margin: '10px',
+  backgroundColor: '#ffffff',
+  padding: '10px',
+  border: 'none',
+  borderRadius: '10px',
+  boxShadow: '0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07)'
 }
 export default function AdminProduct() {
 
@@ -394,34 +414,51 @@ export default function AdminProduct() {
 
   return (
     <div style={bodyStyle}>
-      <div style={{ float: 'right' }}>
-        <button onClick={add_product} className="button-add-product">Thêm sản phẩm</button>
-      </div>
-      <div style={divStyle1}>
-        <div style={divStyle3}>
-          ID
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={box3}>
+        <div className="admin_title1">
+            <Link to='/admin/thongke' >
+              Thống kê
+            </Link>
+          </div>
+          <div className="admin_title2" >
+            <Link to='/admin/sanpham'>
+              Quản lý sản phẩm
+            </Link>
+          </div>
+          
         </div>
-        <div style={divStyle3}>
-          Tên sản phẩm
+        <div style={box4}>
+          <div style={{ float: 'right' }}>
+            <button onClick={add_product} className="button-add-product">Thêm sản phẩm</button>
+          </div>
+          <div style={divStyle1}>
+            <div style={divStyle3}>
+              ID
+            </div>
+            <div style={divStyle3}>
+              Tên sản phẩm
+            </div>
+            <div style={divStyle3}>
+              Giá bán
+            </div>
+            <div style={divStyle3}>
+              Đã bán
+            </div>
+            <div style={divStyle3}>
+              Còn lại
+            </div>
+            <div style={divStyle3}>
+              Thương hiệu
+            </div>
+            <div style={divStyle4}>
+              Tuỳ chỉnh
+            </div>
+          </div>
+          <div style={divStyleScroll}>
+            {renderList()}
+          </div>
         </div>
-        <div style={divStyle3}>
-          Giá bán
-        </div>
-        <div style={divStyle3}>
-          Đã bán
-        </div>
-        <div style={divStyle3}>
-          Còn lại
-        </div>
-        <div style={divStyle3}>
-          Thương hiệu
-        </div>
-        <div style={divStyle4}>
-          Tuỳ chỉnh
-        </div>
-      </div>
-      <div style={divStyleScroll}>
-        {renderList()}
       </div>
       <div className={hide} onClick={exit_modal}>
 

@@ -16,7 +16,7 @@ export default function Account() {
     Axios.get(`http://localhost:3003/products`)
       .then(res => {
         setData(res.data);
-        console.log(res.data)
+        // console.log(res.data)
       })
       .catch(error => console.log(error));
   }

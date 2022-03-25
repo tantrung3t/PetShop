@@ -11,9 +11,11 @@ export default function ProductDetail(props) {
   // }
 
   const url = "http://localhost:3003";
+  const [link, setLink] = useState('');
   const [data, setData] = useState(
     [
       {
+        product_type_id: "",
         product_id: "",
         product_name: "",
         product_price: "",
@@ -32,6 +34,27 @@ export default function ProductDetail(props) {
       .then(res => {
         const data = res.data;
         setData(data);
+        // phân loại loại sản phẩm để đưa vào link
+        switch (data[0].product_type_id) {
+          case 1:
+            setLink('/thucancun');
+            break;
+          case 2:
+            setLink('/thucanmeo');
+            break;
+          case 3:
+            setLink('/dochoithucung');
+            break;
+          case 4:
+            setLink('/phukienthucung');
+            break;
+          case 5:
+            setLink('/chuongthucung');
+            break;
+          default:
+            setLink('');
+        }
+
       })
       .catch(error => console.log(error));
 
@@ -47,13 +70,13 @@ export default function ProductDetail(props) {
       product: data[0],
       quantity: localStorage.getItem('qty')
     })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-    
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
     // console.log(data[0]);
     alert("Bạn đã thêm sản phẩm vào giỏ hàng.")
   };
@@ -61,7 +84,7 @@ export default function ProductDetail(props) {
 
   return (
     <div>
-      <div className='path'></div>
+      <div className='path'><Link to={'/'}>Trang chủ</Link> / <Link to={'/products'}>Sản phẩm</Link> / <Link to={link}>{data[0].product_type_name}</Link> / {data[0].product_name}</div>
       <div className='grid flex beetween'>
         <div className='product__img'>
           <img
@@ -76,7 +99,7 @@ export default function ProductDetail(props) {
           <div className='product__price'>{data[0].product_price} đ</div>
           <div className='block-separation'></div>
           <div className='product__brand'>Thương hiệu: <Link to='' className='primary'>{data[0].product_brand_name}</Link></div>
-          <div className='product__type'>Loại: <Link to='' className='primary'>{data[0].product_type_name}</Link></div>
+          <div className='product__type'>Loại: <Link to={link} className='primary'>{data[0].product_type_name}</Link></div>
           <div className='product__description' dangerouslySetInnerHTML={{ __html: data[0].product_description }}></div>
           <div className='block-separation'></div>
           <div className='flex beetween my-2'>

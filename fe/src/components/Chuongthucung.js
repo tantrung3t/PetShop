@@ -12,7 +12,7 @@ export default function Chuongthucung() {
             .then(res => {
                 const data = res.data;
                 setData(data);
-                console.log(data)
+                // console.log(data)
             })
             .catch(error => console.log(error));
     }

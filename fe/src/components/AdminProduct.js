@@ -281,7 +281,6 @@ export default function AdminProduct() {
       }
 
       reader.readAsDataURL(e.target.files[0])
-
       setImageUpload(e.target.files[0])
     }
   }

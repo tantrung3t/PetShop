@@ -33,16 +33,32 @@ export default function CartScreens() {
     axios.get(`http://localhost:3003/products/cart/` + localStorage.getItem('token'))
       .then(res => {
         const data = res.data;
-        if(data.status !== 401) setProductsCart(data);      
-      }) 
+        if (data.status !== 401) setProductsCart(data);
+      })
       .catch(error => console.log(error));
 
   }
 
 
-  // const handleTotal = () => {
-
+  // const handleBuy = () => {
+  //   return (
+  //     <div className="modal fade" id="modalLoginForm" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  //       <div className="modal-dialog" role="document">
+  //         <div className="modal-content">
+  //           aaa
+  //         </div>
+  //       </div>
+  //     </div>
+  //   )
   // }
+
+  // const handleTotal = () => {
+  //   // document.getElementById
+  //   // productsCart.
+  //   return <div>1</div>
+  // }
+  localStorage.setItem("total", 0);
+  console.log(localStorage.getItem("total"))
 
   return (
     <div className="grid">
@@ -70,7 +86,7 @@ export default function CartScreens() {
             key={index}
             id={product.product_id}
             isCheck={product?.isChecked || false}
-            handleOnChange={handleOnChange}
+            onChange={handleOnChange}
             src={url + product.product_image}
             name={product.product_name}
             price={product.product_price}
@@ -86,7 +102,7 @@ export default function CartScreens() {
           <div className="px-4">
             <input
               id={"cbx"}
-              className="cbx__item"
+              className="cbx"
               type={"checkbox"}
               name="allSelect"
               checked={!productsCart.some((product) => product?.isChecked !== true)}
@@ -95,12 +111,31 @@ export default function CartScreens() {
             &nbsp;Chọn tất cả
           </div>
           <div>Xóa</div>
-          <div>Tổng hóa đơn:</div>
+          <div>Tổng hóa đơn: 1 </div>
           <div
             className="btn btn-primary"
             style={{ fontSize: "16px" }}
-          >Thanh Toán</div>
+            // onClick={handleBuy}
+          >Mua Hàng</div>
         </div>
+      </div>
+      {/* <div className="modal fade" id="modalLoginForm" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            aaa
+          </div>
+        </div>
+      </div> */}
+      <div>
+        <form>
+          <input type={"text"} name="name" placeholder="Tên"/>
+          <input type={"text"} name="phone" placeholder="Số điện thoại"/>
+          <input type={"email"} name="email" placeholder="email"/>
+          <input type={"text"} name="address" placeholder="Địa chỉ"/>
+          <label>Tổng hóa đơn: </label>
+          <input type={"button"} name="" value={"Thanh Toán"}/>
+          
+        </form>
       </div>
     </div>
   );

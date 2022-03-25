@@ -24,6 +24,7 @@ import Chuongthucung from './components/Chuongthucung';
 
 import Thongke from './components/Thongke'
 import AdminProduct from './components/AdminProduct'
+import AdminOrder from './components/AdminOrder';
 
 
 //mai mot bo
@@ -229,6 +230,7 @@ function Admin() {
       <Route exact path={path} component={AdminScreen} />
       <Route path='/admin/sanpham' component={AdminProduct} />
       <Route path='/admin/thongke' component={Thongke} />
+      <Route path='/admin/dathang' component={AdminOrder} />
     </Switch>
   )
 }

@@ -34,7 +34,6 @@ const bodyStyle = {
 }
 
 const divStyle1 = {
-
   'display': 'flex',
   'borderBottom': '1px solid #91c2cc',
   'width': '100%',
@@ -43,7 +42,6 @@ const divStyle1 = {
   'alignItems': 'center'
 
 };
-
 const divStyle2 = {
   'width': '120px',
 };
@@ -54,18 +52,18 @@ const divStyle3 = {
   'fontWeight': 'bold',
   'color': '#005d80'
 };
-
-const divStyleScroll = {
-  'width': '101%',
-  'height': '400px',
-  'overflow': 'auto',
-}
 const divStyle4 = {
   'width': '160px',
   'fontSize': '700',
   'fontWeight': 'bold',
   'color': '#005d80'
 };
+const divStyleScroll = {
+  'width': '101%',
+  'height': '400px',
+  'overflow': 'auto',
+}
+
 const buttonStyle1 = {
   'padding': '10px 20px',
   'margin': '3px 3px 3px 3px',
@@ -412,7 +410,7 @@ export default function AdminProduct() {
     <div style={bodyStyle}>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div style={box3}>
-        <div className="admin_title1">
+          <div className="admin_title1">
             <Link to='/admin/thongke' >
               Thống kê
             </Link>
@@ -422,7 +420,11 @@ export default function AdminProduct() {
               Quản lý sản phẩm
             </Link>
           </div>
-          
+          <div className="admin_title1">
+            <Link to='/admin/dathang' >
+              Quản lý đặt hàng
+            </Link>
+          </div>
         </div>
         <div style={box4}>
           <div style={{ float: 'right' }}>

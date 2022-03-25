@@ -314,7 +314,7 @@ export default function AdminProduct() {
           console.log('FAILURE!!');
           alert("Vui lòng nhập đầy đủ các trường để thực hiện thêm sản phẩm!")
         });
-      location.reload();
+
     }
     else {
       if (imageUpload === "") {
@@ -386,6 +386,10 @@ export default function AdminProduct() {
           });
       }
     }
+
+
+
+
   }
 
   return (
@@ -427,7 +431,7 @@ export default function AdminProduct() {
             <p>{titleModal}</p>
             <FontAwesomeIcon icon={faXmarkCircle} fontSize={35} onClick={close_modal} />
           </div>
-          <form id="frm__add-product" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <div className="modal__body">
               <div style={modalStyle}>
                 <div>
@@ -534,6 +538,8 @@ export default function AdminProduct() {
 
               </div>
             </div>
+
+
 
             <div className="modal__footer">
               <button type="submit" className="modal-save">Lưu</button>

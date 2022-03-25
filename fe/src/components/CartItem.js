@@ -20,24 +20,35 @@ export default function CartItem(props) {
   const [qty, setQty] = useState( props.quantity || 1 );
   localStorage.setItem('qty', qty);
 
+  var money = props.price * qty;
+
+
   const handleIncrease = () => {
     setQty(qty + 1);
+    // money = props.price * qty
   }
 
   const handleDecrease = () => {
     setQty(qty - 1);
+    // money = props.price * qty
   }
   
-  var money = props.price * qty;
+  // const [checkbox, setCheckbox] = useState();
+  useEffect( () => {
+    hadleTotal()
+  }, [qty])
 
-  const handleTotal = () => {
-    // if(ReactDOM.findDOMNode().id("cbx") )
-    var checkbox = document.getElementById("cbx" + props.id);
-    checkbox.checked ? total = money : total = 0 
-    console.log(total);
+  const hadleTotal = () => {
+    var total = parseInt(localStorage.getItem("total"));
+    var isCheck = document.getElementById("cbx" + props.id).checked;
+    var temp = total;
+    money = props.price * qty;
+    // console.log(isCheck)
+    isCheck ? localStorage.setItem("total", total += money) : localStorage.setItem("total", temp);
+    console.log("total: "+localStorage.getItem("total"));
+    // setCheckbox(isCheck);
   }
-
-  useEffect( () => handleTotal(),[props])
+  
   return (
     <div className="my-3">
       <div className="cart__item">
@@ -48,7 +59,7 @@ export default function CartItem(props) {
             type={"checkbox"}
             name={props.id}
             checked={props.isCheck}
-            onChange={props.handleOnChange}
+            onChange={props.onChange}
           />
         </div>
         <Link to={'/product/' + props.id} className="flex " style={{ flex: "1", textAlign: "left" }}>
@@ -75,5 +86,3 @@ export default function CartItem(props) {
     </div>
   );
 }
-
-var total = 0;

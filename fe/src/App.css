@@ -218,6 +218,10 @@ img {
   object-fit: contain;
 }
 
+h2 {
+  text-transform: capitalize;
+}
+
 select:focus-visible,
 textarea:focus-visible {
   /* color: var(--primary-color); */
@@ -1107,8 +1111,10 @@ i {
   text-align: center;
 }
 
+  /* Info Order */
+
 /* Profile Screen */
-.profile__container {
+.form-container {
   width: 50%;
   display: flex;
   align-items: center;
@@ -1120,42 +1126,44 @@ i {
   margin: 32px auto;
 }
 
-.profile__frm {
+.form-wrap {
+  width: 80%;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   flex-direction: column;
 }
 
-.profile__frm > * {
+.form-wrap > * {
   width: 100%;
 }
 
-.profile__input {
+.form-input {
   padding: 8px;
-  margin: 10px ;
+  margin: 10px 0;
   border: 1px solid var(--primary-color);
   border-radius: 2px;
 }
 
-.profile__input:focus-visible {
+.form-input:focus-visible {
   outline: none;
 }
 
-.profile__input--wrap {
+.form-input--wrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.profile__input--wrap > .profile__input {
+.form-input--wrap > .form-input {
   width: 70%;
 }
 
-.profile__btn {
+.form-btn {
   font-size: 12px;
   width: 25%;
 }
+
 
 
 

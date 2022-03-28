@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import ReactDOM from 'react-dom';
 import axios from 'axios'
 // import QuantityButton from './QuantityButton'
@@ -42,24 +42,24 @@ export default function CartItem(props) {
   }
   
   // const [checkbox, setCheckbox] = useState();
-  // useEffect( () => {
-  //   hadleTotal()
-  // }, [props])
+  useEffect( () => {
+    handleTotal()
+  }, [props, qty])
 
   // useEffect( () => {
-  //   hadleTotal()
+  //   handleTotal()
   // }, [qty])
 
-  // const hadleTotal = () => {
-  //   var total = parseInt(localStorage.getItem("total"));
-  //   var isCheck = document.getElementById("cbx" + props.id).checked;
-  //   var temp = total;
-  //   money = props.price * qty;
-  //   // console.log(isCheck)
-  //   isCheck ? localStorage.setItem("total", total += money) : localStorage.setItem("total", temp);
-  //   console.log("total: "+localStorage.getItem("total"));
-  //   // setCheckbox(isCheck);
-  // }
+  const handleTotal = () => {
+    var total = parseInt(localStorage.getItem("total"));
+    var isCheck = document.getElementById("cbx" + props.id).checked;
+    var temp = total;
+    money = props.price * qty;
+    // console.log(isCheck)
+    isCheck ? localStorage.setItem("total", total += money) : localStorage.setItem("total", temp);
+    console.log("total: "+localStorage.getItem("total"));
+    // setCheckbox(isCheck);
+  }
 
 
 
@@ -78,8 +78,8 @@ export default function CartItem(props) {
             className="cbx__item"
             type={"checkbox"}
             name={props.id}
-            // checked={props.isCheck}
-            // onChange={props.onChange}
+            checked={props.isCheck}
+            onChange={props.onChange}
             // onClick={checkedAddTotal}
           />
         </div>

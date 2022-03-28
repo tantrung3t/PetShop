@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react"
 
+localStorage.setItem("profile", "");
 
 export default function ProfileScreen() {
   const [profile, setProfile] = useState({});
@@ -16,6 +17,8 @@ export default function ProfileScreen() {
       address: "Can Tho"
     }))
   },[]);
+  
+  localStorage.setItem("profile", JSON.stringify(profile))
 
   // const loadData = () => {
   //   axios.get(`http://localhost:3003/profile/`)
@@ -60,22 +63,24 @@ console.log(profile)
       console.log(error);
     });
     alert("Bạn đã lưu thành công!");
+    location.reload();
+
   }
 
   // const handleCheck = () => {
   //   document.getElementsByName(sex)
   // }
-
+console.log("profile"+localStorage.getItem("profile"))
   return (
     <div className="grid">
-      <div className="profile__container">
+      <div className="form-container">
         <h2>Thông tin cá nhân</h2>
-        <form className="profile__frm" onSubmit={handleSubmit}>
+        <form className="form-wrap" onSubmit={handleSubmit}>
           <div className="flex beetween" style={{width: "100%"}}>
             <div>
               <label htmlFor="fname">Tên: </label>
               <input 
-                className="profile__input" 
+                className="form-input" 
                 type="text" 
                 id="fname" 
                 name="fname" 
@@ -87,7 +92,7 @@ console.log(profile)
             <div>
               <label htmlFor="lname">Họ: </label>
               <input 
-                className="profile__input" 
+                className="form-input" 
                 type="text" 
                 id="lname"
                 name="lname"
@@ -97,33 +102,33 @@ console.log(profile)
                 />
             </div>
           </div>
-          <div className="flex center">
+          <div className="flex beetween center">
             <div>
               <label htmlFor="date">Ngày Sinh: </label>
               <input 
-                className="profile__input" 
+                className="form-input" 
                 type="date" 
                 id="date" 
-                name="date" 
+                name="date"
                 defaultValue={profile.date}
                 onChange={(e) => setDate(e.target.value)}
               />
             </div>
             <div>
               <label >Giới Tính: </label>
-              <input className="profile__input" type="radio" id="male" name="sex"  value={1} onChange={e => setSex(e.target.value)} />
-              <label htmlFor="male">Nam </label>
-              <input className="profile__input" type="radio" id="female" name="sex"  value={2} onChange={e => setSex(e.target.value)} />
-              <label htmlFor="female">Nữ </label>
-              <input className="profile__input" type="radio" id="other" name="sex"  value={0} onChange={e => setSex(e.target.value)} />
-              <label htmlFor="other">Khác </label>
+              <input className="form-input" type="radio" id="male" name="sex"  value={1} onChange={e => setSex(e.target.value)} />
+              <label htmlFor="male"> Nam  </label>
+              <input className="form-input" type="radio" id="female" name="sex"  value={2} onChange={e => setSex(e.target.value)} />
+              <label htmlFor="female"> Nữ  </label>
+              <input className="form-input" type="radio" id="other" name="sex"  value={0} onChange={e => setSex(e.target.value)} />
+              <label htmlFor="other"> Khác </label>
             </div>
           </div>
-          <div className="profile__input--wrap">
+          <div className="form-input--wrap">
             <label htmlFor="email">Email: </label>
             <input 
-              className="profile__input" 
-              type="text" 
+              className="form-input" 
+              type="email" 
               id="email" 
               name="email" 
               placeholder="Email" 
@@ -131,10 +136,10 @@ console.log(profile)
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="profile__input--wrap">
+          <div className="form-input--wrap">
             <label htmlFor="phone">Số Điện Thoại: </label>
             <input 
-              className="profile__input" 
+              className="form-input" 
               type="text" 
               id="phone" 
               name="phone" 
@@ -144,10 +149,10 @@ console.log(profile)
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>
-          <div className="profile__input--wrap">
+          <div className="form-input--wrap">
             <label htmlFor="address">Địa Chỉ: </label>
             <textarea 
-              className="profile__input" 
+              className="form-input" 
               id="address" 
               name="address" 
               placeholder="Địa chỉ"
@@ -159,11 +164,11 @@ console.log(profile)
           <div className="flex around my-2">
             <button 
               type="submit" 
-              className="btn btn-primary profile__btn"
+              className="btn btn-primary form-btn"
               disabled={JSON.stringify(profile) === JSON.stringify(tempProfile)} >
                 Lưu Thay Đổi
             </button>
-            <button type="reset" className="btn btn-primary profile__btn">Hủy</button>
+            <button type="reset" className="btn btn-primary form-btn">Hủy</button>
           </div>
 
         </form>

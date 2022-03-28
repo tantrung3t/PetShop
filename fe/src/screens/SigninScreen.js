@@ -101,7 +101,7 @@ export default function Account() {
 
     <div className="body-sign">
       <div className={`container-sign ${isContainerActive}`}>
-        <div className="form-container sign-up-container">
+        <div className="sign-form-container sign-up-container">
           <form className="form-sign" onSubmit={handleSignUp}>
             <h1 className="h1-sign">Tạo tài khoản</h1>
             <input name="username_sign-up" className="input-sign" type="text" placeholder="Tên đăng nhập" />
@@ -113,7 +113,7 @@ export default function Account() {
             <button type="submit" className="button-sign my-2">Đăng ký</button>
           </form>
         </div>
-        <div className="form-container sign-in-container">
+        <div className="sign-form-container sign-in-container">
           <form onSubmit={handleSignIn} className="form-sign">
             <h1 className="h1-sign">Đăng nhập</h1>
 

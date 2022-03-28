@@ -74,6 +74,13 @@ app.post('/api/profile', (req, res) => {
 	console.log(req.body)
 })
 
+app.get('/api/orders', (req, res) => {
+  res.send('orders')
+})
+app.post('/api/orders', (req, res) => {
+	console.log(req.body)
+})
+
 // 
 app.listen(port, () => {
   console.log(__dirname)

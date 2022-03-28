@@ -16,6 +16,7 @@ import ProductsScreen from './screens/ProductsScreen';
 import AdminScreen from './screens/AdminScreen'
 import CartScreen from './screens/CartScreen'
 import ProfileScreen from './screens/ProfileScreen'
+import BrandScreen from './screens/BrandScreen'
 
 import Thucancun from './components/Thucancun';
 import Thucanmeo from './components/Thucanmeo';
@@ -87,11 +88,11 @@ function App() {
       to: '/brand',
       exact: false
     },
-    {
-      name: 'Giới Thiệu',
-      to: '/',
-      exact: true
-    }
+    // {
+    //   name: 'Giới Thiệu',
+    //   to: '/footer',
+    //   exact: true
+    // }
   ];
 
   const NavLink = ({ lable, to, isExact }) => {
@@ -180,6 +181,7 @@ function App() {
         <main>
           <Route path='/' exact component={HomeScreen} />
           <Route path='/register' component={RegisterScreen} />
+          <Route path='/brand' component={BrandScreen} />
           <Route path='/signin' render={() => {
             return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />
           }}

@@ -17,9 +17,8 @@ export default function Thongke() {
         { name: 'Tháng 1', "sold": 130 },
         { name: 'Tháng 2', "sold": 200 },
         { name: 'Tháng 3', "sold": 170 },
-        { name: 'Tháng 1', "sold": 130 },
+        { name: 'Tháng 4', "sold": 130 },
         { name: 'Tháng 5', "sold": 150 },
-        { name: 'Tháng 6', "sold": 100 },
     ];
     const data4Thang = [
         { name: 'Tháng 1', "sold": 20 },
@@ -28,11 +27,11 @@ export default function Thongke() {
         { name: 'Tháng 4', "sold": 110 },
     ];
     const dataDemo = [
-        { name: 'Thức ăn cún', "uv": 150, "fill": "#8884d8" },
-        { name: 'Thức ăn mèo', "uv": 200, "fill": "#83a6ed" },
-        { name: 'Đồ chơi thú cưng', "uv": 50, "fill": "#8dd1e1" },
-        { name: 'Phụ kiện thú cưng', "uv": 160, "fill": "#82ca9d" },
-        { name: 'Chuồng thú cưng', "uv": 120, "fill": "#a4de6c" }
+        { name: 'Thức ăn cún', "uv": 23, "fill": "#8884d8" },
+        { name: 'Thức ăn mèo', "uv": 30, "fill": "#83a6ed" },
+        { name: 'Đồ chơi thú cưng', "uv": 17, "fill": "#8dd1e1" },
+        { name: 'Phụ kiện thú cưng', "uv": 20, "fill": "#82ca9d" },
+        { name: 'Chuồng thú cưng', "uv": 10, "fill": "#a4de6c" }
     ]
 
     const box = {
@@ -121,6 +120,11 @@ export default function Thongke() {
                         Quản lý sản phẩm
                     </Link>
                 </div>
+                <div className="admin_title1" >
+                    <Link to='/admin/dathang'>
+                        Quản lý đặt hàng
+                    </Link>
+                </div>
             </div>
             <div style={{ paddingLeft: '10px', paddingRight: '10px' }}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -146,7 +150,7 @@ export default function Thongke() {
                                 </defs>
 
 
-                                <Tooltip />
+                                {/* <Tooltip /> */}
                                 <Area type="monotone" dataKey="sold" stroke="#1f89e5" fillOpacity={1} fill="url(#colorPv)" />
                             </AreaChart>
                         </div>

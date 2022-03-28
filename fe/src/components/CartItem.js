@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 // import ReactDOM from 'react-dom';
 import axios from 'axios'
 // import QuantityButton from './QuantityButton'
@@ -17,40 +17,60 @@ export default function CartItem(props) {
       });
   }
 
-  const [qty, setQty] = useState( props.quantity || 1 );
+  const [qty, setQty] = useState( props.quantity);
   localStorage.setItem('qty', qty);
 
   var money = props.price * qty;
-
-
+  
   const handleIncrease = () => {
     setQty(qty + 1);
+    //qty + 1 vì callbacks function gọi trước setQty nên giá trị không đúng
+    // props.handleIncreaseQuantity(qty + 1);
+
+
+
+
+    // setQty(qty + 1);
     // money = props.price * qty
   }
 
   const handleDecrease = () => {
     setQty(qty - 1);
+    //qty - 1 vì callbacks function gọi trước setQty nên giá trị không đúng
+    // props.handleIncreaseQuantity(qty - 1);
     // money = props.price * qty
   }
   
   // const [checkbox, setCheckbox] = useState();
-  useEffect( () => {
-    hadleTotal()
-  }, [props])
+  // useEffect( () => {
+  //   hadleTotal()
+  // }, [props])
 
-  const hadleTotal = () => {
-    var total = parseInt(localStorage.getItem("total"));
-    var isCheck = document.getElementById("cbx" + props.id).checked;
-    var temp = total;
-    money = props.price * qty;
-    // console.log(isCheck)
-    isCheck ? localStorage.setItem("total", total += money) : localStorage.setItem("total", temp);
-    console.log("total: "+localStorage.getItem("total"));
-    // setCheckbox(isCheck);
-  }
-  
+  // useEffect( () => {
+  //   hadleTotal()
+  // }, [qty])
+
+  // const hadleTotal = () => {
+  //   var total = parseInt(localStorage.getItem("total"));
+  //   var isCheck = document.getElementById("cbx" + props.id).checked;
+  //   var temp = total;
+  //   money = props.price * qty;
+  //   // console.log(isCheck)
+  //   isCheck ? localStorage.setItem("total", total += money) : localStorage.setItem("total", temp);
+  //   console.log("total: "+localStorage.getItem("total"));
+  //   // setCheckbox(isCheck);
+  // }
+
+
+
+  //đặt tên function giống tên thằng cha cho dễ sử dụng
+  //nhận props bên thằng cha đưa qua theo đúng cái nó truyền qua
+  // const checkedAddTotal = () => {
+  //   props.checkedAddTotal(props.price * qty);
+  // }
+
   return (
-    <div className="my-3">
+    <div className="my-3">  
       <div className="cart__item">
         <div className="px-4" >
           <input
@@ -58,11 +78,12 @@ export default function CartItem(props) {
             className="cbx__item"
             type={"checkbox"}
             name={props.id}
-            checked={props.isCheck}
-            onChange={props.onChange}
+            // checked={props.isCheck}
+            // onChange={props.onChange}
+            // onClick={checkedAddTotal}
           />
         </div>
-        <Link to={'/product/' + props.id} className="flex " style={{ flex: "1", textAlign: "left" }}>
+        <Link to={'/products/' + props.id} className="flex " style={{ flex: "1", textAlign: "left" }}>
           <img
             className="cart__item--img"
             src={props.src}

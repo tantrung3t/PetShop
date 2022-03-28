@@ -36,7 +36,7 @@ export default function CartItem(props) {
   // const [checkbox, setCheckbox] = useState();
   useEffect( () => {
     hadleTotal()
-  }, [qty])
+  }, [props])
 
   const hadleTotal = () => {
     var total = parseInt(localStorage.getItem("total"));

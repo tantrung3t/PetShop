@@ -238,6 +238,10 @@ textarea:focus-visible {
   justify-content: space-between;
 }
 
+.around {
+  justify-content: space-around;
+}
+
 .left {
   align-items: center;
   justify-content: left;
@@ -797,8 +801,7 @@ i {
 }
 
 /* Main */
-  /* Home */
-
+  /* Home Screen*/
 
 .home__category-wrap::before {
   content: "";
@@ -924,7 +927,7 @@ i {
   right: 0;
 }
 
-  /* Product Details */
+  /* Product Details Screen*/
 .path {
   width: 100%;
   height: 32px;
@@ -992,7 +995,7 @@ i {
   font-size: 16px;
 }
 
-  /* All Products */
+  /* All Products Screen */
 .category {
   background-color: #fff;
   padding: 0 16px 16px;
@@ -1028,7 +1031,7 @@ i {
   background-color: #fff;
 }
 
-/* Cart */
+/* Cart Screen */
 .cart__title {
   display: flex;
   align-items: center;
@@ -1104,8 +1107,55 @@ i {
   text-align: center;
 }
 
+/* Profile Screen */
+.profile__container {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  background: #fff;
+  margin: 32px auto;
+}
 
+.profile__frm {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+}
 
+.profile__frm > * {
+  width: 100%;
+}
+
+.profile__input {
+  padding: 8px;
+  margin: 10px ;
+  border: 1px solid var(--primary-color);
+  border-radius: 2px;
+}
+
+.profile__input:focus-visible {
+  outline: none;
+}
+
+.profile__input--wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile__input--wrap > .profile__input {
+  width: 70%;
+}
+
+.profile__btn {
+  font-size: 12px;
+  width: 25%;
+}
 
 
 
@@ -1246,7 +1296,7 @@ i {
 
 
 
-/* Modal */
+/* Modal
 .modal {
   position: fixed;
   top: 0;
@@ -1353,4 +1403,4 @@ i {
     margin: 1.75rem auto;
   }
 }
-
+ */

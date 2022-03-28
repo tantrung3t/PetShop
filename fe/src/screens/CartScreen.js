@@ -111,7 +111,7 @@ export default function CartScreens() {
             &nbsp;Chọn tất cả
           </div>
           <div>Xóa</div>
-          <div>Tổng hóa đơn: 1 </div>
+          <div>Tổng hóa đơn: {localStorage.getItem('total')} </div>
           <div
             className="btn btn-primary"
             style={{ fontSize: "16px" }}

@@ -1,5 +1,5 @@
 import React from "react"
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 
@@ -9,6 +9,7 @@ const user = localStorage.getItem('user');
 
 export default function Account() {
 
+  const history = useHistory();
   // const handleSignOff =  () => {
   //   localStorage.setItem('user', "");
   //   window.location.reload();
@@ -28,7 +29,7 @@ export default function Account() {
         ) : (
           <div className="flex left">
             <div className="account-wrap link">
-              <Link to="/signin" className="header__account">
+              <Link to="/profile" className="header__account">
                 <span className="flex left">
                   <i className="flex center">hi</i>{user}
                 </span>
@@ -41,7 +42,7 @@ export default function Account() {
                   onClick={() => {
                     localStorage.setItem("user", "");
                     localStorage.setItem("token", "");
-                    document.location.href = '/signin';
+                     history.push('/signin');
                   }}
                 >Đăng xuất</div>
               </div>

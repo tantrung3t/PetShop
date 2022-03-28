@@ -67,6 +67,12 @@ app.post('/api/cart/delete', (req, res) => {
 	console.log(req.body)
 })
 
+app.get('/api/profile', (req, res) => {
+  res.send('profile')
+})
+app.post('/api/profile', (req, res) => {
+	console.log(req.body)
+})
 
 // 
 app.listen(port, () => {

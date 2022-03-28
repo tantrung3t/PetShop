@@ -15,6 +15,7 @@ import RegisterScreen from './screens/RegisterScreen';
 import ProductsScreen from './screens/ProductsScreen';
 import AdminScreen from './screens/AdminScreen'
 import CartScreen from './screens/CartScreen'
+import ProfileScreen from './screens/ProfileScreen'
 
 import Thucancun from './components/Thucancun';
 import Thucanmeo from './components/Thucanmeo';
@@ -24,6 +25,7 @@ import Chuongthucung from './components/Chuongthucung';
 
 import Thongke from './components/Thongke'
 import AdminProduct from './components/AdminProduct'
+import Orders from './components/Orders'
 
 
 //mai mot bo
@@ -186,9 +188,10 @@ function App() {
           {/* Loi bi chen them the <div> cua ulr /products roi moi den /:id */}
 
           <Route path='/products' component={Products} />
-
           <Route path='/cart' component={CartScreen} />
+          
           <Route path='/admin' component={Admin} />
+          <Route path='/profile' component={ProfileScreen} />
 
           <Route path='/thucancun' component={Thucancun} />
           <Route path='/thucanmeo' component={Thucanmeo} />
@@ -229,6 +232,7 @@ function Admin() {
       <Route exact path={path} component={AdminScreen} />
       <Route path='/admin/sanpham' component={AdminProduct} />
       <Route path='/admin/thongke' component={Thongke} />
+      <Route path='/admin/orders' component={Orders} />
     </Switch>
   )
 }

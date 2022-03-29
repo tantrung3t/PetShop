@@ -2,16 +2,12 @@ import React, { useEffect, useState } from "react"
 import CartItem from '../components/CartItem'
 import axios from "axios";
 
-//tạm thời đóng các checked all để kiểm tra
-
 export default function CartScreens() {
   const url = "http://localhost:3003";
 
   const [productsCart, setProductsCart] = useState([]);
   // const [isCheck, setIsCheck] = useState([]);
   // const [isCheckAll, setIsCheckAll] = useState(false);
-
-
 
   const handleOnChange = (e) => {
     const { name, checked } = e.target;
@@ -26,7 +22,6 @@ export default function CartScreens() {
       );
       setProductsCart(tempProduct);
     }
-    console.log(productsCart)
   };
 
   useEffect(() => {
@@ -38,27 +33,12 @@ export default function CartScreens() {
     axios.get(`http://localhost:3003/products/cart/` + localStorage.getItem('token'))
       .then(res => {
         const data = res.data;
-        if (data.status !== 401) {
-          setProductsCart(data);
-          localStorage.setItem("total", 0);
-          console.log(localStorage.getItem("total"))
-        }
-
+        if (data.status !== 401) setProductsCart(data);
       })
       .catch(error => console.log(error));
 
   }
 
-  const [totalPayment, setTotalPayment] = useState(0);
-  const addTotal_product = (total) =>{
-    setTotalPayment(totalPayment + total);
-    console.log(total);
-  }
-
-  const handleIncrease = (quantity) => {
-    console.log(quantity);
-    // money = props.price * qty
-  }
 
   // const handleBuy = () => {
   //   return (
@@ -77,6 +57,8 @@ export default function CartScreens() {
   //   // productsCart.
   //   return <div>1</div>
   // }
+  localStorage.setItem("total", 0);
+  console.log(localStorage.getItem("total"))
 
   return (
     <div className="grid">
@@ -87,8 +69,8 @@ export default function CartScreens() {
               className="cbx"
               type={"checkbox"}
               name="allSelect"
-              // checked={!productsCart.some((product) => product?.isChecked !== true)}
-              // onChange={handleOnChange}
+              checked={!productsCart.some((product) => product?.isChecked !== true)}
+              onChange={handleOnChange}
             />
           </div>
           <span style={{ flex: "1", textAlign: "left" }}>Sản phẩm</span>
@@ -110,12 +92,6 @@ export default function CartScreens() {
             price={product.product_price}
             amount={product.product_amount}
             quantity={product.shopping_cart_amount}
-            total={product.product_amount * product.shopping_cart_amount}
-
-            //truyền thằng bên dưới qua bên CartItem để nó biết được bên thằng cha nó có function addTotal_product(price)
-            //và chỉ cần thằng con nhận props thì viết code xữ lý bên function thằng cha.
-            checkedAddTotal={(total) => { addTotal_product(total) }}
-            handleIncreaseQuantity={(quantity) => {handleIncrease(quantity) }}
           />
         )
       }
@@ -129,17 +105,17 @@ export default function CartScreens() {
               className="cbx"
               type={"checkbox"}
               name="allSelect"
-              // checked={!productsCart.some((product) => product?.isChecked !== true)}
-              // onChange={handleOnChange}
+              checked={!productsCart.some((product) => product?.isChecked !== true)}
+              onChange={handleOnChange}
             />
             &nbsp;Chọn tất cả
           </div>
           <div>Xóa</div>
-          <div>Tổng hóa đơn: {totalPayment} </div>
+          <div>Tổng hóa đơn: {localStorage.getItem('total')} </div>
           <div
             className="btn btn-primary"
             style={{ fontSize: "16px" }}
-          // onClick={handleBuy}
+            // onClick={handleBuy}
           >Mua Hàng</div>
         </div>
       </div>
@@ -152,13 +128,13 @@ export default function CartScreens() {
       </div> */}
       <div>
         <form>
-          <input type={"text"} name="name" placeholder="Tên" />
-          <input type={"text"} name="phone" placeholder="Số điện thoại" />
-          <input type={"email"} name="email" placeholder="email" />
-          <input type={"text"} name="address" placeholder="Địa chỉ" />
+          <input type={"text"} name="name" placeholder="Tên"/>
+          <input type={"text"} name="phone" placeholder="Số điện thoại"/>
+          <input type={"email"} name="email" placeholder="email"/>
+          <input type={"text"} name="address" placeholder="Địa chỉ"/>
           <label>Tổng hóa đơn: </label>
-          <input type={"button"} name="" value={"Thanh Toán"} />
-
+          <input type={"button"} name="" value={"Thanh Toán"}/>
+          
         </form>
       </div>
     </div>

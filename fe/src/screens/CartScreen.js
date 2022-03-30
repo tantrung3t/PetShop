@@ -9,6 +9,30 @@ export default function CartScreens() {
   // const [isCheck, setIsCheck] = useState([]);
   // const [isCheckAll, setIsCheckAll] = useState(false);
 
+  const profile = JSON.parse(localStorage.getItem("profile"));
+  const [order] = useState({
+    fname: profile.fname,
+    lname: profile.lname,
+    date: profile.date,
+    sex: profile.sex,
+    email: profile.email,
+    phone: profile.phone,
+    address: profile.address
+  })
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.post('http://localhost:3003/api/orders', order)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    alert("Bạn đã đặt hàng thành công!");
+  }
+
+
   const handleOnChange = (e) => {
     const { name, checked } = e.target;
     if (name === "allSelect") {
@@ -22,12 +46,21 @@ export default function CartScreens() {
       );
       setProductsCart(tempProduct);
     }
+
+    // console.log(productsCart)
+
   };
 
   useEffect(() => {
     loadData()
     // console.log(isCheckAll)
+    // setOrder(order => ({
+    //   ...order,
+    //   // parse(localStorage.getItem("profile")).lname,
+    // }))
   }, []);
+
+  console.log(order)
 
   const loadData = () => {
     axios.get(`http://localhost:3003/products/cart/` + localStorage.getItem('token'))
@@ -40,7 +73,19 @@ export default function CartScreens() {
   }
 
 
-  // const handleBuy = () => {
+  // const [totalPayment, setTotalPayment] = useState(0);
+  // const addTotal_product = (total) =>{
+  //   setTotalPayment(totalPayment + total);
+  //   console.log(total);
+  // }
+
+  // const handleIncrease = (quantity) => {
+  //   console.log(quantity);
+  //   // money = props.price * qty
+  // }
+
+
+  // const handlePayment = () => {
   //   return (
   //     <div className="modal fade" id="modalLoginForm" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   //       <div className="modal-dialog" role="document">
@@ -92,6 +137,14 @@ export default function CartScreens() {
             price={product.product_price}
             amount={product.product_amount}
             quantity={product.shopping_cart_amount}
+
+          // total={product.product_amount * product.shopping_cart_amount}
+
+          //truyền thằng bên dưới qua bên CartItem để nó biết được bên thằng cha nó có function addTotal_product(price)
+          //và chỉ cần thằng con nhận props thì viết code xữ lý bên function thằng cha.
+          // checkedAddTotal={(total) => { addTotal_product(total) }}
+          // handleIncreaseQuantity={(quantity) => {handleIncrease(quantity) }}
+
           />
         )
       }
@@ -115,7 +168,7 @@ export default function CartScreens() {
           <div
             className="btn btn-primary"
             style={{ fontSize: "16px" }}
-            // onClick={handleBuy}
+          // onClick={handleBuy}
           >Mua Hàng</div>
         </div>
       </div>
@@ -126,15 +179,72 @@ export default function CartScreens() {
           </div>
         </div>
       </div> */}
-      <div>
-        <form>
-          <input type={"text"} name="name" placeholder="Tên"/>
-          <input type={"text"} name="phone" placeholder="Số điện thoại"/>
-          <input type={"email"} name="email" placeholder="email"/>
-          <input type={"text"} name="address" placeholder="Địa chỉ"/>
-          <label>Tổng hóa đơn: </label>
-          <input type={"button"} name="" value={"Thanh Toán"}/>
-          
+      <div className="form-container">
+        <h2>Thông tin khách hàng</h2>
+        <form className="form-wrap" onSubmit={handleSubmit}>
+          <div className="form-input--wrap">
+            <label htmlFor="info-order__name">Tên: </label>
+            <input
+              id="info-order__name"
+              className="form-input"
+              type={"text"}
+              name="name"
+              placeholder="Tên"
+              defaultValue={profile.lname + " " + profile.fname}
+            />
+          </div>
+          <div className="form-input--wrap">
+            <label htmlFor="info-order__phone">Số điện thoại: </label>
+            <input
+              id="info-order__phone"
+              className="form-input"
+              type={"text"}
+              name="phone"
+              placeholder="Số điện thoại"
+              defaultValue={profile.phone}
+            />
+          </div>
+          <div className="form-input--wrap">
+            <label htmlFor="info-order__email">Email: </label>
+            <input
+              id="info-order__email"
+              className="form-input"
+              type={"email"}
+              name="email"
+              placeholder="Email"
+              defaultValue={profile.email}
+            />
+          </div>
+          <div className="form-input--wrap">
+            <label htmlFor="info-order__address">Địa chỉ: </label>
+            <input
+              id="info-order__address"
+              className="form-input"
+              type={"text"}
+              name="address"
+              placeholder="Địa chỉ"
+              defaultValue={profile.address}
+            />
+          </div>
+          <div className="form-input--wrap">
+            <label htmlFor="info-order__total">Tổng hóa đơn: </label>
+            <input
+              id="info-order__total"
+              className="form-input"
+              type={"text"}
+              name="total"
+              placeholder="Tổng tiền"
+              disabled={true}
+              defaultValue={localStorage.getItem("total")}
+            />
+          </div>
+          <div className="flex around my-2" >
+            <button
+              type={"submit"}
+              className="btn btn-primary form-btn"
+            >Thanh Toán
+            </button>
+          </div>
         </form>
       </div>
     </div>

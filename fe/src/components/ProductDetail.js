@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
 
 import QuantityButton from '../components/QuantityButton';
@@ -9,7 +9,7 @@ export default function ProductDetail(props) {
   // ProductDetail.propTypes = {
   //   props: PropTypes.string
   // }
-
+  const history = useHistory();
   const url = "http://localhost:3003";
   const [link, setLink] = useState('');
   const [data, setData] = useState(
@@ -65,20 +65,26 @@ export default function ProductDetail(props) {
   }, [props.id]);
 
 
-  const handleOrder = () => {
-    axios.post('http://localhost:3003/api/cart', {
-      product: data[0],
-      quantity: localStorage.getItem('qty')
-    })
-      .then(function (response) {
-        console.log(response);
+  const handleOrder = (e) => {
+    if(localStorage.getItem("user") === "") {
+      console.log("fail")
+      history.push('/signin')
+    } else {
+      e.preventDefault();
+      axios.post('http://localhost:3003/api/cart', {
+        product: data[0],
+        quantity: localStorage.getItem('qty')
       })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    // console.log(data[0]);
-    alert("Bạn đã thêm sản phẩm vào giỏ hàng.")
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  
+      // console.log(data[0]);
+      alert("Bạn đã thêm sản phẩm vào giỏ hàng.")
+    }
   };
 
 

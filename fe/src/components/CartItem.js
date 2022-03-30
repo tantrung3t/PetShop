@@ -17,7 +17,7 @@ export default function CartItem(props) {
       });
   }
 
-  const [qty, setQty] = useState( props.quantity || 1 );
+  const [qty, setQty] = useState(props.quantity || 1);
   localStorage.setItem('qty', qty);
 
   var money = props.price * qty;
@@ -25,16 +25,22 @@ export default function CartItem(props) {
 
   const handleIncrease = () => {
     setQty(qty + 1);
+    //qty + 1 vì callbacks function gọi trước setQty nên giá trị không đúng
+    // props.handleIncreaseQuantity(qty + 1);
+
+
+
+  }
+  const handleDecrease = () => {
+    setQty(qty - 1);
+
+    //qty - 1 vì callbacks function gọi trước setQty nên giá trị không đúng
+    // props.handleIncreaseQuantity(qty - 1);
     // money = props.price * qty
   }
 
-  const handleDecrease = () => {
-    setQty(qty - 1);
-    // money = props.price * qty
-  }
-  
   // const [checkbox, setCheckbox] = useState();
-  useEffect( () => {
+  useEffect(() => {
     hadleTotal()
   }, [props])
 
@@ -45,10 +51,20 @@ export default function CartItem(props) {
     money = props.price * qty;
     // console.log(isCheck)
     isCheck ? localStorage.setItem("total", total += money) : localStorage.setItem("total", temp);
-    console.log("total: "+localStorage.getItem("total"));
+    console.log("total: " + localStorage.getItem("total"));
     // setCheckbox(isCheck);
   }
-  
+
+
+
+
+  //đặt tên function giống tên thằng cha cho dễ sử dụng
+  //nhận props bên thằng cha đưa qua theo đúng cái nó truyền qua
+  // const checkedAddTotal = () => {
+  //   props.checkedAddTotal(props.price * qty);
+  // }
+
+
   return (
     <div className="my-3">
       <div className="cart__item">
@@ -60,6 +76,8 @@ export default function CartItem(props) {
             name={props.id}
             checked={props.isCheck}
             onChange={props.onChange}
+
+            // onClick={checkedAddTotal}
           />
         </div>
         <Link to={'/product/' + props.id} className="flex " style={{ flex: "1", textAlign: "left" }}>

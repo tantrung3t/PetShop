@@ -18,7 +18,6 @@ export default function Thongke() {
         { name: 'Tháng 2', "sold": 200 },
         { name: 'Tháng 3', "sold": 170 },
         { name: 'Tháng 4', "sold": 130 },
-        { name: 'Tháng 5', "sold": 150 },
     ];
     const data4Thang = [
         { name: 'Tháng 1', "sold": 20 },

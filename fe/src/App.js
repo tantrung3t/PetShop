@@ -13,8 +13,10 @@ import HomeScreen from './screens/HomeScreen';
 import SigninScreen from './screens/SigninScreen'
 import RegisterScreen from './screens/RegisterScreen';
 import ProductsScreen from './screens/ProductsScreen';
-import AdminScreen from './screens/AdminScreen'
+// import AdminScreen from './screens/AdminScreen'
 import CartScreen from './screens/CartScreen'
+import ProfileScreen from './screens/ProfileScreen'
+import BrandScreen from './screens/BrandScreen'
 
 import Thucancun from './components/Thucancun';
 import Thucanmeo from './components/Thucanmeo';
@@ -86,11 +88,11 @@ function App() {
       to: '/brand',
       exact: false
     },
-    {
-      name: 'Giới Thiệu',
-      to: '/',
-      exact: true
-    }
+    // {
+    //   name: 'Giới Thiệu',
+    //   to: '/footer',
+    //   exact: true
+    // }
   ];
 
   const NavLink = ({ lable, to, isExact }) => {
@@ -179,6 +181,7 @@ function App() {
         <main>
           <Route path='/' exact component={HomeScreen} />
           <Route path='/register' component={RegisterScreen} />
+          <Route path='/brand' component={BrandScreen} />
           <Route path='/signin' render={() => {
             return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />
           }}
@@ -187,9 +190,10 @@ function App() {
           {/* Loi bi chen them the <div> cua ulr /products roi moi den /:id */}
 
           <Route path='/products' component={Products} />
-
           <Route path='/cart' component={CartScreen} />
+          
           <Route path='/admin' component={Admin} />
+          <Route path='/profile' component={ProfileScreen} />
 
           <Route path='/thucancun' component={Thucancun} />
           <Route path='/thucanmeo' component={Thucanmeo} />
@@ -227,7 +231,7 @@ function Admin() {
   let { path } = useRouteMatch();
   return (
     <Switch>
-      <Route exact path={path} component={AdminScreen} />
+      <Route exact path={path} component={Thongke} />
       <Route path='/admin/sanpham' component={AdminProduct} />
       <Route path='/admin/thongke' component={Thongke} />
       <Route path='/admin/dathang' component={AdminOrder} />

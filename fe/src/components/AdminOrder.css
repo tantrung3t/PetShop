@@ -1,0 +1,49 @@
+    .button-order-detail{
+        padding: 10px 20px;
+        margin: 3px 3px 3px 3px;
+        outline: none;
+        border: none;
+        background-color: #084f58;
+        color: #f7f7f7;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .button-order-detail:hover{
+        background-color: #17b991;
+    }
+
+    .button-accept-order{
+        width: 110px;
+        outline: none;
+    border: none;
+    padding: 10px 20px;
+    margin: 3px 3px 3px 3px;
+    background-color: #2fad73;
+    color: #f7f7f7;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    }
+    .button-accept-order:hover{
+        background-color: #2ac9a1;
+    }
+
+    .button-deny-order{
+        width: 110px;
+        outline: none;
+    border: none;
+    padding: 10px 20px;
+    margin: 3px 3px 3px 3px;
+    background-color: #a72727;
+    color: #f7f7f7;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    }
+    .button-deny-order:hover{
+        background-color: #e74d42;
+    }

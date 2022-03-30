@@ -185,6 +185,7 @@ export default function AdminProduct() {
       "token": localStorage.getItem('token'),
       "product_id": id
     }
+    
     axios({
       method: 'post',
       url: 'http://localhost:3003/products/delete',
@@ -462,9 +463,7 @@ export default function AdminProduct() {
         </div>
       </div>
       <div className={hide} onClick={exit_modal}>
-
         <div className="modal__inner">
-
           <div className="modal__header">
             <p>{titleModal}</p>
             <FontAwesomeIcon icon={faXmarkCircle} fontSize={35} onClick={close_modal} />

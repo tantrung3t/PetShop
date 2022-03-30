@@ -23,6 +23,7 @@ require('./app/routers/test.router')(app);
 require('./app/routers/home.router')(app);
 require('./app/routers/product.router')(app);
 require('./app/routers/account.router')(app);
+require('./app/routers/admin.router')(app);
 
 //get image from backend
 app.get('/image/:id', (req, res) => {
@@ -67,6 +68,19 @@ app.post('/api/cart/delete', (req, res) => {
 	console.log(req.body)
 })
 
+app.get('/api/profile', (req, res) => {
+  res.send('profile')
+})
+app.post('/api/profile', (req, res) => {
+	console.log(req.body)
+})
+
+app.get('/api/orders', (req, res) => {
+  res.send('orders')
+})
+app.post('/api/orders', (req, res) => {
+	console.log(req.body)
+})
 
 // 
 app.listen(port, () => {

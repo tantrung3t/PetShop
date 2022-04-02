@@ -28,6 +28,9 @@ import Thongke from './components/Thongke'
 import AdminProduct from './components/AdminProduct'
 import AdminOrder from './components/AdminOrder';
 
+import Thanhtoan from './screens/Thanhtoan'
+
+
 
 //mai mot bo
 
@@ -200,6 +203,7 @@ function App() {
           <Route path='/dochoithucung' component={Dochoithucung} />
           <Route path='/phukienthucung' component={Phukienthucung} />
           <Route path='/chuongthucung' component={Chuongthucung} />
+          <Route path='/thanhtoan' component={Thanhtoan} />
         </main>
 
         <footer className='flex'>

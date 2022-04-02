@@ -1,11 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import './Thongke.css';
+import axios from 'axios';
 
 import { PieChart, Pie, RadialBarChart, RadialBar, AreaChart, Area, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 export default function Thongke() {
 
+    const [dataThang, setDataThang] = useState();
+    const [total_sales, setTotal_Sales] = useState(0);
+
+    useEffect(() => {
+        setTimeout(function () {
+            loadDataThang()
+        }, 1800);
+
+    }, [])
+
+    const loadDataThang = async () => {
+        await axios.get(`http://localhost:3003/admin/statistic/4month`)
+            .then(res => {
+                const data = res.data;
+                setDataThang(data)
+                setTotal_Sales(data[3].total)
+                var percent = (data[3].total / data[2].total)
+
+                console.log(((1 - percent) * 10).toFixed(1))
+            })
+            .catch(error => console.log(error))
+    }
     const data = [
         { name: 'Thức ăn cún', "Tháng trước": 400, "Tháng này": 500 },
         { name: 'Thức ăn mèo', "Tháng trước": 200, "Tháng này": 310 },
@@ -13,11 +36,11 @@ export default function Thongke() {
         { name: 'Phụ kiện thú cưng', "Tháng trước": 400, "Tháng này": 540 },
         { name: 'Chuồng thú cưng', "Tháng trước": 400, "Tháng này": 480 }
     ];
-    const dataThang = [
-        { name: 'Tháng 1', "sold": 130 },
-        { name: 'Tháng 2', "sold": 200 },
-        { name: 'Tháng 3', "sold": 170 },
-        { name: 'Tháng 4', "sold": 130 },
+    const datademoThang = [
+        { name: 'Tháng 1', "total": 100000 },
+        { name: 'Tháng 2', "total": 2000000 },
+        { name: 'Tháng 3', "total": 1700000 },
+        { name: 'Tháng 4', "total": 1300000 },
     ];
     const data4Thang = [
         { name: 'Tháng 1', "sold": 20 },
@@ -33,6 +56,23 @@ export default function Thongke() {
         { name: 'Chuồng thú cưng', "uv": 10, "fill": "#a4de6c" }
     ]
 
+    const render_Tongdoanhthu = () => {
+
+        return (
+            <div>
+                <div style={box_title}>
+                    Tổng doanh thu
+                </div>
+                <div style={box_value}>
+                    {total_sales.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VNĐ
+                </div>
+                <div style={box_percent_increase}>
+                    +3.5%
+                </div>
+            </div>
+        )
+
+    }
     const box = {
         display: 'flex',
         justifyContent: 'space-between',
@@ -105,10 +145,57 @@ export default function Thongke() {
         margin: '10px',
         // border: '2px solid',
     }
+
+    const render_line_chart = () => {
+        if (dataThang === undefined) {
+            return (
+                <AreaChart width={450} height={300} data={datademoThang}>
+                    <defs>
+                        <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                            <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+                        </linearGradient>
+                        <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#1f89e5" stopOpacity={0.8} />
+                            <stop offset="95%" stopColor="#1f89e5" stopOpacity={0} />
+                        </linearGradient>
+                    </defs>
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <Tooltip />
+                    {/* <Area type="monotone" dataKey="sold" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" /> */}
+                    <Area type="monotone" dataKey="total" stroke="#1f89e5" fillOpacity={1} fill="url(#colorPv)" />
+                </AreaChart>
+            )
+        }
+        else {
+            return (
+                <AreaChart width={450} height={300} data={dataThang}>
+                    <defs>
+                        <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                            <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+                        </linearGradient>
+                        <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#1f89e5" stopOpacity={0.8} />
+                            <stop offset="95%" stopColor="#1f89e5" stopOpacity={0} />
+                        </linearGradient>
+                    </defs>
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <Tooltip />
+                    {/* <Area type="monotone" dataKey="sold" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" /> */}
+                    <Area type="monotone" dataKey="total" stroke="#1f89e5" fillOpacity={1} fill="url(#colorPv)" />
+                </AreaChart>
+            )
+        }
+    }
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
             <div style={box3}>
-                
+
                 <div className="admin_title2">
                     <Link to='/admin/thongke' >
                         Thống kê
@@ -128,17 +215,7 @@ export default function Thongke() {
             <div style={{ paddingLeft: '10px', paddingRight: '10px' }}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <div style={box}>
-                        <div>
-                            <div style={box_title}>
-                                Tổng doanh thu
-                            </div>
-                            <div style={box_value}>
-                                15.500.000 VNĐ
-                            </div>
-                            <div style={box_percent_increase}>
-                                +3.5%
-                            </div>
-                        </div>
+                        {render_Tongdoanhthu()}
                         <div style={chart}>
                             <AreaChart width={130} height={110} data={data4Thang}>
                                 <defs>
@@ -205,43 +282,10 @@ export default function Thongke() {
 
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <div style={box2}>
-                        <AreaChart width={450} height={300} data={dataThang}>
-                            <defs>
-                                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-                                    <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-                                </linearGradient>
-                                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#1f89e5" stopOpacity={0.8} />
-                                    <stop offset="95%" stopColor="#1f89e5" stopOpacity={0} />
-                                </linearGradient>
-                            </defs>
-                            <XAxis dataKey="name" />
-                            <YAxis />
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <Tooltip />
-                            {/* <Area type="monotone" dataKey="sold" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" /> */}
-                            <Area type="monotone" dataKey="sold" stroke="#1f89e5" fillOpacity={1} fill="url(#colorPv)" />
-                        </AreaChart>
+                        {render_line_chart()}
+                        <div>Doanh thu 4 tháng vừa qua</div>
                     </div>
 
-                    <div style={box2}>
-                        <BarChart width={700} height={350} data={data}>
-                            {/* biểu đồ đường */}
-                            {/* màu đường lưới */}
-                            <CartesianGrid strokeDasharray="3 3" />
-                            {/* tên trên cột dưới chân */}
-                            <XAxis dataKey="name" />
-                            <YAxis />
-                            <Tooltip />
-                            {/* mô tả Bar */}
-                            <Legend />
-                            <Bar dataKey="Tháng trước" fill="#8884d8" />
-                            <Bar dataKey="Tháng này" fill="#ffba57" />
-                        </BarChart>
-                    </div>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <div style={box2}>
                         <BarChart width={700} height={350} data={data}>
                             {/* biểu đồ đường */}
@@ -256,28 +300,10 @@ export default function Thongke() {
                             <Bar dataKey="Tháng trước" fill="#2d81ef" />
                             <Bar dataKey="Tháng này" fill="#00d27a" />
                         </BarChart>
-                    </div>
-                    <div style={box2}>
-                        <AreaChart width={450} height={300} data={dataThang}>
-                            <defs>
-                                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-                                    <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-                                </linearGradient>
-                                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#1f89e5" stopOpacity={0.8} />
-                                    <stop offset="95%" stopColor="#1f89e5" stopOpacity={0} />
-                                </linearGradient>
-                            </defs>
-                            <XAxis dataKey="name" />
-                            <YAxis />
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <Tooltip />
-                            {/* <Area type="monotone" dataKey="sold" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" /> */}
-                            <Area type="monotone" dataKey="sold" stroke="#1f89e5" fillOpacity={1} fill="url(#colorPv)" />
-                        </AreaChart>
+                        <div>Doanh thu theo loại sản phẩm</div>
                     </div>
                 </div>
+
             </div>
         </div>
     );

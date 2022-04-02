@@ -16,6 +16,26 @@ exports.products_orders_by_id = function (req, res) {
     })
 }
 
+exports.statistic_4month = function (req, res) {
+
+    admin.statistic_4month(function (data) {
+        res.send(data);
+    })
+}
+exports.sales_last_month = function (req, res) {
+
+    admin.sales_last_month(function (data) {
+        res.send(data);
+    })
+}
+exports.sales_this_month = function (req, res) {
+
+    admin.sales_this_month(function (data) {
+        res.send(data);
+    })
+}
+
+
 exports.deny_or_accept_order = function (req, res) {
     // var token = req.body.token;
 

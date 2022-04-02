@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import CartItem from '../components/CartItem'
 import axios from "axios";
+import './CartScreen.css';
 
 export default function CartScreens() {
   const url = "http://localhost:3003";
@@ -10,6 +11,7 @@ export default function CartScreens() {
   // const [isCheckAll, setIsCheckAll] = useState(false);
 
   const profile = JSON.parse(localStorage.getItem("profile"));
+
   const [order] = useState({
     fname: profile.fname,
     lname: profile.lname,
@@ -19,6 +21,7 @@ export default function CartScreens() {
     phone: profile.phone,
     address: profile.address
   })
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -179,73 +182,86 @@ export default function CartScreens() {
           </div>
         </div>
       </div> */}
-      <div className="form-container">
-        <h2>Thông tin khách hàng</h2>
-        <form className="form-wrap" onSubmit={handleSubmit}>
-          <div className="form-input--wrap">
-            <label htmlFor="info-order__name">Tên: </label>
-            <input
-              id="info-order__name"
-              className="form-input"
-              type={"text"}
-              name="name"
-              placeholder="Tên"
-              defaultValue={profile.lname + " " + profile.fname}
-            />
+      <div className="modal">
+        <div className="modal__inner">
+          <div className="modal__header">
+            <p>Thông tin đặt hàng</p>
           </div>
-          <div className="form-input--wrap">
-            <label htmlFor="info-order__phone">Số điện thoại: </label>
-            <input
-              id="info-order__phone"
-              className="form-input"
-              type={"text"}
-              name="phone"
-              placeholder="Số điện thoại"
-              defaultValue={profile.phone}
-            />
-          </div>
-          <div className="form-input--wrap">
-            <label htmlFor="info-order__email">Email: </label>
-            <input
-              id="info-order__email"
-              className="form-input"
-              type={"email"}
-              name="email"
-              placeholder="Email"
-              defaultValue={profile.email}
-            />
-          </div>
-          <div className="form-input--wrap">
-            <label htmlFor="info-order__address">Địa chỉ: </label>
-            <input
-              id="info-order__address"
-              className="form-input"
-              type={"text"}
-              name="address"
-              placeholder="Địa chỉ"
-              defaultValue={profile.address}
-            />
-          </div>
-          <div className="form-input--wrap">
-            <label htmlFor="info-order__total">Tổng hóa đơn: </label>
-            <input
-              id="info-order__total"
-              className="form-input"
-              type={"text"}
-              name="total"
-              placeholder="Tổng tiền"
-              disabled={true}
-              defaultValue={localStorage.getItem("total")}
-            />
-          </div>
-          <div className="flex around my-2" >
-            <button
-              type={"submit"}
-              className="btn btn-primary form-btn"
-            >Thanh Toán
-            </button>
-          </div>
-        </form>
+          <form className="modal_body" onSubmit={handleSubmit}>
+            <div className="CartScreen_modal_body">
+              <div className="form-input--wrap">
+                <label htmlFor="info-order__name">Tên: </label>
+                <input
+                  id="info-order__name"
+                  className="form-input"
+                  type={"text"}
+                  name="name"
+                  placeholder="Tên"
+                  defaultValue={profile.lname + " " + profile.fname}
+                />
+              </div>
+              <div className="form-input--wrap">
+                <label htmlFor="info-order__phone">Số điện thoại: </label>
+                <input
+                  id="info-order__phone"
+                  className="form-input"
+                  type={"text"}
+                  name="phone"
+                  placeholder="Số điện thoại"
+                  defaultValue={profile.phone}
+                />
+              </div>
+              <div className="form-input--wrap">
+                <label htmlFor="info-order__email">Email: </label>
+                <input
+                  id="info-order__email"
+                  className="form-input"
+                  type={"email"}
+                  name="email"
+                  placeholder="Email"
+                  defaultValue={profile.email}
+                />
+              </div>
+              <div className="form-input--wrap">
+                <label htmlFor="info-order__address">Địa chỉ: </label>
+                <input
+                  id="info-order__address"
+                  className="form-input"
+                  type={"text"}
+                  name="address"
+                  placeholder="Địa chỉ"
+                  defaultValue={profile.address}
+                />
+              </div>
+              <div className="form-input--wrap">
+                <label htmlFor="info-order__total">Tổng hóa đơn: </label>
+                <input
+                  id="info-order__total"
+                  className="form-input"
+                  type={"text"}
+                  name="total"
+                  placeholder="Tổng tiền"
+                  disabled={true}
+                  defaultValue={localStorage.getItem("total")}
+                />
+              </div>
+            </div>
+            <div className="CartScreen_modal_footer" >
+              <button
+                type={"submit"}
+                className="CartScreen_modal_footer_button_momo">
+                <img className="CartScreen_modal_image" src='../assets/img/MoMo_logo.png'></img>
+                Thanh toán qua ví MoMo
+              </button>
+              <button
+                type={"submit"}
+                className="CartScreen_modal_footer_button_offline">
+                <img className="CartScreen_modal_image" src='../assets/img/payment_logo.png'></img>
+                Thanh toán khi nhận hàng
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

@@ -6,8 +6,7 @@ export default function CartScreens() {
   const url = "http://localhost:3003";
 
   const [productsCart, setProductsCart] = useState([]);
-  // const [isCheck, setIsCheck] = useState([]);
-  // const [isCheckAll, setIsCheckAll] = useState(false);
+  const [time, setTime] = useState("");
 
   const profile = JSON.parse(localStorage.getItem("profile"));
   const [order] = useState({
@@ -224,6 +223,18 @@ export default function CartScreens() {
               name="address"
               placeholder="Địa chỉ"
               defaultValue={profile.address}
+            />
+          </div>
+          <div className="form-input--wrap">
+            <label htmlFor="info-order__phone">Thời gian đặt: </label>
+            <input
+              id="info-order__time"
+              className="form-input"
+              type={"text"}
+              name="time"
+              placeholder="Thời gian đặt"
+              value={time}
+              onChange={setTime(new Date())}
             />
           </div>
           <div className="form-input--wrap">

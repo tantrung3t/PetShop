@@ -4,7 +4,7 @@ const home = function () {
 }
 
 home.bestseller = function (result) {
-    var strquery = "select product_id, product_name, product_price, product_image, product_sold from products WHERE isDelete = 0 order by product_sold desc limit 6;"
+    var strquery = "select product_id, product_name, product_price, product_image, product_sold from products WHERE isDelete = 0 order by product_sold desc limit 0, 10;"
     db.query(strquery, function (err, data) {
         if (err) {
             result(null);

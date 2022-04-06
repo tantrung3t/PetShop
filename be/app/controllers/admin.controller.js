@@ -35,6 +35,11 @@ exports.sales_this_month = function (req, res) {
     })
 }
 
+exports.orders_and_quantity_sales = function (req, res) {
+    admin.orders_and_quantity_sales(function (data) {
+        res.send(data);
+    })
+}
 
 exports.deny_or_accept_order = function (req, res) {
     // var token = req.body.token;

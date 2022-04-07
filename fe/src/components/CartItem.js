@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 // import ReactDOM from 'react-dom';
 import axios from 'axios'
 // import QuantityButton from './QuantityButton'
@@ -40,21 +40,24 @@ export default function CartItem(props) {
   }
 
   // const [checkbox, setCheckbox] = useState();
-  useEffect(() => {
-    hadleTotal()
-  }, [props])
+  // useEffect(() => {
+  //   hadleTotal()
+  // }, [props])
 
-  const hadleTotal = () => {
+  const handleTotal = () => {
     var total = parseInt(localStorage.getItem("total"));
     var isCheck = document.getElementById("cbx" + props.id).checked;
-    var temp = total;
+    // var temp = total;
     money = props.price * qty;
     // console.log(isCheck)
-    isCheck ? localStorage.setItem("total", total += money) : localStorage.setItem("total", temp);
+    isCheck ? localStorage.setItem("total", total += money) : localStorage.setItem("total", total -= money);
     console.log("total: " + localStorage.getItem("total"));
+
+    props.callbackhadleTotal(total);
     // setCheckbox(isCheck);
   }
 
+  
 
 
 
@@ -77,7 +80,7 @@ export default function CartItem(props) {
             checked={props.isCheck}
             onChange={props.onChange}
 
-            // onClick={checkedAddTotal}
+            onClick={handleTotal}
           />
         </div>
         <Link to={'/product/' + props.id} className="flex " style={{ flex: "1", textAlign: "left" }}>

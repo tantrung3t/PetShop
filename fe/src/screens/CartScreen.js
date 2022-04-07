@@ -1,40 +1,71 @@
 import React, { useEffect, useState } from "react"
-import CartItem from '../components/CartItem'
+import CartItem from '../components/CartItem';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import './CartScreen.css';
 
+
+localStorage.setItem("total", 0)
+
 export default function CartScreens() {
+  console.log("re render")
   const url = "http://localhost:3003";
+
+  const [modal, setModal] = useState("modal hide");
 
   const [productsCart, setProductsCart] = useState([]);
   // const [isCheck, setIsCheck] = useState([]);
   // const [isCheckAll, setIsCheckAll] = useState(false);
+  const [totalPayment, setTotalPayment] = useState(0)
 
   const profile = JSON.parse(localStorage.getItem("profile"));
 
   const [order] = useState({
-    fname: profile.fname,
-    lname: profile.lname,
-    date: profile.date,
-    sex: profile.sex,
-    email: profile.email,
-    phone: profile.phone,
-    address: profile.address
+    fname: profile.info_fname,
+    lname: profile.info_lname,
+    date: profile.info_date,
+    sex: profile.info_sex,
+    email: profile.info_email,
+    phone: profile.info_phone_number,
+    address: profile.info_address
   })
 
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:3003/api/orders', order)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    alert("Bạn đã đặt hàng thành công!");
+    // axios.post('http://localhost:3003/api/orders', order)
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+    // console.log(totalPayment)
+    // alert("Bạn đã đặt hàng thành công!");
+    thanhtoanmomo()
   }
 
+  const thanhtoanmomo = async () => {
+    const databody = {
+        "order_id": 25,
+        "amount": totalPayment
+    }
+
+    await axios({
+        method: 'post',
+        url: 'http://localhost:3003/thanhtoan',
+        data: databody
+    })
+        .then(function (response) {
+            const data = response.data;
+            console.log(data)
+            window.location = data.payUrl
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
 
   const handleOnChange = (e) => {
     const { name, checked } = e.target;
@@ -54,6 +85,13 @@ export default function CartScreens() {
 
   };
 
+  const close_modal = () => {
+    setModal("modal hide");
+  }
+  const exit_modal = (e) => {
+    if (e.target == e.currentTarget) close_modal();
+  }
+
   useEffect(() => {
     loadData()
     // console.log(isCheckAll)
@@ -63,7 +101,7 @@ export default function CartScreens() {
     // }))
   }, []);
 
-  console.log(order)
+  // console.log(order)
 
   const loadData = () => {
     axios.get(`http://localhost:3003/products/cart/` + localStorage.getItem('token'))
@@ -73,6 +111,12 @@ export default function CartScreens() {
       })
       .catch(error => console.log(error));
 
+  }
+
+  const choosePayment = () => {
+    setModal("modal")
+    document.getElementById("info-order__total").value = totalPayment;
+    console.log(totalPayment)
   }
 
 
@@ -105,8 +149,11 @@ export default function CartScreens() {
   //   // productsCart.
   //   return <div>1</div>
   // }
-  localStorage.setItem("total", 0);
-  console.log(localStorage.getItem("total"))
+
+  const callbackhadleTotal = (total) => {
+    console.log("total cha: " + total)
+    setTotalPayment(total)
+  }
 
   return (
     <div className="grid">
@@ -148,6 +195,8 @@ export default function CartScreens() {
           // checkedAddTotal={(total) => { addTotal_product(total) }}
           // handleIncreaseQuantity={(quantity) => {handleIncrease(quantity) }}
 
+          callbackhadleTotal={(total) => { callbackhadleTotal(total)}}
+
           />
         )
       }
@@ -171,7 +220,7 @@ export default function CartScreens() {
           <div
             className="btn btn-primary"
             style={{ fontSize: "16px" }}
-          // onClick={handleBuy}
+          onClick={choosePayment}
           >Mua Hàng</div>
         </div>
       </div>
@@ -182,10 +231,11 @@ export default function CartScreens() {
           </div>
         </div>
       </div> */}
-      <div className="modal">
+      <div className={modal} onClick={exit_modal}>
         <div className="modal__inner">
           <div className="modal__header">
             <p>Thông tin đặt hàng</p>
+            <FontAwesomeIcon icon={faXmarkCircle} fontSize={35} onClick={close_modal} />
           </div>
           <form className="modal_body" onSubmit={handleSubmit}>
             <div className="CartScreen_modal_body">
@@ -197,7 +247,7 @@ export default function CartScreens() {
                   type={"text"}
                   name="name"
                   placeholder="Tên"
-                  defaultValue={profile.lname + " " + profile.fname}
+                  defaultValue={order.lname + " " + order.fname}
                 />
               </div>
               <div className="form-input--wrap">
@@ -208,7 +258,7 @@ export default function CartScreens() {
                   type={"text"}
                   name="phone"
                   placeholder="Số điện thoại"
-                  defaultValue={profile.phone}
+                  defaultValue={order.phone}
                 />
               </div>
               <div className="form-input--wrap">
@@ -219,7 +269,7 @@ export default function CartScreens() {
                   type={"email"}
                   name="email"
                   placeholder="Email"
-                  defaultValue={profile.email}
+                  defaultValue={order.email}
                 />
               </div>
               <div className="form-input--wrap">
@@ -230,7 +280,7 @@ export default function CartScreens() {
                   type={"text"}
                   name="address"
                   placeholder="Địa chỉ"
-                  defaultValue={profile.address}
+                  defaultValue={order.address}
                 />
               </div>
               <div className="form-input--wrap">
@@ -238,16 +288,15 @@ export default function CartScreens() {
                 <input
                   id="info-order__total"
                   className="form-input"
-                  type={"text"}
+                  type={'number'}
                   name="total"
-                  placeholder="Tổng tiền"
                   disabled={true}
-                  defaultValue={localStorage.getItem("total")}
                 />
               </div>
             </div>
             <div className="CartScreen_modal_footer" >
               <button
+
                 type={"submit"}
                 className="CartScreen_modal_footer_button_momo">
                 <img className="CartScreen_modal_image" src='../assets/img/MoMo_logo.png'></img>

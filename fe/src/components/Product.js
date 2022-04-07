@@ -10,7 +10,7 @@ export default function Product(props) {
         <img src={props.src} alt="img" width="100%" height="200px"  className="home__product-img"></img>
         <div className="p-2">
           <div className="home__product-name">{props.name}</div>
-          <div className="home__product-price">{props.price}  đ</div>
+          <div className="home__product-price">{props.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}  đ</div>
         </div>
       </div>
     </Link>
@@ -36,7 +36,7 @@ export function ProductMiniCartItem(props) {
         <img src={props.src} alt="img" width="60px" height="60px"  className="home__product-img"></img>
         <div className="pl-2">
           <div className="home__product-name--minicart">{props.name}</div>
-          <div className="home__product-price--minicart">{props.price} đ</div>
+          <div className="home__product-price--minicart">{props.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} đ</div>
         </div>
       </Link>
       <div className="link btn-remove" onClick={handleRemoveCart}>Xóa</div>
@@ -63,7 +63,7 @@ export function ProductCartItem(props) {
         <img src={props.src} alt="img" width="100px" height="100px"  className="home__product-img"></img>
         <div className="pl-2">
           <div className="home__product-name--cart">{props.name}</div>
-          <div className="home__product-price--cart">{props.price} đ</div>
+          <div className="home__product-price--cart">{props.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} đ</div>
         </div>
       </Link>
       <div className="link btn-remove" onClick={handleRemoveCart}>Xóa</div>

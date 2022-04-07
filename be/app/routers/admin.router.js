@@ -14,4 +14,7 @@ module.exports = function(router) {
     router.get('/admin/statistic/sales_last_month', adminController.sales_last_month)
     //thong ke thang này theo loai sp
     router.get('/admin/statistic/sales_this_month', adminController.sales_this_month)
+
+    //thong ke don hang va luong san pham ban ra
+    router.get('/admin/statistic/orders_and_quantity_sales', adminController.orders_and_quantity_sales)
 }

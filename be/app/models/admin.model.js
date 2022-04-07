@@ -113,4 +113,30 @@ admin.sales_this_month = function(result) {
     })
 }
 
+admin.orders_and_quantity_sales = function (result) {
+    var dataSend = {thisMonth: [], lastMonth: []}
+    var strquery1 = "SELECT orders_detail.order_id, orders_detail.orders_detail_quantity FROM `orders`, orders_detail WHERE orders.order_status = 1 and orders.order_id = orders_detail.order_id and MONTH(NOW()) - MONTH(order_date) = 0"
+    var strquery2 = "SELECT orders_detail.order_id, orders_detail.orders_detail_quantity FROM `orders`, orders_detail WHERE orders.order_status = 1 and orders.order_id = orders_detail.order_id and MONTH(NOW()) - MONTH(order_date) = 1"
+
+    db.query(strquery1, function (err, data) {
+        if (err) {
+            dataSend.thisMonth = 0
+        }
+        else {
+            dataSend.thisMonth = data
+        }
+        
+    })
+    db.query(strquery2, function (err, data) {
+        if (err) {
+            dataSend.lastMonth = 0
+        }
+        else {
+            dataSend.lastMonth = data
+        }
+        result(dataSend)
+    })
+    
+}
+
 module.exports = admin;

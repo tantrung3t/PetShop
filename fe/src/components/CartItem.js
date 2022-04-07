@@ -15,12 +15,16 @@ export default function CartItem(props) {
       .catch(function (error) {
         console.log(error);
       });
+    alert("Xóa thành công!")
   }
+
+
 
   const [qty, setQty] = useState(props.quantity || 1);
   localStorage.setItem('qty', qty);
 
   var money = props.price * qty;
+  var total = parseInt(localStorage.getItem("total"));
 
 
   const handleIncrease = () => {
@@ -45,16 +49,19 @@ export default function CartItem(props) {
   }, [props])
 
   const hadleTotal = () => {
-    var total = parseInt(localStorage.getItem("total"));
+    total = parseInt(localStorage.getItem("total"));
     var isCheck = document.getElementById("cbx" + props.id).checked;
-    var temp = total;
+    // var temp = total;
     money = props.price * qty;
     // console.log(isCheck)
-    isCheck ? localStorage.setItem("total", total += money) : localStorage.setItem("total", temp);
+    isCheck ? localStorage.setItem("total", total += money) : console.log(localStorage.getItem("total"));
     console.log("total: " + localStorage.getItem("total"));
     // setCheckbox(isCheck);
   }
 
+  const callBackTotal = () =>{
+    props.callBackTotal(total + money)
+  }
 
 
 
@@ -77,7 +84,7 @@ export default function CartItem(props) {
             checked={props.isCheck}
             onChange={props.onChange}
 
-            // onClick={checkedAddTotal}
+            onClick={callBackTotal}
           />
         </div>
         <Link to={'/product/' + props.id} className="flex " style={{ flex: "1", textAlign: "left" }}>

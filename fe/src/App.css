@@ -718,7 +718,7 @@ textarea:focus-visible {
   right: -8px;
   width: 400px;
   max-height: 500px;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   border-radius: 8px;
   background-color: white;
   box-shadow: 0 1px 3em 0 rgb(0 0 0 / 20%);
@@ -1215,7 +1215,17 @@ i {
   width: 25%;
 }
 
-
+/* Infomation Orders */
+.orders-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  background: #fff;
+  margin: 32px auto;
+}
 
 
 

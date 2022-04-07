@@ -24,6 +24,7 @@ require('./app/routers/home.router')(app);
 require('./app/routers/product.router')(app);
 require('./app/routers/account.router')(app);
 require('./app/routers/admin.router')(app);
+require('./app/routers/thanhtoan.router')(app);
 
 //get image from backend
 app.get('/image/:id', (req, res) => {

@@ -20,7 +20,7 @@ export default function Product(props) {
 export function ProductMiniCartItem(props) {
 
   const handleRemoveCart = () => {
-    // console.log("xóa")
+    console.log("xóa " + props.id)
     axios.post('http://localhost:3003/api/cart/delete', {id: props.id})
       .then(function (response) {
         console.log(response);
@@ -28,10 +28,11 @@ export function ProductMiniCartItem(props) {
       .catch(function (error) {
         console.log(error);
       });
+    alert("Xóa thành công!") 
   }
 
   return (
-    <li className="p-1" style={{position: "relative"}}>
+    <li className="p-1 mx-2" style={{position: "relative"}}>
       <Link to={`/product/${props.id}`} className="home__product--minicart">
         <img src={props.src} alt="img" width="60px" height="60px"  className="home__product-img"></img>
         <div className="pl-2">

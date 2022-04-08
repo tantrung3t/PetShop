@@ -4,10 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import './CartScreen.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons'
 
-localStorage.setItem("total", 0);
 
 
 localStorage.setItem("total", 0)
@@ -19,14 +16,9 @@ export default function CartScreens() {
   const [modal, setModal] = useState("modal hide");
 
   const [productsCart, setProductsCart] = useState([]);
-<<<<<<< HEAD
-  const [modal, setModal] = useState("modal hide");
-  const [total, setTotal] = useState(localStorage.getItem("total"));
-=======
   // const [isCheck, setIsCheck] = useState([]);
   // const [isCheckAll, setIsCheckAll] = useState(false);
   const [totalPayment, setTotalPayment] = useState(0)
->>>>>>> dd8b25b3b2c1ebc5c43c2ee1a4493d3bfc1307a1
 
   const profile = JSON.parse(localStorage.getItem("profile"));
 
@@ -114,19 +106,12 @@ export default function CartScreens() {
 
   }
 
-<<<<<<< HEAD
-  const callBackTotal = (t) => {
-    console.log("Truyen" + t)
-    setTotal(t)
-  }
-=======
   const choosePayment = () => {
     setModal("modal")
     document.getElementById("info-order__total").value = totalPayment;
     console.log(totalPayment)
   }
 
->>>>>>> dd8b25b3b2c1ebc5c43c2ee1a4493d3bfc1307a1
 
   // const [totalPayment, setTotalPayment] = useState(0);
   // const addTotal_product = (total) =>{
@@ -139,9 +124,6 @@ export default function CartScreens() {
   //   // money = props.price * qty
   // }
 
-<<<<<<< HEAD
-  console.log(localStorage.getItem("total"))
-=======
 
   // const handlePayment = () => {
   //   return (
@@ -165,8 +147,6 @@ export default function CartScreens() {
     console.log("total cha: " + total)
     setTotalPayment(total)
   }
->>>>>>> dd8b25b3b2c1ebc5c43c2ee1a4493d3bfc1307a1
-
   return (
     <div className="grid">
       <div className="my-3">
@@ -199,7 +179,7 @@ export default function CartScreens() {
             price={product.product_price}
             amount={product.product_amount}
             quantity={product.shopping_cart_amount}
-            callBackTotal={(price) => {callBackTotal(price)}}
+            // callBackTotal={(price) => {callBackTotal(price)}}
 
           // total={product.product_amount * product.shopping_cart_amount}
 
@@ -233,13 +213,6 @@ export default function CartScreens() {
           <div
             className="btn btn-primary"
             style={{ fontSize: "16px" }}
-<<<<<<< HEAD
-            onClick={() => setModal("modal")}
-          >Mua Hàng</div>
-        </div>
-      </div>
-      <div className={modal}>
-=======
           onClick={choosePayment}
           >Mua Hàng</div>
         </div>
@@ -252,15 +225,10 @@ export default function CartScreens() {
         </div>
       </div> */}
       <div className={modal} onClick={exit_modal}>
->>>>>>> dd8b25b3b2c1ebc5c43c2ee1a4493d3bfc1307a1
         <div className="modal__inner">
           <div className="modal__header flex beetween">
             <p>Thông tin đặt hàng</p>
-<<<<<<< HEAD
-            <FontAwesomeIcon icon={faXmarkCircle} fontSize={35} onClick={() => setModal("modal hide")} />
-=======
             <FontAwesomeIcon icon={faXmarkCircle} fontSize={35} onClick={close_modal} />
->>>>>>> dd8b25b3b2c1ebc5c43c2ee1a4493d3bfc1307a1
           </div>
           <form className="modal_body" onSubmit={handleSubmit}>
             <div className="CartScreen_modal_body">
@@ -309,18 +277,13 @@ export default function CartScreens() {
                 />
               </div>
               <div className="form-input--wrap">
-                <label htmlFor="info-order__total">Tổng hóa đơn: {total} </label>
+                <label htmlFor="info-order__total">Tổng hóa đơn: {localStorage.getItem("total") } </label>
                 <input
                   id="info-order__total"
                   className="form-input"
                   type={'number'}
                   name="total"
                   disabled={true}
-<<<<<<< HEAD
-                  // defaultValue={localStorage.getItem("total")}
-                  // value={localStorage.getItem("total")}
-=======
->>>>>>> dd8b25b3b2c1ebc5c43c2ee1a4493d3bfc1307a1
                 />
               </div>
             </div>

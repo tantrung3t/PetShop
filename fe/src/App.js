@@ -18,6 +18,7 @@ import CartScreen from './screens/CartScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import BrandScreen from './screens/BrandScreen'
 import ListOrdersScreen from './screens/ListOrdersScreen'
+import OrderScreen from './screens/OrderScreen'
 
 import Thucancun from './components/Thucancun';
 import Thucanmeo from './components/Thucanmeo';
@@ -197,6 +198,8 @@ function App() {
           <Route path='/products' component={Products} />
           <Route path='/cart' component={CartScreen} />
           <Route path='/orders' component={ListOrdersScreen} />
+          <Route path='/order/:id' component={OrderScreen} />
+
           
           <Route path='/admin' component={Admin} />
           <Route path='/profile' component={ProfileScreen} />

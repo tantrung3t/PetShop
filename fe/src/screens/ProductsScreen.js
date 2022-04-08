@@ -7,7 +7,7 @@ import Product from "../components/Product"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 
-export default function Account() {
+export default function ProductsScreen() {
   const url = "http://localhost:3003";
 
   const [data, setData] = useState([]);

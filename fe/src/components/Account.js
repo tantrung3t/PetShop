@@ -1,5 +1,5 @@
 import React from "react"
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 
@@ -9,7 +9,6 @@ const user = localStorage.getItem('user');
 
 export default function Account() {
 
-  const history = useHistory();
   // const handleSignOff =  () => {
   //   localStorage.setItem('user', "");
   //   window.location.reload();
@@ -42,7 +41,7 @@ export default function Account() {
                   onClick={() => {
                     localStorage.setItem("user", "");
                     localStorage.setItem("token", "");
-                     history.push('/signin');
+                    window.location = "/signin";
                   }}
                 >Đăng xuất</div>
               </div>

@@ -4,7 +4,7 @@ const admin = function () {
 }
 
 admin.list_orders = function (result) {
-    var strquery = "SELECT orders.order_id, infomation.info_name, infomation.info_phone_number, orders.order_date, infomation.info_address FROM `orders`, `infomation` WHERE orders.order_status = 0 and orders.account_id = infomation.account_id"
+    var strquery = "SELECT orders.order_id, infomation.info_fname, infomation.info_phone_number, orders.order_date, infomation.info_address FROM `orders`, `infomation` WHERE orders.order_status = 0 and orders.account_id = infomation.account_id"
     db.query(strquery, function (err, data) {
         if (err) {
             result(null);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons'
+import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import axios from 'axios';

@@ -135,11 +135,11 @@ export default function AdminOrder() {
         await axios.get(`http://localhost:3003/admin/orders/list`)
             .then(res => {
                 const data = res.data;
-                
                 setDataOrder(data)
             })
             .catch(error => console.log(error));
     }
+
     const loadDataOrderDetails = async (order_id) => {
         await axios.get(`http://localhost:3003/admin/order/` + order_id)
             .then(res => {
@@ -199,22 +199,27 @@ export default function AdminOrder() {
         return element;
     }
     const renderList = () => {
-        let element = dataOrder.map((product, index) => {
-
-            return <Item
-                key={index}
-                index={index}
-                order_id={product.order_id}
-                order_date={product.order_date}
-                info_name={product.info_name}
-                info_address={product.info_address}
-                info_phone_number={product.info_phone_number}
-                order_detail_quantity={product.order_detail_quantity}
-                order_detail_id={(order_id, info_name, info_phone_number, info_address) => { order_detail_id(order_id, info_name, info_phone_number, info_address) }}
-            // buttonEdit={(index, product_id, product_name, product_type_id, product_brand_id, product_price, product_amount, product_description, product_image) => { edit_product(index, product_id, product_name, product_type_id, product_brand_id, product_price, product_amount, product_description, product_image) }}
-            />
-        })
-        return element;
+        if(dataOrder === ""){
+            return( <div></div>)
+        }
+        else{
+            let element = dataOrder.map((product, index) => {
+                return <Item
+                    key={index}
+                    index={index}
+                    order_id={product.order_id}
+                    order_date={product.order_date}
+                    info_name={product.info_fname}
+                    info_address={product.info_address}
+                    info_phone_number={product.info_phone_number}
+                    order_detail_quantity={product.order_detail_quantity}
+                    order_detail_id={(order_id, info_name, info_phone_number, info_address) => { order_detail_id(order_id, info_name, info_phone_number, info_address) }}
+                // buttonEdit={(index, product_id, product_name, product_type_id, product_brand_id, product_price, product_amount, product_description, product_image) => { edit_product(index, product_id, product_name, product_type_id, product_brand_id, product_price, product_amount, product_description, product_image) }}
+                />
+            })
+            return element;
+        }
+        
     }
     return (
         <div>

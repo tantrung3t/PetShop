@@ -7,11 +7,11 @@ const secretKey = "token";
 module.exports = function (router) {
 
 
-    router.post('/login', function (req, res, next) {
+    router.post('/login', function (req, res) {
         var username = req.body.username;
         var password = req.body.password;
 
-        var strquery = "SELECT accounts.account_id, infomation.info_name FROM `accounts`, infomation WHERE account_username = '" + username + "' and account_password = '" + password + "' and accounts.account_id = infomation.account_id;"
+        var strquery = "SELECT accounts.account_id, infomation.info_lname, infomation.info_fname, infomation.info_date, infomation.info_address, infomation.info_phone_number, infomation.info_email, infomation.info_sex FROM `accounts`, infomation WHERE account_username = '"+ username +"' and account_password = '"+ password +"' and accounts.account_id = infomation.account_id;"
 
         db.query(strquery, function (err, data) {
             if (!err) {
@@ -28,7 +28,7 @@ module.exports = function (router) {
                         status: 200,
                         message: 'OK',
                         token: token,
-                        name: data[0].info_name
+                        profile: data[0]
                     })
                 }
             }

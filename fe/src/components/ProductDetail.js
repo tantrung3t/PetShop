@@ -102,7 +102,7 @@ export default function ProductDetail(props) {
         <div className='product__info'>
           <span className='product__name'>{data[0].product_name}</span>
           <div className='block-separation'></div>
-          <div className='product__price'>{data[0].product_price} đ</div>
+          <div className='product__price'>{data[0].product_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} đ</div>
           <div className='block-separation'></div>
           <div className='product__brand'>Thương hiệu: <Link to='' className='primary'>{data[0].product_brand_name}</Link></div>
           <div className='product__type'>Loại: <Link to={link} className='primary'>{data[0].product_type_name}</Link></div>

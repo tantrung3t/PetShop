@@ -116,8 +116,8 @@ export default function Thongke() {
             quantityProductSales: 0
         },
         lastMonth: {
-            quantityOrder: 0,
-            quantityProductSales: 0
+            quantityOrder: 1,
+            quantityProductSales: 1
         }
     })
 

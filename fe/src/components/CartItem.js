@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 // import ReactDOM from 'react-dom';
 import axios from 'axios'
 // import QuantityButton from './QuantityButton'
@@ -44,24 +44,39 @@ export default function CartItem(props) {
   }
 
   // const [checkbox, setCheckbox] = useState();
-  useEffect(() => {
-    hadleTotal()
-  }, [props])
+  // useEffect(() => {
+  //   hadleTotal()
+  // }, [props])
 
+<<<<<<< HEAD
   const hadleTotal = () => {
     total = parseInt(localStorage.getItem("total"));
+=======
+  const handleTotal = () => {
+    var total = parseInt(localStorage.getItem("total"));
+>>>>>>> dd8b25b3b2c1ebc5c43c2ee1a4493d3bfc1307a1
     var isCheck = document.getElementById("cbx" + props.id).checked;
     // var temp = total;
     money = props.price * qty;
     // console.log(isCheck)
+<<<<<<< HEAD
     isCheck ? localStorage.setItem("total", total += money) : console.log(localStorage.getItem("total"));
+=======
+    isCheck ? localStorage.setItem("total", total += money) : localStorage.setItem("total", total -= money);
+>>>>>>> dd8b25b3b2c1ebc5c43c2ee1a4493d3bfc1307a1
     console.log("total: " + localStorage.getItem("total"));
+
+    props.callbackhadleTotal(total);
     // setCheckbox(isCheck);
   }
 
+<<<<<<< HEAD
   const callBackTotal = () => {
     props.callBackTotal(total + money)
   }
+=======
+  
+>>>>>>> dd8b25b3b2c1ebc5c43c2ee1a4493d3bfc1307a1
 
 
 
@@ -84,7 +99,11 @@ export default function CartItem(props) {
             checked={props.isCheck}
             onChange={props.onChange}
 
+<<<<<<< HEAD
             onClick={callBackTotal}
+=======
+            onClick={handleTotal}
+>>>>>>> dd8b25b3b2c1ebc5c43c2ee1a4493d3bfc1307a1
           />
         </div>
         <Link to={'/product/' + props.id} className="flex " style={{ flex: "1", textAlign: "left" }}>

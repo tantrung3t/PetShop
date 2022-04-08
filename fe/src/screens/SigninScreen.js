@@ -39,19 +39,21 @@ export default function Account() {
       .then(function (response) {
         console.log(JSON.stringify(response.data));
 
-        if (response.data.name === undefined) {
+        if (response.data.profile === undefined) {
           localStorage.setItem('user', "")
           alert('Dang nhap khong thanh cong')
         }
         else {
-          localStorage.setItem('user', response.data.name)
+          localStorage.setItem('user', response.data.profile.info_fname)
           localStorage.setItem('token', response.data.token)
+          localStorage.setItem('profile', JSON.stringify(response.data.profile))
           window.location.reload();
         }
       })
       .catch(function (error) {
         console.log(error);
       });
+
 
 
   }

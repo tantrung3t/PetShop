@@ -233,6 +233,10 @@ textarea:focus-visible {
   display: flex;
 }
 
+.column {
+  flex-direction: column;
+}
+
 .center {
   align-items: center;
   justify-content: center;

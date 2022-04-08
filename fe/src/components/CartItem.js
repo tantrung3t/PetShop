@@ -59,7 +59,7 @@ export default function CartItem(props) {
     // setCheckbox(isCheck);
   }
 
-  const callBackTotal = () =>{
+  const callBackTotal = () => {
     props.callBackTotal(total + money)
   }
 
@@ -107,6 +107,63 @@ export default function CartItem(props) {
         </div>
         <span className="cart__item--money">{money}</span>
         <div className="cart__item--delete link " onClick={handleRemoveCart}>Xóa</div>
+      </div>
+    </div>
+  );
+}
+
+export function OrdersItem(props) {
+  const [ordersQty] = useState(props.quantity);
+  localStorage.setItem('qty', ordersQty);
+
+  // var money = props.price * qty;
+  // var total = parseInt(localStorage.getItem("total"));
+
+  // useEffect(() => {
+  //   hadleTotal()
+  // }, [props])
+
+  // // const hadleTotal = () => {
+  // //   total = parseInt(localStorage.getItem("total"));
+  // //   var isCheck = document.getElementById("cbx" + props.id).checked;
+  // //   money = props.price * qty;
+  // // }
+
+  // const callBackTotal = () => {
+  //   props.callBackTotal(total + money)
+  // }
+
+  return (
+    <div className="my-3">
+      <div className="cart__item">
+        <div className="px-4" >
+          <input
+            id={"cbx" + props.id}
+            className="cbx__item"
+            type={"checkbox"}
+            name={props.id}
+            checked={props.isCheck}
+            onChange={props.onChange}
+
+          />
+        </div>
+        <Link to={'/product/' + props.id} className="flex " style={{ flex: "1", textAlign: "left" }}>
+          <img
+            className="cart__item--img"
+            src={props.src}
+            alt="img"
+            width={100}
+            height={100}
+          />
+          <span className="cart__item--name" style={{ flex: "1", textAlign: "left" }}>{props.name}</span>
+        </Link>
+        <span className="cart__item--price">{props.price}</span>
+        <div className='qty--wrap'>
+          <div className='qty__input'>
+            {ordersQty}
+          </div>
+          {/* <span className="cart__item--money">{money}</span> */}
+        </div>
       </div>
     </div>
   );

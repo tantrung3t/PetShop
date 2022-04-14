@@ -5,6 +5,8 @@ import axios from 'axios';
 
 import { PieChart, Pie, RadialBarChart, RadialBar, AreaChart, Area, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
+const url = 'http://localhost:3003'
+
 const box = {
     display: 'flex',
     justifyContent: 'space-between',
@@ -104,11 +106,11 @@ const dataDemo = [
     { name: 'Chuồng thú cưng', "uv": 10, "fill": "#a4de6c" }
 ];
 export default function Thongke() {
-    console.log("initial")
 
+    const [dataProduct, setDataProduct] = useState()
     const [dataThang, setDataThang] = useState(datademoThang);
     const [total_sales, setTotal_Sales] = useState(0);
-    const [percent_sales, setPercent_Sales] = useState(1);
+    const [percent_sales, setPercent_Sales] = useState(0);
     const [dataProductType, setDataProductType] = useState(data);
     const [dataOrdesAndQuantity, setDataOrdesAndQuantity] = useState({
         thisMonth: {
@@ -126,8 +128,9 @@ export default function Thongke() {
             loadDataThang()
             loadDataProductType()
             load_orders_and_quantity_sales()
+            
         }, 1800);
-
+        load_data_product()
     }, [])
 
     const loadDataThang = async () => {
@@ -207,6 +210,15 @@ export default function Thongke() {
                 setDataOrdesAndQuantity({ thisMonth, lastMonth })
             })
             .catch(error => console.log(error))
+    }
+    const load_data_product = async () => {
+        await axios.get(`http://localhost:3003/admin/statistic/inventory_product`)
+            .then(res => {
+                const data = res.data;
+                setDataProduct(data);
+                // console.log(data)
+            })
+            .catch(error => console.log(error));
     }
 
 
@@ -312,6 +324,19 @@ export default function Thongke() {
         }
     }
 
+    const ListItemProduct = () => {
+        if (dataProduct === undefined) return <div></div>
+        let element = dataProduct.map((product, index) => {
+            return <ItemAdminProduct
+                key={index}
+                id={product.product_id}
+                src={url + product.product_image}
+                name={product.product_name}
+                price={product.product_price}
+            />
+        })
+        return element;
+    }
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -333,7 +358,7 @@ export default function Thongke() {
                     </Link>
                 </div>
             </div>
-            <div style={{ paddingLeft: '10px', paddingRight: '10px' }}>
+            <div style={{ paddingLeft: '10px', paddingRight: '10px', width: '1250px' }}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <div style={box}>
                         {render_Tongdoanhthu()}
@@ -383,6 +408,7 @@ export default function Thongke() {
 
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <div style={box2}>
+                        <div style={box_title}>Doanh thu 4 tháng vừa qua</div>
                         <AreaChart width={450} height={300} data={dataThang}>
                             <defs>
                                 <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
@@ -401,10 +427,11 @@ export default function Thongke() {
                             {/* <Area type="monotone" dataKey="sold" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" /> */}
                             <Area type="monotone" dataKey="total" stroke="#1f89e5" fillOpacity={1} fill="url(#colorPv)" />
                         </AreaChart>
-                        <div>Doanh thu 4 tháng vừa qua</div>
+
                     </div>
 
                     <div style={box2}>
+                        <div style={box_title}>Doanh thu theo loại sản phẩm</div>
                         <BarChart width={700} height={350} data={dataProductType} >
                             {/* biểu đồ đường */}
                             {/* màu đường lưới */}
@@ -418,11 +445,36 @@ export default function Thongke() {
                             <Bar dataKey="Tháng trước" fill="#2d81ef" animationDuration={1000} />
                             <Bar dataKey="Tháng này" fill="#00d27a" animationDuration={1000} />
                         </BarChart>
-                        <div>Doanh thu theo loại sản phẩm</div>
+
                     </div>
                 </div>
-
+                <div className='Thongke_box'>
+                    <div style={box_title}>Sản phẩm tồn kho</div>
+                    <div className='Thongke_ListProduct'>
+                        {ListItemProduct()}
+                    </div>
+                </div>
             </div>
         </div>
     );
+}
+
+function ItemAdminProduct(props) {
+    return (
+
+        // <Link className="Thongke_link">
+        //     <div className="home__product">
+        //         <img src={props.src} alt="img" width="100%" height="200px" className="home__product-img"></img>
+        //         <div className="p-2">
+        //             <div className="home__product-name">{props.name}</div>
+        //             {/* <div className="home__product-price">{props.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}  đ</div> */}
+        //         </div>
+        //     </div>
+        // </Link>
+        <div className="Thongke_link">
+            <img src={props.src} alt="img" width="100%" height="200px" className="home__product-img"></img>
+            <div className="home__product-name">{props.name}</div>
+            {/* <div className="home__product-price">{props.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}  đ</div> */}
+        </div>
+    )
 }

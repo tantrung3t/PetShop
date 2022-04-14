@@ -17,4 +17,7 @@ module.exports = function(router) {
 
     //thong ke don hang va luong san pham ban ra
     router.get('/admin/statistic/orders_and_quantity_sales', adminController.orders_and_quantity_sales)
+
+    //thong ke hang ton
+    router.get('/admin/statistic/inventory_product', adminController.inventory_product)
 }

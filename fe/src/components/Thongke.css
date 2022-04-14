@@ -4,9 +4,31 @@
      color: #448ae7;
      margin: 20px 0;
  }
+
  .admin_title1{
     font-weight: 700;
     font-size: 20px;
     color: #5e6e82;
     margin: 20px 0;
-}
+}   
+    .Thongke_box{
+        width: 1210px;
+        margin: 10px;
+        background-color: #ffffff;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
+    }
+    .Thongke_ListProduct{
+        display: flex;
+        flex-wrap: wrap !important;
+        width: 100%;
+    }
+    .Thongke_link {
+        border: 1px;
+        border-radius: 10px;
+        border-color: #448ae7;
+        padding: 4px !important;
+        width: 20%;
+    }

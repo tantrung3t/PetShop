@@ -166,3 +166,28 @@ exports.get_product_in_shopping_cart = function (req, res) {
         })
     }
 }
+
+//add product in shopping cart
+exports.add_product_in_shopping_cart = function (req, res) {
+    var token = req.body.token;
+    var product_id = req.body.product_id;
+    var shopping_cart_amount = req.body.shopping_cart_amount;
+    
+    try {
+        //kiem tra neu token hop len thi tra kq = account_id
+        var kq = jwt.verify(token, secretKey)
+        var account_id = kq.id;
+
+        product.add_product_in_shopping_cart(product_id, account_id, shopping_cart_amount, function (data) {
+            res.send(data);
+        })
+ 
+    }
+    catch (error) {
+        //tra ve loi nieu token het han hoac khong hop le
+        return res.json({
+            status: 401,
+            message: 'Token expires or Deny',
+        })
+    }
+}

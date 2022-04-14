@@ -69,3 +69,9 @@ exports.deny_or_accept_order = function (req, res) {
 
 }
 
+exports.inventory_product = function (req, res){
+    admin.inventory_product(function (data) {
+        res.send(data);
+    })
+}
+

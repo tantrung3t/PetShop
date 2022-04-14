@@ -189,6 +189,26 @@ product.get_product_in_shopping_cart = function (account_id, result){
 
 }
 
+//add product in shopping cart
+product.add_product_in_shopping_cart = function (product_id, account_id, shopping_cart_amount, result){
+    var strquery = "INSERT INTO `shopping_cart`(`product_id`, `account_id`, `shopping_cart_amount`) VALUES ('"+ product_id +"','"+ account_id +"','"+ shopping_cart_amount +"')"
+    db.query(strquery, function (err, data) {
+        if (err) {
+            result({
+                status: 400,
+                message: "Fail to add to database"
+            });
+        }
+        else {
+            result({
+                status: 200,
+                message: "Add to database successfully"
+            });
+        }
+    })
+
+}
+
 
 
 module.exports = product;

@@ -41,6 +41,7 @@ export default function Account() {
                   onClick={() => {
                     localStorage.setItem("user", "");
                     localStorage.setItem("token", "");
+                    localStorage.setItem("profile", "");
                     window.location = "/signin";
                   }}
                 >Đăng xuất</div>

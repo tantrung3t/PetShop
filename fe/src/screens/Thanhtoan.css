@@ -1,0 +1,76 @@
+    .Thanhtoan_notification{
+        text-align: center;
+        align-items: center;
+        width: 400px;
+        height: 500px;
+        background-color: #f7f7f7;
+        border-radius: 5px;
+        
+        overflow: hidden;
+        animation: showModal linear 0.2s;
+        position: relative;
+        margin: 35px auto;
+        box-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
+    }
+
+    .Thanhtoan_icon{
+        color: #04be04;
+        padding: 11px;
+    }
+    .Thanhtoan_border_icon{
+        margin: 40px;
+        display: inline-block;
+        width: 130px;
+        height: 130px;
+        text-align: center;
+        padding: 5px;
+        border: 10px solid #04be04;
+        border-radius: 100px;
+    }
+    .Thanhtoan_icon_x{
+        color: #c1272d;
+        padding: 11px;
+    }
+    .Thanhtoan_border_icon_x{
+        margin: 40px;
+        display: inline-block;
+        width: 130px;
+        height: 130px;
+        text-align: center;
+        padding: 5px;
+        border: 10px solid #c1272d;
+        border-radius: 100px;
+    }
+
+    .Thanhtoan_title{
+        font-weight: 700;
+        font-size: 25px;
+        color: #5e6e82;
+        margin: 40px 0;
+    }
+
+    .Thanhtoan_title1{
+        padding: 10px;
+        font-weight: 700;
+        font-size: 18px;
+        color: #5e6e82;
+        margin: 50px 0;
+    }
+
+    .Thanhtoan_button{
+        margin-top: 110px;
+        border-radius: 20px;
+	border: 1px solid #91c2cc;
+	background-color: #91c2cc;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+    }
+
+    .Thanhtoan_button:active {
+        transform: scale(0.95);
+    }

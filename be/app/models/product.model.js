@@ -105,7 +105,7 @@ product.get_product_brand = function (result) {
 //Add products
 product.add_product = function (product_data, result) {
 
-    var strquery = "INSERT INTO `products`(`product_brand_id`, `product_type_id`, `product_name`, `product_price`, `product_description`, `product_amount`, `product_sold`, `product_image`) VALUES ('"+ product_data.product_brand_id +"','"+product_data.product_type_id+"','"+ product_data.product_name +"','"+ product_data.product_price +"','"+ product_data.product_description +"','" + product_data.product_amount +"','" + product_data.product_sold +"','" + product_data.product_image+ "')"
+    var strquery = "INSERT INTO `products`(`product_brand_id`, `product_type_id`, `product_name`, `product_price`, `product_description`, `product_amount`, `product_sold`, `product_image`) VALUES ('" + product_data.product_brand_id + "','" + product_data.product_type_id + "','" + product_data.product_name + "','" + product_data.product_price + "','" + product_data.product_description + "','" + product_data.product_amount + "','" + product_data.product_sold + "','" + product_data.product_image + "')"
 
     db.query(strquery, function (err) {
         if (err) {
@@ -132,7 +132,7 @@ product.add_product = function (product_data, result) {
 //edit product
 product.edit_product = function (product_edit_data, result) {
 
-    var strquery = "UPDATE `products` SET `product_brand_id`='"+ product_edit_data.product_brand_id +"',`product_type_id`='" + product_edit_data.product_type_id + "',`product_name`='" + product_edit_data.product_name + "',`product_price`='" + product_edit_data.product_price + "',`product_description`='" + product_edit_data.product_description + "',`product_amount`='" + product_edit_data.product_amount + "', `product_image`='" + product_edit_data.product_image + "' WHERE `product_id`='" + product_edit_data.product_id +"'"
+    var strquery = "UPDATE `products` SET `product_brand_id`='" + product_edit_data.product_brand_id + "',`product_type_id`='" + product_edit_data.product_type_id + "',`product_name`='" + product_edit_data.product_name + "',`product_price`='" + product_edit_data.product_price + "',`product_description`='" + product_edit_data.product_description + "',`product_amount`='" + product_edit_data.product_amount + "', `product_image`='" + product_edit_data.product_image + "' WHERE `product_id`='" + product_edit_data.product_id + "'"
 
     db.query(strquery, function (err) {
         if (err) {
@@ -176,7 +176,7 @@ product.delete_product = function (product_id, result) {
 }
 
 //get all product from shopping_cart in database
-product.get_product_in_shopping_cart = function (account_id, result){
+product.get_product_in_shopping_cart = function (account_id, result) {
     var strquery = "SELECT shopping_cart.product_id, products.product_image, products.product_price, products.product_name, shopping_cart.shopping_cart_amount FROM `shopping_cart`, `products` WHERE products.isDelete = 0 and shopping_cart.product_id = products.product_id and shopping_cart.account_id = " + account_id
     db.query(strquery, function (err, data) {
         if (err || data.length == 0) {
@@ -190,22 +190,49 @@ product.get_product_in_shopping_cart = function (account_id, result){
 }
 
 //add product in shopping cart
-product.add_product_in_shopping_cart = function (product_id, account_id, shopping_cart_amount, result){
-    var strquery = "INSERT INTO `shopping_cart`(`product_id`, `account_id`, `shopping_cart_amount`) VALUES ('"+ product_id +"','"+ account_id +"','"+ shopping_cart_amount +"')"
-    db.query(strquery, function (err, data) {
-        if (err) {
-            result({
-                status: 400,
-                message: "Fail to add to database"
-            });
+product.add_product_in_shopping_cart = function (product_id, account_id, shopping_cart_amount, result) {
+
+    var strquery1 = "SELECT * FROM `shopping_cart` WHERE product_id = " + product_id + " and account_id = " + account_id
+
+    db.query(strquery1, function (err, data) {
+        if (data.length > 0) {
+            var strquery = "UPDATE `shopping_cart` SET `shopping_cart_amount`= shopping_cart_amount + "+ shopping_cart_amount +" WHERE product_id = "+ product_id +" and account_id = " + account_id
+            db.query(strquery, function (err, data) {
+                if (err) {
+                    result({
+                        status: 400,
+                        message: "Fail to add to database"
+                    });
+                }
+                else {
+                    result({
+                        status: 200,
+                        message: "Add to database successfully"
+                    });
+                }
+            })
         }
         else {
-            result({
-                status: 200,
-                message: "Add to database successfully"
-            });
+            var strquery = "INSERT INTO `shopping_cart`(`product_id`, `account_id`, `shopping_cart_amount`) VALUES ('" + product_id + "','" + account_id + "','" + shopping_cart_amount + "')"
+            db.query(strquery, function (err, data) {
+                if (err) {
+                    result({
+                        status: 400,
+                        message: "Fail to add to database"
+                    });
+                }
+                else {
+                    result({
+                        status: 200,
+                        message: "Add to database successfully"
+                    });
+                }
+            })
         }
     })
+
+
+
 
 }
 

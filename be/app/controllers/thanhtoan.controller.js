@@ -1,13 +1,13 @@
 
-exports.thanhtoan = function (request, response) {
+exports.momo_payment = function (request, response) {
     //https://developers.momo.vn/#/docs/en/aiov2/?id=payment-method
     //parameters
     var partnerCode = "MOMOWABV20220402";
     var accessKey = "iRNIAZVLNMWeeotJ";
     var secretkey = "A6YWdGEHBcNqeCHOdbGsZpJAi463oczR";
     var requestId = partnerCode + new Date().getTime();
-    var orderId = requestId;
-    var orderInfo = "Thanh toán cho đơn hàng " + request.body.order_id;
+    var orderId = "DH00" + 1234;
+    var orderInfo = "Thanh toán cho đơn đặt hàng trên T2K Shop";
     var redirectUrl = "http://localhost:3000/thanhtoan/";
     var ipnUrl = "http://localhost:3000/thanhtoan/";
     // var ipnUrl = redirectUrl = "https://webhook.site/454e7b77-f177-4ece-8236-ddf1c26ba7f8";
@@ -26,7 +26,7 @@ exports.thanhtoan = function (request, response) {
     var signature = crypto.createHmac('sha256', secretkey)
         .update(rawSignature)
         .digest('hex');
-    // console.log("--------------------SIGNATURE----------------")
+    console.log("--------------------SIGNATURE----------------")
     // console.log(signature)
 
     //json object send to MoMo endpoint
@@ -68,8 +68,14 @@ exports.thanhtoan = function (request, response) {
 
 
             console.log('payUrl: ');
-            console.log(JSON.parse(body));
-            response.send(JSON.parse(body));
+
+            var resData = {
+                payUrl: JSON.parse(body).payUrl, 
+                order_id: 1 
+            }
+
+            console.log(resData);
+            response.send(resData);
         });
         res.on('end', () => {
             // console.log('No more data in response.');

@@ -18,8 +18,6 @@ export default function CartItem(props) {
     alert("Xóa thành công!")
   }
 
-
-
   const [qty, setQty] = useState(props.quantity || 1);
   localStorage.setItem('qty', qty);
 
@@ -56,8 +54,14 @@ export default function CartItem(props) {
     // console.log(isCheck)
     isCheck ? localStorage.setItem("total", total += money) : localStorage.setItem("total", total -= money);
     console.log("total: " + localStorage.getItem("total"));
-
     props.callbackhadleTotal(total);
+    
+    if(isCheck){
+      props.callBackAddProductInOrder(props.id, props.quantity)
+    }
+    else{
+      props.callBackRemoveProductInOrder(props.id)
+    }
     // setCheckbox(isCheck);
   }
 

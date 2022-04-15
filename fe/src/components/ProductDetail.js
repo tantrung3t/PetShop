@@ -66,12 +66,12 @@ export default function ProductDetail(props) {
 
 
   const handleOrder = (e) => {
-    if(localStorage.getItem("user") === "") {
+    if (localStorage.getItem("user") === "") {
       console.log("fail")
       history.push('/signin')
     } else {
       e.preventDefault();
-      
+
       addProductInCart()
 
       // console.log()
@@ -82,20 +82,21 @@ export default function ProductDetail(props) {
 
   const addProductInCart = () => {
 
-    console.log(data[0].product_id)
-    console.log(localStorage.getItem('qty'))
+    var dataForm = {
+      "token": localStorage.getItem('token'),
+      "product_id": data[0].product_id,
+      "shopping_cart_amount": localStorage.getItem('qty')
+    }
 
-    // axios.post('http://localhost:3003/api/cart', {
-    //     product: data[0],
-    //     quantity: localStorage.getItem('qty')
-    //   })
-    //     .then(function (response) {
-    //       console.log(response);
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
+    console.log(dataForm)
 
+    axios.post('http://localhost:3003/products/cart', dataForm)
+    .then(response => {
+      console.log(response.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
 
   }
 

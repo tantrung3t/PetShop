@@ -105,29 +105,30 @@ export default function AdminOrder() {
     const [info_name, setName] = useState("");
     const [info_phone, setPhone] = useState("");
     const [info_address, setAddress] = useState("");
+    const [payment, setPayment] = useState("Thanh toán khi nhận hàng");
 
     useEffect(() => {
         loadDataOrder()
     }, [])
 
-    const AcceptOrDenyOrder = async (status_order) =>{
+    const AcceptOrDenyOrder = async (status_order) => {
         const data = {
             "token": localStorage.getItem('token'),
             "order_id": id,
             "status_order": status_order
-          }
+        }
 
         await axios({
             method: 'post',
             url: 'http://localhost:3003/admin/orders/deny_or_accept_order',
             data: data
-          })
+        })
             .then(function (response) {
-              console.log(response);
-              loadDataOrder()
+                console.log(response);
+                loadDataOrder()
             })
             .catch(function (error) {
-              console.log(error);
+                console.log(error);
             });
     }
 
@@ -136,6 +137,7 @@ export default function AdminOrder() {
             .then(res => {
                 const data = res.data;
                 setDataOrder(data)
+                console.log(data)
             })
             .catch(error => console.log(error));
     }
@@ -156,21 +158,22 @@ export default function AdminOrder() {
         if (e.target == e.currentTarget) close_modal();
     }
 
-    const accept_order = () =>{
+    const accept_order = () => {
         AcceptOrDenyOrder(1)
         close_modal();
     }
-    const deny_order = () =>{
+    const deny_order = () => {
         AcceptOrDenyOrder(2)
         close_modal();
     }
 
-    const order_detail_id = (order_id, name, phone, address) => {
+    const order_detail_id = (order_id, name, phone, address, payment) => {
         setHide("modal");
         setId(order_id);
         setName(name);
         setPhone(phone);
         setAddress(address);
+        if(payment === 2) setPayment("Đã thanh toán qua ví MoMo")
 
         //loadDataItem
         loadDataOrderDetails(order_id)
@@ -199,10 +202,10 @@ export default function AdminOrder() {
         return element;
     }
     const renderList = () => {
-        if(dataOrder === ""){
-            return( <div></div>)
+        if (dataOrder === "") {
+            return (<div></div>)
         }
-        else{
+        else {
             let element = dataOrder.map((product, index) => {
                 return <Item
                     key={index}
@@ -210,16 +213,17 @@ export default function AdminOrder() {
                     order_id={product.order_id}
                     order_date={product.order_date}
                     info_name={product.info_fname}
-                    info_address={product.info_address}
+                    info_address={product.order_address}
                     info_phone_number={product.info_phone_number}
+                    order_payment_momo={product.order_payment_momo}
                     order_detail_quantity={product.order_detail_quantity}
-                    order_detail_id={(order_id, info_name, info_phone_number, info_address) => { order_detail_id(order_id, info_name, info_phone_number, info_address) }}
+                    order_detail_id={(order_id, info_name, info_phone_number, info_address, order_payment_momo) => { order_detail_id(order_id, info_name, info_phone_number, info_address, order_payment_momo) }}
                 // buttonEdit={(index, product_id, product_name, product_type_id, product_brand_id, product_price, product_amount, product_description, product_image) => { edit_product(index, product_id, product_name, product_type_id, product_brand_id, product_price, product_amount, product_description, product_image) }}
                 />
             })
             return element;
         }
-        
+
     }
     return (
         <div>
@@ -320,8 +324,11 @@ export default function AdminOrder() {
 
                             </div>
                         </div>
+                        <div style={{paddingLeft: '450px'}}>
+                            {/* <h4>{payment}</h4> */}
+                            <h4>{payment} Tổng thành tiền: {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}đ</h4>
+                        </div>
 
-                        <div>Tổng thành tiền: {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}đ</div>
 
                     </div>
 
@@ -346,7 +353,7 @@ function Item(props) {
     //   props.buttonEdit(props.index, props.product_id, props.product_name, props.product_type_id, props.product_brand_id, props.product_price, props.product_amount, props.product_description, props.product_image)
     // }
     const order_detail_id = () => {
-        props.order_detail_id(props.order_id, props.info_name, props.info_phone_number, props.info_address)
+        props.order_detail_id(props.order_id, props.info_name, props.info_phone_number, props.info_address, props.order_payment_momo)
     }
     return (
         <div>

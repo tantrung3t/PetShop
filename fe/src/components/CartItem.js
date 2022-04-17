@@ -57,7 +57,7 @@ export default function CartItem(props) {
     props.callbackhadleTotal(total);
     
     if(isCheck){
-      props.callBackAddProductInOrder(props.id, props.quantity)
+      props.callBackAddProductInOrder(props.id, qty)
     }
     else{
       props.callBackRemoveProductInOrder(props.id)

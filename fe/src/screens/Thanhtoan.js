@@ -1,21 +1,56 @@
 
-import "./Thanhtoan.css"
+import "./Thanhtoan.css" 
+import { useEffect} from "react";
+import axios from "axios";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 
-export default function Thanhtoan() {
+
+export default function Thanhtoan() {   
+
+    console.log("render")
+    var strurl = window.location.href;
+    var url = new URL(strurl);
+
+    var state = 0;
+
+    const sendOrderStatus = (order_id, order_status) => {
+        const databody = {
+            "order_id": order_id,
+            "payment_status": order_status
+          }
+      
+          axios({
+            method: 'post',
+            url: 'http://localhost:3003/payment/status',
+            data: databody
+          })
+            .then(function (response) {
+              const data = response.data;
+              console.log(data)
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+    }
+
+    useEffect(() => {
+        var order_id =  url.searchParams.get("orderId").slice(4)
+        sendOrderStatus(order_id, state)
+    }, [])
 
     const notifications = () => {
-        var strurl = window.location.href;
-        var url = new URL(strurl)
+        // var order_id;
         // console.log(url.searchParams.get("resultCode"))
-        if (url.searchParams.get("resultCode") === null) {
-            return (
-                <div></div>
-            )
-        }
+        // if (url.searchParams.get("resultCode") === null) {
+        //     return (
+        //         <div></div>
+        //     )
+        // }
         if (url.searchParams.get("resultCode") === '0') {
+            //thong bao thanh toan thanh cong va chuyen order_payment_momo = 2
+            state = 2
             return (
                 <div className='Thanhtoan_notification'>
                     <div className="Thanhtoan_border_icon">
@@ -33,6 +68,8 @@ export default function Thanhtoan() {
             )
         }
         if (url.searchParams.get("resultCode") === '1006') {
+            // order_id = url.searchParams.get("orderId").slice(4) //cắt lấy chuổi orderId momo gửi về để xác định order_id
+            state = 1
             return (
                 <div className='Thanhtoan_notification'>
                     <div className="Thanhtoan_border_icon_x">

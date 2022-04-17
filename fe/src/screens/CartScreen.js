@@ -61,25 +61,23 @@ export default function CartScreens() {
       listOrder
     }
 
-    // await axios({
-    //   method: 'post',
-    //   url: 'http://localhost:3003/momo_payment',
-    //   data: databody
-    // })
-    //   .then(function (response) {
-    //     const data = response.data;
-    //     console.log(data)
-    //     window.location = data.payUrl
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+    await axios({
+      method: 'post',
+      url: 'http://localhost:3003/payment/momo_payment',
+      data: databody
+    })
+      .then(function (response) {
+        const data = response.data;
+        console.log(data)
+        window.location = data.payUrl
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
-    console.log("Thanh toan momo")
-    console.log(databody)
   }
 
-  const cashPayment = (event) => {
+  const cashPayment = async(event) => {
     event.preventDefault();
     const databody = {
       "amount": totalPayment,
@@ -88,8 +86,21 @@ export default function CartScreens() {
       listOrder
     }
 
-    console.log("Thanh toan tien mat")
-    console.log(databody)
+    await axios({
+      method: 'post',
+      url: 'http://localhost:3003/payment/cash_payment',
+      data: databody
+    })
+      .then(function (response) {
+        const data = response.data;
+        console.log(data)
+        // window.location = data.payUrl
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    
+
   }
 
   const handleCheck = (e) => {
@@ -144,9 +155,11 @@ export default function CartScreens() {
   }
 
   const callBackAddProductInOrder = (id, quantity) => {
+    //add product in listOrder
     setListOrder([...listOrder, { id: id, quantity: quantity }])
   }
   const callBackRemoveProductInOrder = (id) => {
+    //delete product in listOrder
     setListOrder(listOrder.filter(item => item.id !== id))
   }
 

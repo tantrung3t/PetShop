@@ -127,7 +127,7 @@ export default function ProductDetail(props) {
           </div>
           <div className='flex beetween'>
             <QuantityButton product_amount={data[0].product__amount} />
-            <button id='order' className='btn btn-primary' onClick={handleOrder} disabled={data[0].product_amount < 1}>Mua hàng</button>
+            <button id='order' className='btn btn-primary' onClick={handleOrder} disabled={data[0].product_amount < 1}>Thêm vào giỏ hàng</button>
           </div>
         </div>
       </div>

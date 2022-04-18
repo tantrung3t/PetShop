@@ -35,6 +35,15 @@ payment.cash_payment = function (reqData, result) {
                 else {
                     strqueryInsertListOrder += "(" + data.insertId + ", " + item.id + ", " + item.quantity + "),"
                 }
+
+                db.query("DELETE FROM `shopping_cart` WHERE account_id = "+ reqData.account_id +" and product_id = " + item.id, function(err, data){
+                    if(err){
+                        response.send({
+                            status: 400,
+                            message: "Error delete cart to database"
+                        });
+                    }
+                })
             })
 
             db.query(strqueryInsertListOrder, function (err, data) {

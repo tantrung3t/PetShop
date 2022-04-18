@@ -14,43 +14,79 @@ export default function Account() {
   //   window.location.reload();
   // } 
 
-  return (
-    <div>
-      {
-        user === "" ? (
-          <div className="account-wrap link mr-4">
-            <Link to="/signin" className="header__account">
+  const render = () => {
+    if (user === "") {
+      return (
+        <div className="account-wrap link mr-4">
+          <Link to="/signin" className="header__account">
+            <span className="flex left">
+              <i className="flex center"><FontAwesomeIcon icon={faUser} fontSize={20} /></i>Tài khoản
+            </span>
+          </Link>
+        </div>
+      )
+    }
+    else if (user === "Admin") {
+      return (
+        <div className="flex left">
+          <div className="account-wrap link">
+            <Link to="/profile" className="header__account">
               <span className="flex left">
-                <i className="flex center"><FontAwesomeIcon icon={faUser} fontSize={20} /></i>Tài khoản
+                <i className="flex center">AD</i>{user}
               </span>
             </Link>
           </div>
-        ) : (
-          <div className="flex left">
-            <div className="account-wrap link">
-              <Link to="/profile" className="header__account">
-                <span className="flex left">
-                  <i className="flex center">hi</i>{user}
-                </span>
-              </Link>
-            </div>
-            <div className="account__selection-icon">
-              <i className="flex center"><FontAwesomeIcon icon={faAngleDown} fontSize={20} /></i>
-              <div className="account__selection">
-                <div id="logout" className="btn btn-primary"
-                  onClick={() => {
-                    localStorage.setItem("user", "");
-                    localStorage.setItem("token", "");
-                    localStorage.setItem("profile", "");
-                    window.location = "/signin";
-                  }}
-                >Đăng xuất</div>
-              </div>
-
+          <div className="account__selection-icon">
+            <i className="flex center"><FontAwesomeIcon icon={faAngleDown} fontSize={20} /></i>
+            <div className="account__selection">
+              <div id="logout" className="btn btn-primary"
+                onClick={() => {
+                  window.location = "/admin";
+                }}
+              >Admin Dashboard</div>
+              <div id="logout" className="btn btn-primary"
+                onClick={() => {
+                  localStorage.setItem("user", "");
+                  localStorage.setItem("token", "");
+                  localStorage.setItem("profile", "");
+                  window.location = "/signin";
+                }}
+              >Đăng xuất</div>
             </div>
           </div>
-        )
-      }
-    </div>
-  );
+        </div>
+      )
+    }
+    else {
+      return (
+        <div className="flex left">
+          <div className="account-wrap link">
+            <Link to="/profile" className="header__account">
+              <span className="flex left">
+                <i className="flex center">hi</i>{user}
+              </span>
+            </Link>
+          </div>
+          <div className="account__selection-icon">
+            <i className="flex center"><FontAwesomeIcon icon={faAngleDown} fontSize={20} /></i>
+            <div className="account__selection">
+              <div id="logout" className="btn btn-primary"
+                onClick={() => {
+                  localStorage.setItem("user", "");
+                  localStorage.setItem("token", "");
+                  localStorage.setItem("profile", "");
+                  window.location = "/signin";
+                }}
+              >Đăng xuất</div>
+            </div>
+
+          </div>
+        </div>
+      )
+    }
+  }
+
+  return (
+    render()
+  )
 }

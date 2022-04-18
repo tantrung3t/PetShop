@@ -142,7 +142,7 @@ function App() {
           <div className='grid'>
             <div className='navbar'>
               <Link className='flex center' to='/'>
-                <img src='../assets/img/logo.svg' alt='logo' width='200px' ></img>
+                <img src='../assets/img/LOGO_T2k_PetShop.svg' alt='logo' width='250px' ></img>
               </Link>
               <ul className='navbar'>
                 {showNavLink(navLinks)}
@@ -201,7 +201,9 @@ function App() {
           <Route path='/order/:id' component={OrderScreen} />
 
           
-          <Route path='/admin' component={Admin} />
+          <Route path='/admin'  render={() => {
+            return (localStorage.getItem('user') === "Admin") ? <Admin /> : <SigninScreen />
+          }}/>
           <Route path='/profile' component={ProfileScreen} />
 
           <Route path='/thucancun' component={Thucancun} />

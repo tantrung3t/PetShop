@@ -1,13 +1,13 @@
 
-import "./Thanhtoan.css" 
-import { useEffect} from "react";
+import "./Thanhtoan.css"
+import { useEffect } from "react";
 import axios from "axios";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 
-export default function Thanhtoan() {   
+export default function Thanhtoan() {
 
     console.log("render")
     var strurl = window.location.href;
@@ -19,25 +19,27 @@ export default function Thanhtoan() {
         const databody = {
             "order_id": order_id,
             "payment_status": order_status
-          }
-      
-          axios({
+        }
+
+        axios({
             method: 'post',
             url: 'http://localhost:3003/payment/status',
             data: databody
-          })
+        })
             .then(function (response) {
-              const data = response.data;
-              console.log(data)
+                const data = response.data;
+                console.log(data)
             })
             .catch(function (error) {
-              console.log(error);
+                console.log(error);
             });
     }
 
     useEffect(() => {
-        var order_id =  url.searchParams.get("orderId").slice(4)
-        sendOrderStatus(order_id, state)
+        if (state !== 0) {
+            var order_id = url.searchParams.get("orderId").slice(4)
+            sendOrderStatus(order_id, state)
+        }
     }, [])
 
     const notifications = () => {
@@ -48,6 +50,25 @@ export default function Thanhtoan() {
         //         <div></div>
         //     )
         // }
+
+        if (url.searchParams.get("payment") === 'cashPayment') {
+            return (
+                <div className='Thanhtoan_notification'>
+                    <div className="Thanhtoan_border_icon">
+                        <div className='Thanhtoan_icon'>
+                            <FontAwesomeIcon icon={faCheck} fontSize={80} />
+                        </div>
+                    </div>
+                    <div className='Thanhtoan_title'>
+                        Đặt hàng thành công
+                    </div>
+                    <div className='Thanhtoan_title1'>
+                        Cảm ơn bạn đã ủng hộ chúng tôi
+                    </div>
+                </div>
+            )
+        }
+
         if (url.searchParams.get("resultCode") === '0') {
             //thong bao thanh toan thanh cong va chuyen order_payment_momo = 2
             state = 2
@@ -60,7 +81,7 @@ export default function Thanhtoan() {
                     </div>
                     <div className='Thanhtoan_title'>
                         Thanh toán thành công
-                        </div>
+                    </div>
                     <div className='Thanhtoan_title1'>
                         Cảm ơn bạn đã ủng hộ chúng tôi
                     </div>
@@ -79,7 +100,7 @@ export default function Thanhtoan() {
                     </div>
                     <div className='Thanhtoan_title'>
                         Thanh toán không thành công
-                        </div>
+                    </div>
                     <div className='Thanhtoan_title1'>
                         Vui lòng thanh toán lại hoặc sữ dụng phương thức thanh toán khác
                     </div>

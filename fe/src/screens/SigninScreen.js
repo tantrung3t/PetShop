@@ -47,7 +47,7 @@ export default function Account() {
           localStorage.setItem('user', response.data.profile.info_fname)
           localStorage.setItem('token', response.data.token)
           localStorage.setItem('profile', JSON.stringify(response.data.profile))
-          window.location.reload();
+          window.location = "http://localhost:3000";
         }
       })
       .catch(function (error) {

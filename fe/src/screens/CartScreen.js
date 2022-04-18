@@ -94,7 +94,7 @@ export default function CartScreens() {
       .then(function (response) {
         const data = response.data;
         console.log(data)
-        // window.location = data.payUrl
+        window.location = "http://localhost:3000/thanhtoan?payment=cashPayment"
       })
       .catch(function (error) {
         console.log(error);
@@ -135,7 +135,8 @@ export default function CartScreens() {
     axios.get(`http://localhost:3003/products/cart/` + localStorage.getItem('token'))
       .then(res => {
         const data = res.data;
-        if (data.status !== 401) setProductsCart(data);
+        if (data.status !== 401 && data !== "") setProductsCart(data);
+        
       })
       .catch(error => console.log(error));
 
@@ -144,7 +145,7 @@ export default function CartScreens() {
   const choosePayment = () => {
     if (listOrder.length === 0 || profile === "") {
       if (profile === "") alert("Vui lòng đăng nhập để tiến hàng đặt hàng!")
-      else alert("Vui lòng check vào sản phẩm muốn mua để tiến hàng đặt hàng!")
+      else alert("Vui lòng chọn sản phẩm muốn mua để tiến hàng đặt hàng!")
     }
     else {
       setModal("modal")
@@ -269,7 +270,7 @@ export default function CartScreens() {
             className="btn btn-primary"
             style={{ fontSize: "16px" }}
             onClick={choosePayment}
-          >Mua Hàng</div>
+          >Đặt Hàng</div>
         </div>
       </div>
       {/* <div className="modal fade" id="modalLoginForm" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

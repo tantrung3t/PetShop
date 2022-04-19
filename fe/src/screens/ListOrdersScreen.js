@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
 const data = [
   {
     order_id: "1",
@@ -52,14 +52,15 @@ export default function ListOrdersScreen() {
   const [orders, setOrders] = useState(data);
 
   useEffect(() => {
-    // axios.get("http://localhost:3003/")
-    // .then(res => {
-    //   const data = res.data;
-    //   setOrders(data)
-    //   console.log(data);
-    // })
-    // .catch(error => console.log(error))
-    // data1 = data;
+    axios.get("http://localhost:3003/account/account_orders/" + localStorage.getItem("token"))
+    .then(res => {
+      const data = res.data;
+      // setOrders(data)
+      console.log(data);
+    })
+    .catch(error => console.log(error))
+
+
     setOrders(data)
   }, []);
 

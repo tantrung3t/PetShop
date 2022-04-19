@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const secretKey = "token";
 
 module.exports = function (router) {
-
+    var accountController = require('../controllers/account.controller');
 
     router.post('/login', function (req, res) {
         var username = req.body.username;
@@ -72,13 +72,13 @@ module.exports = function (router) {
         //them tai khoan va mat khau vao csdl
         db.query(strquery_add_username_password, function (err, data){
             //khong tao duoc
-            if(err || data.length == 0) return res.json("Tạo tài khoản thất bại!")
+             if(err || data.length == 0) return res.json("Tạo tài khoản thất bại!")
             //tao dc
             else{
                 var strquery_account_id = "SELECT * FROM `accounts` WHERE account_username = '"+ username_sign_up + "'"
                 //thuc hien cau lenh truy van de tim account_id vua tao
                 db.query(strquery_account_id, function (err, data){
-                    var strquery_add_info_with_account_id = "INSERT INTO `infomation` (`account_id`,`info_name`, `info_email`) VALUES ('"+ data[0].account_id +"', '"+ name_sign_up +"', '"+ email_sign_up +"')"
+                    var strquery_add_info_with_account_id = "INSERT INTO `infomation` (`account_id`,`info_fname`, `info_email`) VALUES ('"+ data[0].account_id +"', '"+ name_sign_up +"', '"+ email_sign_up +"')"
                     
                     db.query(strquery_add_info_with_account_id, function (err, data){
                         return res.json({
@@ -91,5 +91,12 @@ module.exports = function (router) {
             
         })
         })
+        
+        //get orders of account
+        router.get('/account/account_orders/:token', accountController.account_orders);
+
+        //update account
+        router.post('/account/update', accountController.update_account);
+
 
 }

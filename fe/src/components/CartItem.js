@@ -29,9 +29,6 @@ export default function CartItem(props) {
     setQty(qty + 1);
     //qty + 1 vì callbacks function gọi trước setQty nên giá trị không đúng
     // props.handleIncreaseQuantity(qty + 1);
-
-
-
   }
   const handleDecrease = () => {
     setQty(qty - 1);
@@ -43,12 +40,15 @@ export default function CartItem(props) {
 
   // const [checkbox, setCheckbox] = useState();
   // useEffect(() => {
-  //   hadleTotal()
+  //   handleTotal()
   // }, [props])
 
-  const handleTotal = () => {
+  const handleTotal = (e) => {
     var total = parseInt(localStorage.getItem("total"));
-    var isCheck = document.getElementById("cbx" + props.id).checked;
+    // var isCheck = document.getElementById("cbx" + props.id).checked;
+    var isCheck = e.target.checked;
+    // console.log("event " + isCheck)
+    
     // var temp = total;
     money = props.price * qty;
     // console.log(isCheck)

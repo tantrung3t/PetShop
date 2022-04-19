@@ -103,7 +103,11 @@ export default function ProductDetail(props) {
 
   return (
     <div>
-      <div className='path'><Link to={'/'}>Trang chủ</Link> / <Link to={'/products'}>Sản phẩm</Link> / <Link to={link}>{data[0].product_type_name}</Link> / {data[0].product_name}</div>
+      <div className='path'>
+        <div className='grid'> 
+          <Link to={'/'}>Trang chủ</Link> / <Link to={'/products'}>Sản phẩm</Link> / <Link to={link}>{data[0].product_type_name}</Link> / {data[0].product_name}
+        </div>
+      </div>
       <div className='grid flex beetween'>
         <div className='product__img'>
           <img

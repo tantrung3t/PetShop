@@ -33,7 +33,7 @@ export function ProductMiniCartItem(props) {
 
   return (
     <li className="p-1 mx-2" style={{position: "relative"}}>
-      <Link to={`/product/${props.id}`} className="home__product--minicart">
+      <Link to={`/products/${props.id}`} className="home__product--minicart">
         <img src={props.src} alt="img" width="60px" height="60px"  className="home__product-img"></img>
         <div className="pl-2">
           <div className="home__product-name--minicart">{props.name}</div>

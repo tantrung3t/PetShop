@@ -4,6 +4,19 @@ const db = require('../common/connect');
 const product = function () {
 }
 
+product.search = function (search, result) {
+    var strquery = "SELECT * FROM `products` WHERE product_name LIKE '%" + search + "%'"
+    db.query(strquery, function (err, data) {
+        if (err) {
+            result(null);
+        }
+        else {
+            result(data);
+        }
+    })
+}
+
+
 product.get_product_id = function (id, result) {
     var strquery = "SELECT products.product_type_id, products.product_id, products.product_name, products.product_price, products.product_image, products.product_amount, products.product_sold, products.product_description, products_brand.product_brand_name, products_type.product_type_name   FROM `products`, products_brand, products_type WHERE products.isDelete = 0 and products.product_brand_id = products_brand.product_brand_id and products.product_type_id = products_type.product_type_id and products.product_id = " + id;
     db.query(strquery, function (err, data) {

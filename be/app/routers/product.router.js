@@ -28,4 +28,7 @@ module.exports = function(router) {
     //add product in shopping cart
     router.post('/products/cart', productController.add_product_in_shopping_cart)
 
+    //search products
+    router.post('/products/search', productController.search)
+
 }

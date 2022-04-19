@@ -55,6 +55,12 @@ exports.get_product_brand = function (req, res) {
     })
 }
 
+exports.search = function(req, res) {
+    product.search(req.body.search, function(data){
+        res.send(data);
+    })
+}
+
 
 
 //add product

@@ -19,6 +19,7 @@ import ProfileScreen from './screens/ProfileScreen'
 import BrandScreen from './screens/BrandScreen'
 import ListOrdersScreen from './screens/ListOrdersScreen'
 import OrderScreen from './screens/OrderScreen'
+import SearchScreen from './screens/SearchScreen'
 
 import Thucancun from './components/Thucancun';
 import Thucanmeo from './components/Thucanmeo';
@@ -192,7 +193,7 @@ function App() {
             return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />
           }}
           />
-
+          <Route path='/search/:id' component={Search} />
           <Route path='/products' component={Products} />
           <Route path='/cart' component={CartScreen} />
           <Route path='/orders' component={ListOrdersScreen} />
@@ -220,6 +221,13 @@ function App() {
       </div>
     </Router>
   );
+}
+
+function Search(){
+  let {id} = useParams();
+  return (
+    <SearchScreen id={id}/>
+  )
 }
 
 function ProductDetail_Id() {

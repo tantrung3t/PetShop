@@ -293,6 +293,7 @@ export default function AdminProduct() {
     event.preventDefault();
     const dataSubmit = new FormData(event.currentTarget);
 
+    
     if (isAddProductNew) {
       axios.post('http://localhost:3003/image',
         formData, {

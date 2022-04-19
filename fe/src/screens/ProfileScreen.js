@@ -1,23 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react"
+import React, {useState } from "react"
 
 export default function ProfileScreen() {
-  const [profile, setProfile] = useState({});
-  useEffect(() => {
-    setProfile(profile => ({
-      ...profile,
-      account_id: 2,
-      info_address: "Hưng Lợi, Ninh Kiều, Cần Thơ",
-      info_date: "2000-09-13",
-      info_email: "ngocngan@gmail.com",
-      info_fname: "Ngọc Hí",
-      info_lname: "Trần",
-      info_phone_number: "034882277",
-      info_sex: 1
-    }))
-  }, []);
 
-  localStorage.setItem("profile", JSON.stringify(profile))
+  const [profile] = useState(JSON.parse(localStorage.getItem("profile")))
+
+
+  // localStorage.setItem("profile", JSON.stringify(profile))
 
   // const loadData = () => {
   //   axios.get(`http://localhost:3003/profile/`)
@@ -27,48 +16,64 @@ export default function ProfileScreen() {
   //     })
   //     .catch(error => console.log(error));
   // }
-  console.log(profile)
+  // console.log(profile)
 
-  const [fname, setFname] = useState()
-  const [lname, setLname] = useState()
-  const [date, setDate] = useState()
+  // const [fname, setFname] = useState()
+  // const [lname, setLname] = useState()
+  // const [date, setDate] = useState()
   const [sex, setSex] = useState()
-  const [email, setEmail] = useState()
-  const [phone, setPhone] = useState()
-  const [address, setAddress] = useState()
-  const [tempProfile, setTempProfile] = useState({});
+  // const [email, setEmail] = useState()
+  // const [phone, setPhone] = useState()
+  // const [address, setAddress] = useState()
+  // const [tempProfile, setTempProfile] = useState({});
 
-  useEffect(() => {
-    setTempProfile(tempProfile => ({
-      ...tempProfile,
-      fname: fname,
-      lname: lname,
-      date: date,
-      sex: sex,
-      email: email,
-      phone: phone,
-      address: address
-    }))
-  }, [fname, lname, date, email, phone, address, sex])
+  // useEffect(() => {
+  //   setTempProfile(tempProfile => ({
+  //     ...tempProfile,
+  //     fname: fname,
+  //     lname: lname,
+  //     date: date,
+  //     sex: sex,
+  //     email: email,
+  //     phone: phone,
+  //     address: address
+  //   }))
+  // }, [fname, lname, date, email, phone, address, sex])
+  // console.log(tempProfile)
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:3003/api/profile', tempProfile)
+    const dataSubmit = new FormData(event.currentTarget);
+
+    var data = {
+      account_id: 2,
+      info_address: dataSubmit.get('address'),
+      info_date: dataSubmit.get('date'),
+      info_email: dataSubmit.get('email'),
+      info_fname: dataSubmit.get('fname'),
+      info_lname: dataSubmit.get('lname'),
+      info_phone_number: dataSubmit.get('phone'),
+      info_sex: sex
+
+    }
+
+    axios.post('http://localhost:3003/account/update', data)
       .then(function (response) {
-        console.log(response);
+        console.log(response.data);
       })
       .catch(function (error) {
         console.log(error);
       });
     alert("Bạn đã lưu thành công!");
-    location.reload();
+    // location.reload();
 
   }
 
   // const handleCheck = () => {
   //   document.getElementsByName(sex)
   // }
-  console.log("profile" + localStorage.getItem("profile"))
+  // console.log(JSON.parse(localStorage.getItem("profile")))
+
   return (
     <div className="grid">
       <div className="form-container">
@@ -83,8 +88,8 @@ export default function ProfileScreen() {
                 id="fname"
                 name="fname"
                 placeholder="Tên"
-                defaultValue={profile.fname}
-                onChange={(e) => setFname(e.target.value)}
+                defaultValue={profile.info_fname}
+                // onChange={(e) => setFname(e.target.value)}
               />
             </div>
             <div>
@@ -95,8 +100,8 @@ export default function ProfileScreen() {
                 id="lname"
                 name="lname"
                 placeholder="Ho"
-                defaultValue={profile.lname}
-                onChange={(e) => setLname(e.target.value)}
+                defaultValue={profile.info_lname}
+                // onChange={(e) => setLname(e.target.value)}
               />
             </div>
           </div>
@@ -108,8 +113,8 @@ export default function ProfileScreen() {
                 type="date"
                 id="date"
                 name="date"
-                defaultValue={profile.date}
-                onChange={(e) => setDate(e.target.value)}
+                defaultValue={profile.info_date}
+                // onChange={(e) => setDate(e.target.value)}
               />
             </div>
             <div>
@@ -130,8 +135,8 @@ export default function ProfileScreen() {
               id="email"
               name="email"
               placeholder="Email"
-              defaultValue={profile.email}
-              onChange={(e) => setEmail(e.target.value)}
+              defaultValue={profile.info_email}
+              // onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="form-input--wrap">
@@ -143,8 +148,8 @@ export default function ProfileScreen() {
               name="phone"
               placeholder="+84"
               pattern="[0-9]+"
-              defaultValue={profile.phone}
-              onChange={(e) => setPhone(e.target.value)}
+              defaultValue={profile.info_phone_number}
+              // onChange={(e) => setPhone(e.target.value)}
             />
           </div>
           <div className="form-input--wrap">
@@ -154,8 +159,8 @@ export default function ProfileScreen() {
               id="address"
               name="address"
               placeholder="Địa chỉ"
-              defaultValue={profile.address}
-              onChange={(e) => setAddress(e.target.value)}
+              defaultValue={profile.info_address}
+              // onChange={(e) => setAddress(e.target.value)}
               rows={2}
             />
           </div>
@@ -163,7 +168,8 @@ export default function ProfileScreen() {
             <button
               type="submit"
               className="btn btn-primary form-btn"
-              disabled={JSON.stringify(profile) === JSON.stringify(tempProfile)} >
+              // disabled={JSON.stringify(profile) === JSON.stringify(tempProfile)} 
+            >
               Lưu Thay Đổi
             </button>
             <button type="reset" className="btn btn-primary form-btn">Hủy</button>
@@ -171,7 +177,6 @@ export default function ProfileScreen() {
 
         </form>
       </div>
-
     </div>
   );
 }

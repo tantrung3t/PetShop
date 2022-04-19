@@ -27,3 +27,12 @@ exports.account_orders = function (req, res) {
     }
 
 }
+
+exports.update_account = function (req, res) {
+    var dataBody = req.body
+
+    account.update_account(dataBody, function (data) {
+        res.send(data);
+    })
+
+}

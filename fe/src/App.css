@@ -797,13 +797,13 @@ i {
 .account__selection {
   position: absolute;
   display: none;
-  width: 120px;
+  width: 165px;
   top: calc(100% + 8px);
   right: 0px;
-  background: #fff;
-  border: 1px solid var(--primary-color);
+  background: var(--primary-color);
+  border: 1px solid #fff;
   border-radius: 4px;
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 20%);
+  box-shadow: 0 1px 2px 1px rgb(0 0 0 / 20%);
 }
 
 .account__selection::before {
@@ -811,8 +811,14 @@ i {
   position: absolute;
   width: 35%;
   height: 20px;
-  transform: translate(76px, -17px);
+  transform: translate(106px, -17px);
   /* background: #2A26E3; */
+}
+
+.btn-selection {
+  width: 100%;
+  font-size: 14px;
+  border-radius: 0;
 }
 
 /* Main */
@@ -1174,6 +1180,7 @@ i {
 
 /* Infomation Order */
 .orders-container {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1210,6 +1217,14 @@ i {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   line-height: 1.5;
+}
+
+#order__arrow-left {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  margin: 16px 0;
+  font-size: 22px;
 }
 
 /* Profile Screen */

@@ -70,14 +70,15 @@ export default function Account() {
           <div className="account__selection-icon">
             <i className="flex center"><FontAwesomeIcon icon={faAngleDown} fontSize={20} /></i>
             <div className="account__selection">
-              <Link to="/orders" className="btn btn-primary">
+              <Link to="/orders" className="btn btn-primary btn-selection">
                 Lịch sử mua hàng
               </Link>
-              <Link to="/profile" className="btn btn-primary">
+              <Link to="/profile" className="btn btn-primary btn-selection">
                 Cập nhật tài khoản
               </Link>
-              <div id="logout" className="btn btn-primary"
-                onClick={() => {
+              <div id="logout" className="btn btn-primary btn-selection"
+                onClick={(e) => {
+                  e.preventDefault;
                   localStorage.setItem("user", "");
                   localStorage.setItem("token", "");
                   localStorage.setItem("profile", "");

@@ -70,6 +70,12 @@ export default function Account() {
           <div className="account__selection-icon">
             <i className="flex center"><FontAwesomeIcon icon={faAngleDown} fontSize={20} /></i>
             <div className="account__selection">
+              <Link to="/orders" className="btn btn-primary">
+                Lịch sử mua hàng
+              </Link>
+              <Link to="/profile" className="btn btn-primary">
+                Cập nhật tài khoản
+              </Link>
               <div id="logout" className="btn btn-primary"
                 onClick={() => {
                   localStorage.setItem("user", "");

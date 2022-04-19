@@ -192,8 +192,6 @@ function App() {
             return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />
           }}
           />
-          {/* Cho nay bi loi nen can phai sua lai ne */}
-          {/* Loi bi chen them the <div> cua ulr /products roi moi den /:id */}
 
           <Route path='/products' component={Products} />
           <Route path='/cart' component={CartScreen} />

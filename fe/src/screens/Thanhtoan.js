@@ -5,6 +5,7 @@ import axios from "axios";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
 
 
 export default function Thanhtoan() {
@@ -65,6 +66,9 @@ export default function Thanhtoan() {
                     <div className='Thanhtoan_title1'>
                         Cảm ơn bạn đã ủng hộ chúng tôi
                     </div>
+                    <Link to={'/'} className="btn btn-primary" style={{fontSize: "16px"}}>
+                        Trang chủ
+                    </Link>
                 </div>
             )
         }

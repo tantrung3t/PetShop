@@ -20,7 +20,7 @@ export default function Account() {
         <div className="account-wrap link mr-4">
           <Link to="/signin" className="header__account">
             <span className="flex left">
-              <i className="flex center"><FontAwesomeIcon icon={faUser} fontSize={20} /></i>Tài khoản
+              <i className="flex center mr-1"><FontAwesomeIcon icon={faUser} fontSize={20} /></i>Tài khoản
             </span>
           </Link>
         </div>
@@ -32,7 +32,7 @@ export default function Account() {
           <div className="account-wrap link">
             <Link to="/profile" className="header__account">
               <span className="flex left">
-                <i className="flex center">AD</i>{user}
+                <i className="flex center mr-1">AD</i>{user}
               </span>
             </Link>
           </div>
@@ -63,7 +63,7 @@ export default function Account() {
           <div className="account-wrap link">
             <Link to="/profile" className="header__account">
               <span className="flex left">
-                <i className="flex center">hi</i>{user}
+                <i className="flex center mr-1">hi</i>{user}
               </span>
             </Link>
           </div>

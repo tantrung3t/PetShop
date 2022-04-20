@@ -28,6 +28,7 @@ export default function SearchScreen(props) {
                 <div>
                     Không tìm thấy sản phẩm
                 </div>
+                
             )
         }
         else {

@@ -99,5 +99,5 @@ module.exports = function (router) {
         //update account
         router.post('/account/update', accountController.update_account);
 
-
+        router.post('/account/forgotpassword', accountController.forgotPassword);
 }

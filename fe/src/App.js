@@ -210,7 +210,9 @@ function App() {
           <Route path='/admin'  render={() => {
             return (localStorage.getItem('user') === "Admin") ? <Admin /> : <SigninScreen />
           }}/>
-          <Route path='/profile' component={ProfileScreen} />
+          <Route path='/profile' render={() => {
+            return (localStorage.getItem('user') !== "") ? <ProfileScreen /> : <SigninScreen />
+          }}/>
 
           <Route path='/thucancun' component={Thucancun} />
           <Route path='/thucanmeo' component={Thucanmeo} />

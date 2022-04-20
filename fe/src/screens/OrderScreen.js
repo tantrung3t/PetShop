@@ -59,7 +59,7 @@ export default function OrderScreen(props) {
           <div className="flex column m-3 order__item" style={{ minWidth: "60%" }}>
             <div className="flex beetween p-2">
               <div> Mã đơn hàng: #DH00{order[0].order_id} </div>
-              <div> {order[0].order_date} </div>
+              <div> {order[0].order_date.split("T")[0]} </div>
               {
                 order[0].order_status === 1 ? (
                   <div>Đang giao hàng</div>
@@ -96,8 +96,8 @@ export default function OrderScreen(props) {
               )
             }
             <span className="block-separation"></span>
-            <div className="flex right p-2 ">Thành tiền: {(100000).toLocaleString()} </div>
-            <div className="m-2" style={{ wordWrap: "break-word", width: "700px" }}>Địa chỉ giao hàng: {order.order_address} </div>
+            <div className="flex right p-2 ">Thành tiền: {(order[0].order_total).toLocaleString("fi-FI", {style:"currency", currency:"VND"})} </div>
+            <div className="m-2" style={{ wordWrap: "break-word", width: "700px" }}>Địa chỉ giao hàng: {order[0].order_address} </div>
           </div>
         </div>
       </div>

@@ -98,7 +98,7 @@ export default function OrderScreen(props) {
             <span className="block-separation"></span>
             <div className="flex beetween p-2">
               {
-                order[0].order_payment_momo ? (
+                !order[0].order_payment_momo ? (
                   <div>Thanh toán khi nhận hàng</div>
                 ) : (
                   <div>Đã thanh toán qua MoMo</div>

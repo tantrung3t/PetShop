@@ -145,7 +145,7 @@ function App() {
           <div className='grid'>
             <div className='navbar'>
               <Link className='flex center' to='/'>
-                <img src='../assets/img/LOGO_T2k_PetShop.svg' alt='logo' width='250px' ></img>
+                <img src='../assets/img/logo.svg' alt='logo' width='250px' ></img>
               </Link>
               <ul className='navbar'>
                 {showNavLink(navLinks)}
@@ -197,10 +197,15 @@ function App() {
           />
           <Route path='/search/:id' component={Search} />
           <Route path='/products' component={Products} />
-          <Route path='/cart' component={CartScreen} />
-          <Route path='/orders' component={ListOrdersScreen} />
-          <Route path='/order/:id' component={OrderScreen} />
-
+          <Route path='/cart' render={() => {
+            return (localStorage.getItem('user') !== "") ? <CartScreen /> : <SigninScreen />
+          }}/>
+          <Route path='/orders' render={() => {
+            return (localStorage.getItem('user') !== "") ? <ListOrdersScreen /> : <SigninScreen />
+          }}/>
+          <Route path='/order' render={() => {
+            return (localStorage.getItem('user') !== "") ? <Order /> : <SigninScreen />
+          }}/>
           
           <Route path='/admin'  render={() => {
             return (localStorage.getItem('user') === "Admin") ? <Admin /> : <SigninScreen />
@@ -258,5 +263,17 @@ function Admin() {
     </Switch>
   )
 }
+
+function Order() {
+  let { path } = useRouteMatch();
+  return (
+    <Switch>
+      <Route exact path={path} component={ListOrdersScreen} />
+      <Route path='/order/:id' component={OrderScreen} />
+    </Switch>
+  )
+}
+
+<Route path='/order/:id' component={OrderScreen} />
 
 export default App;

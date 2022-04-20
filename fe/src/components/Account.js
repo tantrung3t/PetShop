@@ -39,12 +39,12 @@ export default function Account() {
           <div className="account__selection-icon">
             <i className="flex center"><FontAwesomeIcon icon={faAngleDown} fontSize={20} /></i>
             <div className="account__selection">
-              <div id="logout" className="btn btn-primary"
+              <div id="dashboard" className="btn btn-primary btn-selection"
                 onClick={() => {
                   window.location = "/admin";
                 }}
-              >Admin Dashboard</div>
-              <div id="logout" className="btn btn-primary"
+              >Quản lý T2K Shop</div>
+              <div id="logout" className="btn btn-primary btn-selection"
                 onClick={() => {
                   localStorage.setItem("user", "");
                   localStorage.setItem("token", "");

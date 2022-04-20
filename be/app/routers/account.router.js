@@ -94,6 +94,10 @@ module.exports = function (router) {
         
         //get orders of account
         router.get('/account/orders/:token', accountController.account_orders);
+<<<<<<< HEAD
+=======
+        router.get('/account/order/:id', accountController.orderByID);
+>>>>>>> a039be9f976ed765687ece70c392fd0c6cd9ba74
 
         //update account
         router.post('/account/update', accountController.update_account);

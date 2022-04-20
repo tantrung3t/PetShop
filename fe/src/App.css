@@ -1219,6 +1219,12 @@ i {
   line-height: 1.5;
 }
 
+.order__item .product__item--detail {
+  text-align: center;
+  padding: 8px 0;
+  color: var(--text-color);
+}
+
 #order__arrow-left {
   position: absolute;
   top: 0;

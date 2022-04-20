@@ -21,7 +21,7 @@ export default function ProfileScreen() {
   // const [fname, setFname] = useState()
   // const [lname, setLname] = useState()
   // const [date, setDate] = useState()
-  const [sex, setSex] = useState()
+  const [sex, setSex] = useState(0)
   // const [email, setEmail] = useState()
   // const [phone, setPhone] = useState()
   // const [address, setAddress] = useState()
@@ -60,11 +60,13 @@ export default function ProfileScreen() {
     axios.post('http://localhost:3003/account/update', data)
       .then(function (response) {
         console.log(response.data);
+        alert("Cập nhật thông tin thành công vui lòng đăng nhập lại!");
       })
       .catch(function (error) {
         console.log(error);
+        alert("Cập nhật thông tin thất bại!");
       });
-    alert("Bạn đã lưu thành công!");
+    
     // location.reload();
 
   }

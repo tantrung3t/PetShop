@@ -74,7 +74,7 @@ export default function Account() {
     if (dataSubmit.get('username_sign-up') === '' || dataSubmit.get('password_sign-up') === '' || dataSubmit.get('re_password_sign-up') === '' || dataSubmit.get('password_sign-up') === '' || dataSubmit.get('email_sign-up') === '') {
       alert("Bạn hãy điền đầy đủ thông tin để tiến hành đăng ký!")
     }
-    if (dataSubmit.get('password_sign-up') !== dataSubmit.get('re_password_sign-up')) {
+    else if (dataSubmit.get('password_sign-up') !== dataSubmit.get('re_password_sign-up')) {
       alert("Mật khẩu nhập lại không đúng")
     }
     else {

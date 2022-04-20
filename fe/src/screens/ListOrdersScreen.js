@@ -54,7 +54,7 @@ export default function ListOrdersScreen() {
   const url = "http://localhost:3003";
 
   useEffect(() => {
-    axios.get("http://localhost:3003/account/account_orders/" + localStorage.getItem("token"))
+    axios.get("http://localhost:3003/account/orders/" + localStorage.getItem("token"))
     .then(res => {
       const data = res.data;
       setOrders(data)

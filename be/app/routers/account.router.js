@@ -93,7 +93,7 @@ module.exports = function (router) {
         })
         
         //get orders of account
-        router.get('/account/account_orders/:token', accountController.account_orders);
+        router.get('/account/orders/:token', accountController.account_orders);
 
         //update account
         router.post('/account/update', accountController.update_account);

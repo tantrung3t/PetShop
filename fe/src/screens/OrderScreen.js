@@ -96,7 +96,16 @@ export default function OrderScreen(props) {
               )
             }
             <span className="block-separation"></span>
-            <div className="flex right p-2 ">Thành tiền: {(order[0].order_total).toLocaleString("fi-FI", {style:"currency", currency:"VND"})} </div>
+            <div className="flex beetween p-2">
+              {
+                order[0].order_payment_momo ? (
+                  <div>Thanh toán khi nhận hàng</div>
+                ) : (
+                  <div>Đã thanh toán qua MoMo</div>
+                )
+              }
+              <div className="">Thành tiền: {(order[0].order_total).toLocaleString("fi-FI", {style:"currency", currency:"VND"})} </div>
+            </div>
             <div className="m-2" style={{ wordWrap: "break-word", width: "700px" }}>Địa chỉ giao hàng: {order[0].order_address} </div>
           </div>
         </div>

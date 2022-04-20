@@ -45,22 +45,12 @@ export default function CartScreens() {
 
   const momoPayment = async(event) => {
     event.preventDefault();
-    // axios.post('http://localhost:3003/api/orders', order)
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-    // console.log(totalPayment)
-    // alert("Bạn đã đặt hàng thành công!");
     const databody = {
       "amount": totalPayment,
       "account_id": profile.account_id,
       "order_address": document.getElementById("info-order__address").value,
       listOrder
     }
-
     await axios({
       method: 'post',
       url: 'http://localhost:3003/payment/momo_payment',

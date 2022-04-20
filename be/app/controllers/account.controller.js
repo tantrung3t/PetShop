@@ -36,3 +36,12 @@ exports.update_account = function (req, res) {
     })
 
 }
+
+exports.orderByID = function (req, res) {
+    var orderID = req.params.id
+
+    account.orderByID(orderID, function (data) {
+        res.send(data);
+    })
+
+}

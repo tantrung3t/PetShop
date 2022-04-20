@@ -54,16 +54,13 @@ export default function ListOrdersScreen() {
   const url = "http://localhost:3003";
 
   useEffect(() => {
-    axios.get("http://localhost:3003/account/account_orders/" + localStorage.getItem("token"))
+    axios.get("http://localhost:3003/account/orders/" + localStorage.getItem("token"))
     .then(res => {
       const data = res.data;
       setOrders(data)
       console.log(data);
     })
     .catch(error => console.log(error))
-
-    
-    // setOrders(data)
   }, []);
 
   const result = Object.values(orders).filter(order => {
@@ -71,7 +68,8 @@ export default function ListOrdersScreen() {
     for (let index = 0; index < ordersCheck.length; index++) {
       const element = ordersCheck[index];
       if(order.order_id === element) {
-        return;
+        // console.log("aa")
+        return ;
       } 
       else {
         // console.log("aaaa");
@@ -89,7 +87,7 @@ export default function ListOrdersScreen() {
   })
 
   // console.log(result)
-
+  console.log(orders)
   return (
     <div className="grid">
       <div className="orders-container">
@@ -98,8 +96,8 @@ export default function ListOrdersScreen() {
           result.map((order, index) => (
             <Link to={'/order/' + order.order_id} key={index} className="flex column m-3 order__item" style={{ minWidth: "60%" }}>
               <div className="flex beetween p-2">
-                <div> Mã đơn hàng: #{order.order_id} </div>
-                <div> {order.order_date} </div>
+                <div> Mã đơn hàng: #DH00{order.order_id} </div>
+                <div> {order.order_date.split("T")[0]} </div>
                 {
                   order.order_status === 1 ? (
                     <div>Đang giao hàng</div>
@@ -132,8 +130,10 @@ export default function ListOrdersScreen() {
                 </div>
               </div>
               <span className="block-separation"></span>
-              <div className="flex right p-2 ">Thành tiền: {(100000).toLocaleString("fi-FI", {style:"currency", currency:"VND"})} </div>
-              <div className="m-2" style={{ wordWrap: "break-word", width: "700px" }}>Địa chỉ giao hàng: {order.order_address} </div>
+              <div className="product__item--detail">Xem chi tiết đơn hàng</div>
+              <span className="block-separation"></span>
+              <div className="flex right p-2 ">Thành tiền: {(order.order_total).toLocaleString("fi-FI", {style:"currency", currency:"VND"})} </div>
+              {/* <div className="m-2" style={{ wordWrap: "break-word", width: "700px" }}>Địa chỉ giao hàng: {order.order_address} </div> */}
             </Link>
           ))
         }

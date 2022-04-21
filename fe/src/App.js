@@ -49,11 +49,12 @@ function App() {
   const url = "http://localhost:3003";
 
   const [productCart, setProductCart] = useState([]);
+  const [onChangeCart, setOnChangeCart] = useState()
 
   useEffect(() => {
     checkToken()
     loadData()
-  }, []);
+  }, [onChangeCart]);
 
   const checkToken = () => {
     axios.get(`http://localhost:3003/private/` + localStorage.getItem('token'))
@@ -137,7 +138,7 @@ function App() {
     }
     return result;
   }
-
+console.log(productCart)
   return (
     <Router>
       <div className='grid-container'>
@@ -145,7 +146,7 @@ function App() {
           <div className='grid'>
             <div className='navbar'>
               <Link className='flex center' to='/'>
-                <img src='../assets/img/logo.svg' alt='logo' width='250px' ></img>
+                <img src='../assets/img/logo.svg' alt='logo' width='200px' ></img>
               </Link>
               <ul className='navbar'>
                 {showNavLink(navLinks)}
@@ -156,6 +157,7 @@ function App() {
                 <Link to='/cart' className='header__cart-icon'>
                   <FontAwesomeIcon icon={faCartShopping} className='header__cart-icon' color='white' />
                 </Link>
+                {productCart.length}
                 {
                   productCart.length === 0 ? (
                     <div className='header__cart-list center'>
@@ -176,7 +178,7 @@ function App() {
                           />
                         )
                       }
-                      <div className='btn btn-primary' onClick={() => document.location.href ="/cart"}>Xem Giỏ Hàng</div>
+                      <div className='btn btn-primary' onClick={() => window.location ="/cart"}>Xem Giỏ Hàng</div>
                       {/* <div className='btn btn-primary' onClick={handleShowCart}>Xem Giỏ Hàng</div> */}
                     </div>
                   )
@@ -198,7 +200,7 @@ function App() {
           <Route path='/search/:id' component={Search} />
           <Route path='/products' component={Products} />
           <Route path='/cart' render={() => {
-            return (localStorage.getItem('user') !== "") ? <CartScreen /> : <SigninScreen />
+            return (localStorage.getItem('user') !== "") ? <CartScreen onChangeCart={value => setOnChangeCart(value)} /> : <SigninScreen />
           }}/>
           <Route path='/orders' render={() => {
             return (localStorage.getItem('user') !== "") ? <ListOrdersScreen /> : <SigninScreen />

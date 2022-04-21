@@ -92,15 +92,16 @@ export default function Account() {
       axios(config)
         .then(function (response) {
           console.log(JSON.stringify(response.data));
+          response.data.status === 200 ? alert("Đăng ký thành công") : alert("Đăng ký thất bại")
         })
         .catch(function (error) {
           console.log(error);
         });
     }
+    
   }
 
   return (
-
     <div className="body-sign">
       <div className={`container-sign ${isContainerActive}`}>
         <div className="sign-form-container sign-up-container">

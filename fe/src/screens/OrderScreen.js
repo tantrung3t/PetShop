@@ -32,7 +32,6 @@ import axios from "axios";
 
 export default function OrderScreen(props) {
   const orderID = props.match.params.id;
-  console.log(orderID)
   const [order, setOrder] = useState([]);
   const url = "http://localhost:3003";
 
@@ -57,7 +56,7 @@ export default function OrderScreen(props) {
           </Link>
           <h2 className="center my-3" style={{ textTransform: "uppercase" }}>Đơn hàng #DH00{orderID} </h2>
           <div className="flex column m-3 order__item" style={{ minWidth: "60%" }}>
-            <div className="flex beetween p-2">
+            <div className="flex beetween p-2" style={{ backgroundColor: "var(--primary-color)", color: "#fff" }}>
               <div> Mã đơn hàng: #DH00{order[0].order_id} </div>
               <div> {order[0].order_date.split("T")[0]} </div>
               {
@@ -99,14 +98,20 @@ export default function OrderScreen(props) {
             <div className="flex beetween p-2">
               {
                 !order[0].order_payment_momo ? (
-                  <div>Thanh toán khi nhận hàng</div>
+                  <div style={{color: "#ff383d", fontWeight: "600"}}>Thanh toán khi nhận hàng</div>
                 ) : (
-                  <div>Đã thanh toán qua MoMo</div>
+                  <div style={{color: "#ff383d", fontWeight: "600"}}>Đã thanh toán qua MoMo</div>
                 )
               }
-              <div className="">Thành tiền: {(order[0].order_total).toLocaleString("fi-FI", {style:"currency", currency:"VND"})} </div>
+              <div className="">
+                Thành tiền:&nbsp; 
+                <span style={{color: "#ff383d", fontWeight: "600"}}> {(order[0].order_total).toLocaleString("fi-FI", { style: "currency", currency: "VND" })} </span>
+              </div>
             </div>
-            <div className="m-2" style={{ wordWrap: "break-word", width: "700px" }}>Địa chỉ giao hàng: {order[0].order_address} </div>
+            <div className="m-2" style={{ wordWrap: "break-word", width: "700px" }}>
+              Địa chỉ giao hàng:&nbsp;
+              {order[0].order_address} 
+            </div>
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@
 :root {
   --primary-color: #91c2cc;
   --primary-light-color: #91c2cc80;
-  --primary-hover-color:  #63b9cd;
+  --primary-bold-color:  #63b9cd;
   /* --primary-text-hover:  */
   --white-color: #fff;
   --black-color: #000;
@@ -20,6 +20,24 @@
   0%   { transform: translate(0, 0px); transition: 3s ease-in-out; }
   50%  { transform: translate(0, -10%); transition: 1s ease-in-out; }
   100% { transform: translate(0, 0px); transition: 1s ease-in-out; }
+}
+
+@keyframes animationGrownUp {
+  from{
+      transform: scale(0);
+  }
+  to {
+      transform: scale(1);
+  }
+}
+
+@keyframes animationFadeIn {
+  from{
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .btn {
@@ -64,7 +82,7 @@
 
 .primary:hover {
   cursor: pointer;
-  color: var(--primary-hover-color) !important;
+  color: var(--primary-bold-color) !important;
 }
 
 .block-separation {
@@ -165,7 +183,7 @@ footer {
 
 .link:hover {
   cursor: pointer;
-  color: var(--primary-hover-color);
+  color: var(--primary-bold-color);
 }
 
 li {
@@ -593,7 +611,7 @@ textarea:focus-visible {
 }
 
 /* .nav-link:hover {
-  background-color: var(--primary-hover-color);
+  background-color: var(--primary-bold-color);
   color: var(--black-color);
 } */
 
@@ -604,7 +622,7 @@ textarea:focus-visible {
 }
 
 .active {
-  background-color: var(--primary-hover-color);
+  background-color: var(--primary-bold-color);
   color: #000;
 }
 
@@ -683,7 +701,7 @@ textarea:focus-visible {
 }
 .btn-search:hover {
   cursor: pointer;
-  color: var(--primary-hover-color);
+  color: var(--primary-bold-color);
 }
 
   /* Cart */
@@ -736,6 +754,9 @@ textarea:focus-visible {
   justify-content: left;
   flex-direction: column;
   color: #000;
+  transform-origin: 90% 0%;
+
+  animation: animationGrownUp ease-in 0.2s;
 }
 
 /* .header__cart-list::before {
@@ -750,13 +771,14 @@ textarea:focus-visible {
 
 /* Account */
 .account-wrap {
+  position: relative;
   width: 110px;
   padding-left: 4px;
   border-radius: 20px; 
 }
 
 .account-wrap:hover {
-  background-color: var(--primary-hover-color);
+  background-color: var(--primary-bold-color);
 }
 
 .header__account {
@@ -778,7 +800,7 @@ i {
   height: 33px;
   min-height: 33px;
   padding: 8px;
-  border: 1px solid var(--primary-hover-color);
+  border: 1px solid var(--primary-bold-color);
   border-radius: 50%;
   background-color: #fff;
   color: #000;
@@ -792,6 +814,7 @@ i {
 
 .account__selection-icon:hover .account__selection{
   display: block;
+  animation: animationFadeIn ease .2s;
 }
 
 .account__selection {
@@ -893,7 +916,7 @@ i {
 }
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
-  color: var(--primary-hover-color);
+  color: var(--primary-bold-color);
   cursor: pointer;
   text-decoration: none;
   outline: 0;
@@ -923,7 +946,7 @@ i {
   border-radius: 2px;
   font-size: 16px;
   line-height: 1.5;
-  transition: transform ease-in 0.1s;
+  transition: transform ease-in .2s;
   will-change: transform;
 }
 
@@ -1075,7 +1098,7 @@ i {
 
 .category__heading {
   text-transform: capitalize;
-  margin: 0;
+  margin: 0 0 4px 0;
   padding-top: 4px;
 }
 
@@ -1097,6 +1120,19 @@ i {
 
 .category__item:first-child {
   border-top: none;
+}
+
+.category__item-link {
+  position: relative;
+  color: var(--text-color);
+  transition: right linear .1s;
+  will-change: right;
+  right: 0;
+}
+
+.category__item:hover .category__item-link {
+  right: -4px;
+  color: var(--primary-bold-color);
 }
 
 .products {

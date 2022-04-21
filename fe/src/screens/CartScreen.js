@@ -11,7 +11,7 @@ localStorage.setItem("total", 0)
 localStorage.setItem("orders", "")
 
 export default function CartScreens() {
-  console.log("re render")
+  // console.log("re render")
   const url = "http://localhost:3003";
 
   const [listOrder, setListOrder] = useState([])
@@ -19,8 +19,6 @@ export default function CartScreens() {
   const [modal, setModal] = useState("modal hide");
 
   const [productsCart, setProductsCart] = useState([]);
-  // const [isCheck, setIsCheck] = useState([]);
-  // const [isCheckAll, setIsCheckAll] = useState(false);
   const [totalPayment, setTotalPayment] = useState(0)
   let profile = "";
 
@@ -129,7 +127,6 @@ export default function CartScreens() {
         
       })
       .catch(error => console.log(error));
-
   }
 
   const choosePayment = () => {

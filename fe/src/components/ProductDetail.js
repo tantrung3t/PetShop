@@ -66,6 +66,7 @@ export default function ProductDetail(props) {
 
 
   const handleOrder = (e) => {
+    var onChangeCart = true;
     if (localStorage.getItem("user") === "") {
       console.log("fail")
       history.push('/signin')
@@ -73,6 +74,7 @@ export default function ProductDetail(props) {
       e.preventDefault();
 
       addProductInCart()
+      props.onChangeCart(!onChangeCart)
 
       // console.log()
       // console.log(data[0]);
@@ -81,7 +83,6 @@ export default function ProductDetail(props) {
   };
 
   const addProductInCart = () => {
-
     var dataForm = {
       "token": localStorage.getItem('token'),
       "product_id": data[0].product_id,
@@ -97,7 +98,6 @@ export default function ProductDetail(props) {
     .catch(err => {
       console.log(err)
     })
-
   }
 
 

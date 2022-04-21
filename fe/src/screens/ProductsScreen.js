@@ -51,11 +51,31 @@ export default function ProductsScreen() {
               &nbsp; Danh mục
             </h2>
             <ul className="category__list">
-              <li className="category__item">thức ăn cho cún</li>
-              <li className="category__item">thức ăn cho mèo</li>
-              <li className="category__item">đồ chơi thú cưng</li>
-              <li className="category__item">Phụ kiện thú cưng</li>
-              <li className="category__item">chuồng thú cưng</li>
+              <li className="category__item">
+                <div className="category__item-link">
+                  thức ăn cho cún
+                </div>
+              </li>
+              <li className="category__item">
+                <div className="category__item-link">
+                  thức ăn cho mèo
+                </div>
+              </li>
+              <li className="category__item">
+                <div className="category__item-link">
+                  đồ chơi thú cưng
+                </div>
+              </li>
+              <li className="category__item">
+                <div className="category__item-link">
+                  Phụ kiện thú cưng
+                </div>
+              </li>
+              <li className="category__item">
+                <div className="category__item-link">
+                  chuồng thú cưng
+                </div>
+              </li>
             </ul>
           </div>
         </div>

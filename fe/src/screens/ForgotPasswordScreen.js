@@ -14,18 +14,13 @@ export default function ForgotPasswordScreen() {
 
         console.log(dataBody)
         
-        axios.post('http://localhost:3003/account/forgotpassword',
-          dataBody, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
-        .then((response) => {
-            console.log(response)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+        axios.post('http://localhost:3003/account/forgotpassword', dataBody)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
     }
     return (

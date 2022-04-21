@@ -49,6 +49,7 @@ exports.orderByID = function (req, res) {
 
 exports.forgotPassword = function (req, res) {
 
+    console.log(req.body.username_forgot_password)
     account.forgotPassword(req.body.username_forgot_password, function (data) {
         console.log(data)
 

@@ -3,7 +3,7 @@ import axios from "axios";
 
 export default function ForgotPasswordScreen() {
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async(event) => {
         event.preventDefault();
 
         const dataSubmit = new FormData(event.currentTarget);
@@ -14,9 +14,15 @@ export default function ForgotPasswordScreen() {
 
         console.log(dataBody)
         
-        axios.post('http://localhost:3003/account/forgotpassword', dataBody)
+        await axios.post('http://localhost:3003/account/forgotpassword', dataBody)
             .then(function (response) {
                 console.log(response);
+                if(response.status === 200) {
+                    alert("Đã gửi thông tin đăng nhâp đến email của bạn.")
+                }
+                else{
+                    alert("Có lỗi trong quá trình xử lý vui lòng thử lại!")
+                }
             })
             .catch(function (error) {
                 console.log(error);

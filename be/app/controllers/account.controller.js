@@ -48,10 +48,9 @@ exports.orderByID = function (req, res) {
 }
 
 exports.forgotPassword = function (req, res) {
+    var randomPassword = Math.floor(Math.random()*90000) + 10000;
 
-    console.log(req.body.username_forgot_password)
-    account.forgotPassword(req.body.username_forgot_password, function (data) {
-        console.log(data)
+    account.forgotPassword(req.body.username_forgot_password, randomPassword, function (data) {
 
         var transporter = nodemailer.createTransport({ // config mail server
             host: 'smtp.gmail.com',
@@ -66,14 +65,7 @@ exports.forgotPassword = function (req, res) {
                 rejectUnauthorized: false
             }
         });
-        // var transporter = nodemailer.createTransport({
-        //     service: 'gmail',
-        //     auth: {
-        //         user: 't2kpetshop@gmail.com',
-        //         pass: 't2kpetshopb1805828'
-        //     }
-        // });
-        var password = 1234
+
     
         var content = '';
         content += `
@@ -81,7 +73,7 @@ exports.forgotPassword = function (req, res) {
                 <div style="padding: 10px; background-color: rgb(255, 255, 255);">
                     <h3 style="color: rgb(0, 133, 255);">Chào bạn!</h3>
                     <h4 style="color: rgb(90, 35, 35);">Bạn đã gửi thông tin yêu cầu cấp lại mật khẩu mới.</h4>
-                    <h5 style="color: rgb(90, 35, 35);">Mật khẩu mới của bạn là: ${password}</h5>
+                    <h5 style="color: rgb(90, 35, 35);">Mật khẩu mới của bạn là: ${randomPassword}</h5>
                     <h5 style="color: rgb(90, 35, 35);">Vui lòng đăng nhập và đổi lại mật khẩu!</h5>
                 </div>
             </div>

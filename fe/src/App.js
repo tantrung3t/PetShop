@@ -20,6 +20,7 @@ import BrandScreen from './screens/BrandScreen'
 import ListOrdersScreen from './screens/ListOrdersScreen'
 import OrderScreen from './screens/OrderScreen'
 import SearchScreen from './screens/SearchScreen'
+import ForgotPasswordScreen from './screens/ForgotPasswordScreen'
 
 import Thucancun from './components/Thucancun';
 import Thucanmeo from './components/Thucanmeo';
@@ -191,6 +192,7 @@ function App() {
           <Route path='/' exact component={HomeScreen} />
           <Route path='/register' component={RegisterScreen} />
           <Route path='/brand' component={BrandScreen} />
+          <Route path='/forgotpassword' component={ForgotPasswordScreen} />
           <Route path='/signin' render={() => {
             return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />
           }}

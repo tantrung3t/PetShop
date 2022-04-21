@@ -44,9 +44,9 @@ export default function ProfileScreen() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const dataSubmit = new FormData(event.currentTarget);
-
+    
     var data = {
-      account_id: 2,
+      account_id: profile.account_id,
       info_address: dataSubmit.get('address'),
       info_date: dataSubmit.get('date'),
       info_email: dataSubmit.get('email'),

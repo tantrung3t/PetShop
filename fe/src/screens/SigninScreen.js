@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import "./SigninScreen.css"
 import axios from "axios"
-
+import {Link} from "react-router-dom"
 export default function Account() {
 
   const [isContainerActive, setIsContainerActive] = useState('');
@@ -122,7 +122,7 @@ export default function Account() {
 
             <input name="username" className="input-sign" type="text" placeholder="Tên tài khoản" />
             <input name="password" className="input-sign" type="password" placeholder="Mật khẩu" />
-            <h4>Quên mật khẩu</h4>
+            <Link to="/forgotpassword" className="title-forgotPassword">Quên mật khẩu?</Link>
             <button type="submit" className="button-sign">Đăng nhập</button>
 
           </form>

@@ -49,6 +49,19 @@ Account.orderByID = function (orderID, result) {
     })
 }
 
+Account.forgotPassword = function (account_username, result) {
+    var strquery = "SELECT infomation.info_email FROM `accounts`, `infomation` WHERE accounts.account_id = infomation.account_id and account_username = '"+ account_username +"'"
+
+    db.query(strquery, function (err, data) {
+        if (err || data.length === 0) {
+            result(null);
+        }
+        else {
+            result(data[0].info_email);
+        }
+    })
+}
+
 
 
 

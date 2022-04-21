@@ -179,3 +179,13 @@
 .container-sign.right-panel-active .overlay-right {
 	transform: translateX(20%);
 }
+
+.title-forgotPassword {
+	color: #2c2c2c;
+	padding: 15px;
+	font-weight: bold;
+}
+
+.title-forgotPassword:hover {
+	color: #584b0e;
+}

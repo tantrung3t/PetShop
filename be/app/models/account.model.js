@@ -73,6 +73,36 @@ Account.forgotPassword = function (account_username, randomPassword, result) {
     })
 }
 
+Account.changePassword = function (dataBody, result) {
+    var strquery = "SELECT * FROM `accounts` WHERE account_id = '"+ dataBody.account_id +"' and account_password = '"+ dataBody.old +"'"
+    
+    db.query(strquery, function (err, data){
+        if (err || data.length === 0) {
+            result({
+                status: 400,
+                message: "Error"
+            });
+        }
+        else{
+            var strqueryChangePassword = "UPDATE `accounts` SET `account_password`='"+ dataBody.new +"' WHERE account_id = " + dataBody.account_id
+            db.query(strqueryChangePassword, function (err, data){
+                if (err){
+                    result({
+                        status: 400,
+                        message: "Error"
+                    });
+                }
+                else{
+                    result({
+                        status: 200,
+                        message: "Change Password successfully"
+                    });
+                }
+            })
+        }
+    })
+}
+
 
 
 

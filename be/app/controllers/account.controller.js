@@ -107,27 +107,11 @@ exports.forgotPassword = function (req, res) {
     
     })
 
+}
+
+exports.changePassword = function (req, res) {
     
-
-
-
-    // let testAccount = await nodemailer.createTestAccount();
-    // let transporter = nodemailer.createTransport({
-    //     service: "Gmail",
-    //     auth: {
-    //         user: "sender@gmail.com",
-    //         pass: "passwordSender"
-    //     }
-    // });
-
-    // let info = await transporter.sendMail({
-    //     from: '"KhanhPT👻" <sender@gmail.com>', // sender address
-    //     to: "receiver1@gmail.com, receiver2@gmail.com", // list of receivers
-    //     subject: "Test send email ✔", // Subject line
-    //     text: "Hello world?", // plain text body
-    //     html: "<b>Test chức năng gửi mail ứng dụng Nodejs với Nodemailer</b>" // html body
-    // });
-    // console.log("Message sent: %s", info.messageId);
-    // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-
+    account.changePassword(req.body, function (data) {
+        res.send(data);
+    })
 }

@@ -74,7 +74,10 @@ export default function Account() {
                 Lịch sử mua hàng
               </Link>
               <Link to="/profile" className="btn btn-primary btn-selection">
-                Cập nhật tài khoản
+                Thông tin cá nhân
+              </Link>
+              <Link to="/changepassword" className="btn btn-primary btn-selection">
+                Đổi mật khẩu
               </Link>
               <div id="logout" className="btn btn-primary btn-selection"
                 onClick={(e) => {

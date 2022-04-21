@@ -21,6 +21,7 @@ import ListOrdersScreen from './screens/ListOrdersScreen'
 import OrderScreen from './screens/OrderScreen'
 import SearchScreen from './screens/SearchScreen'
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen'
+import ChangePasswordScreen from './screens/ChangePassWordScreen'
 
 import Thucancun from './components/Thucancun';
 import Thucanmeo from './components/Thucanmeo';
@@ -214,6 +215,9 @@ function App() {
           }}/>
           <Route path='/profile' render={() => {
             return (localStorage.getItem('user') !== "") ? <ProfileScreen /> : <SigninScreen />
+          }}/>
+          <Route path='/changepassword' render={() => {
+            return (localStorage.getItem('user') !== "") ? <ChangePasswordScreen /> : <SigninScreen />
           }}/>
 
           <Route path='/thucancun' component={Thucancun} />

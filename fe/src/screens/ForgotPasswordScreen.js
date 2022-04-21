@@ -38,7 +38,6 @@ export default function ForgotPasswordScreen() {
                     <input name="username_forgot_password" className="input-sign" type="text" placeholder="Tên đăng nhập" />
                     <button type="submit" className="button-sign my-2">Gửi Email</button>
                 </form>
-            
             </div>
         </div>
     )

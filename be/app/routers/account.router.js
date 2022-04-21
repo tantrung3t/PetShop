@@ -100,4 +100,6 @@ module.exports = function (router) {
         router.post('/account/update', accountController.update_account);
 
         router.post('/account/forgotpassword', accountController.forgotPassword);
+
+        router.post('/account/changepassword', accountController.changePassword);
 }

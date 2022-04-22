@@ -10,10 +10,11 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 export default function ProductsScreen() {
   const url = "http://localhost:3003";
 
+  const [type, setType] = useState('products')
   const [data, setData] = useState([]);
 
   const loadData = () => {
-    Axios.get(`http://localhost:3003/products`)
+    Axios.get(`http://localhost:3003/` + type)
       .then(res => {
         setData(res.data);
         // console.log(res.data)
@@ -24,7 +25,7 @@ export default function ProductsScreen() {
 
   useEffect(() => {
     loadData()
-  }, []);
+  }, [type]);
 
 
   const render = () => {
@@ -46,33 +47,33 @@ export default function ProductsScreen() {
       <div className="row">
         <div className="col-2 px-1">
           <div className="category">
-            <h2 className="category__heading">
+            <h2 className="category__heading" onClick={() => {setType("products")}}>
               <FontAwesomeIcon icon={faBars} />
               &nbsp; Danh mục
             </h2>
             <ul className="category__list">
               <li className="category__item">
-                <div className="category__item-link">
+                <div className="category__item-link" onClick={() => {setType("products/thucancun")}}>
                   thức ăn cho cún
                 </div>
               </li>
               <li className="category__item">
-                <div className="category__item-link">
+                <div className="category__item-link" onClick={() => {setType("products/thucanmeo")}}>
                   thức ăn cho mèo
                 </div>
               </li>
               <li className="category__item">
-                <div className="category__item-link">
+                <div className="category__item-link" onClick={() => {setType("products/dochoithucung")}}>
                   đồ chơi thú cưng
                 </div>
               </li>
               <li className="category__item">
-                <div className="category__item-link">
+                <div className="category__item-link" onClick={() => {setType("products/phukienthucung")}}>
                   Phụ kiện thú cưng
                 </div>
               </li>
               <li className="category__item">
-                <div className="category__item-link">
+                <div className="category__item-link" onClick={() => {setType("products/chuongthucung")}}>
                   chuồng thú cưng
                 </div>
               </li>

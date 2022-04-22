@@ -241,11 +241,17 @@ export default function AdminOrder() {
                             Quản lý sản phẩm
                         </Link>
                     </div>
+                    <div className="admin_title1" >
+                        <Link to='/admin/sanpham'>
+                            Quản lý nhãn hàng
+                        </Link>
+                    </div>
                     <div className="admin_title2" >
                         <Link to='/admin/dathang'>
                             Quản lý đặt hàng
                         </Link>
                     </div>
+                    
                 </div>
                 <div style={box4}>
                     <div style={divStyle1}>

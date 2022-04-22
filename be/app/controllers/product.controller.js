@@ -55,6 +55,14 @@ exports.get_product_brand = function (req, res) {
     })
 }
 
+exports.get_brand_by_id = function (req, res) {
+    var id = req.params.id;
+    product.get_brand_by_id(id, function (data) {
+        res.send(data);
+    })
+}
+
+
 exports.search = function(req, res) {
     product.search(req.body.search, function(data){
         res.send(data);

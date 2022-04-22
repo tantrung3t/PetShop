@@ -61,9 +61,10 @@ exports.deny_or_accept_order = function (req, res) {
     // }
     var order_id = req.body.order_id;
     var status_order = req.body.status_order;
+    var listProduct = req.body.listProduct;
 
 
-    admin.deny_or_accept_order(order_id, status_order, function (data) {
+    admin.deny_or_accept_order(order_id, status_order,listProduct, function (data) {
         res.send(data);
     })
 
@@ -75,3 +76,8 @@ exports.inventory_product = function (req, res){
     })
 }
 
+exports.outStockProduct = function (req, res){
+    admin.outStockProduct(function (data) {
+        res.send(data);
+    })
+}

@@ -70,7 +70,7 @@ admin.statistic_4month = function (result) {
 }
 
 
-admin.deny_or_accept_order = function (order_id, status_order, result) {
+admin.deny_or_accept_order = function (order_id, status_order,listProduct, result) {
     var strquery = "UPDATE `orders` SET `order_status`= '" + status_order + "' WHERE order_id = " + order_id
     db.query(strquery, function (err, data) {
         if (err) {
@@ -80,12 +80,27 @@ admin.deny_or_accept_order = function (order_id, status_order, result) {
             });
         }
         else {
+            var strqueryIncrease = ""
+            listProduct.map((item, i, row) => {
+                strqueryIncrease = "UPDATE `products` SET `product_sold`= product_sold + "+ item.orders_detail_quantity +" WHERE product_id = " + item.product_id
+                db.query(strqueryIncrease, function (err, data) {
+                    if (err) {
+                        result({
+                            status: 400,
+                            message: "Error"
+                        });
+                    }
+                })
+            
+            })
             result({
                 status: 200,
                 message: "Successful"
             });
         }
     })
+
+
 }
 
 admin.sales_last_month = function (result) {
@@ -141,6 +156,18 @@ admin.orders_and_quantity_sales = function (result) {
 
 admin.inventory_product = function (result) {
     var strquery = "SELECT * FROM products WHERE product_id NOT IN (SELECT products.product_id FROM `orders`, orders_detail, products WHERE MONTH(NOW()) - MONTH(order_date) != 2 and orders.order_id = orders_detail.order_id and orders_detail.product_id = products.product_id) and product_sold < (product_amount * 0.5) and isDelete = 0"
+    db.query(strquery, function (err, data) {
+        if (err) {
+            result(null)
+        }
+        else {
+            result(data)
+        }
+    })
+}
+
+admin.outStockProduct = function (result) {
+    var strquery = "SELECT * FROM `products` WHERE product_amount - product_sold < 15"
     db.query(strquery, function (err, data) {
         if (err) {
             result(null)

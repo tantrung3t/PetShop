@@ -115,7 +115,8 @@ export default function AdminOrder() {
         const data = {
             "token": localStorage.getItem('token'),
             "order_id": id,
-            "status_order": status_order
+            "status_order": status_order,
+            "listProduct": dataItem
         }
 
         await axios({
@@ -147,6 +148,7 @@ export default function AdminOrder() {
             .then(res => {
                 const data = res.data;
                 setDataItem(data)
+                console.log(data)
             })
             .catch(error => console.log(error));
     }

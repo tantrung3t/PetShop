@@ -108,6 +108,7 @@ const dataDemo = [
 export default function Thongke() {
 
     const [dataProduct, setDataProduct] = useState()
+    const [dataOutStockProduct, setDataOutStockProduct] = useState()
     const [dataThang, setDataThang] = useState(datademoThang);
     const [total_sales, setTotal_Sales] = useState(0);
     const [percent_sales, setPercent_Sales] = useState(0);
@@ -131,6 +132,7 @@ export default function Thongke() {
             
         }, 1800);
         load_data_product()
+        load_data_out_stock_product() 
     }, [])
 
     const loadDataThang = async () => {
@@ -216,6 +218,15 @@ export default function Thongke() {
             .then(res => {
                 const data = res.data;
                 setDataProduct(data);
+                // console.log(data)
+            })
+            .catch(error => console.log(error));
+    }
+    const load_data_out_stock_product = async () => {
+        await axios.get(`http://localhost:3003/admin/statistic/outstockproduct`)
+            .then(res => {
+                const data = res.data;
+                setDataOutStockProduct(data);
                 // console.log(data)
             })
             .catch(error => console.log(error));
@@ -327,6 +338,19 @@ export default function Thongke() {
     const ListItemProduct = () => {
         if (dataProduct === undefined) return <div></div>
         let element = dataProduct.map((product, index) => {
+            return <ItemAdminProduct
+                key={index}
+                id={product.product_id}
+                src={url + product.product_image}
+                name={product.product_name}
+                price={product.product_price}
+            />
+        })
+        return element;
+    }
+    const ListItemOutStockProduct = () => {
+        if (dataOutStockProduct === undefined) return <div></div>
+        let element = dataOutStockProduct.map((product, index) => {
             return <ItemAdminProduct
                 key={index}
                 id={product.product_id}
@@ -452,6 +476,12 @@ export default function Thongke() {
                     <div style={box_title}>Sản phẩm tồn kho</div>
                     <div className='Thongke_ListProduct'>
                         {ListItemProduct()}
+                    </div>
+                </div>
+                <div className='Thongke_box'>
+                    <div style={box_title}>Sản phẩm sắp hết hàng</div>
+                    <div className='Thongke_ListProduct'>
+                        {ListItemOutStockProduct()}
                     </div>
                 </div>
             </div>

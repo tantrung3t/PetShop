@@ -20,4 +20,7 @@ module.exports = function(router) {
 
     //thong ke hang ton
     router.get('/admin/statistic/inventory_product', adminController.inventory_product)
+
+    //san pham sap het hang
+    router.get('/admin/statistic/outstockproduct', adminController.outStockProduct)
 }

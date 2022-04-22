@@ -69,6 +69,11 @@ exports.search = function(req, res) {
     })
 }
 
+exports.shopping_cart_delete = function(req, res) {
+    product.shopping_cart_delete(req.body, function(data){
+        res.send(data);
+    })
+}
 
 
 //add product

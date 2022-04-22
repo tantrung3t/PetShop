@@ -91,6 +91,10 @@ export default function CartScreens(props) {
 
   }
 
+  
+
+
+
   const handleCheck = (e) => {
     const { name, checked } = e.target;
     if (name === "allSelect") {
@@ -119,11 +123,12 @@ export default function CartScreens(props) {
   }, []);
 
   // console.log(order)
-
+  console.log(productsCart)
   const loadData = () => {
     axios.get(`http://localhost:3003/products/cart/` + localStorage.getItem('token'))
       .then(res => {
         const data = res.data;
+        if(data === "") setProductsCart([])
         if (data.status !== 401 && data !== "") setProductsCart(data);
         
       })
@@ -152,7 +157,9 @@ export default function CartScreens(props) {
     setListOrder(listOrder.filter(item => item.id !== id))
   }
 
-
+  const callbackRerender = () => {
+    loadData()
+  }
 
 
   // const [totalPayment, setTotalPayment] = useState(0);
@@ -233,6 +240,7 @@ export default function CartScreens(props) {
             callbackhadleTotal={(total) => { callbackhadleTotal(total) }}
             callBackAddProductInOrder={(id, quantity) => { callBackAddProductInOrder(id, quantity) }}
             callBackRemoveProductInOrder={(id) => { callBackRemoveProductInOrder(id) }}
+            callbackRerender = {callbackRerender}
 
           />
         )

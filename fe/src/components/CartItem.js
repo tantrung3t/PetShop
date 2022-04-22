@@ -7,15 +7,22 @@ import { Link } from "react-router-dom";
 export default function CartItem(props) {
 
   const handleRemoveCart = () => {
+    const profile = JSON.parse(localStorage.getItem("profile"));
+    var data = {
+      "account_id": profile.account_id,
+      "product_id": props.id
+    }
     console.log("xóa" + props.id)
-    axios.post('http://localhost:3003/api/cart/delete', { id: props.id })
+    axios.post('http://localhost:3003/shoppingcart/delete', data)
       .then(function (response) {
         console.log(response);
       })
       .catch(function (error) {
         console.log(error);
       });
-    alert("Xóa thành công!")
+
+    props.callbackRerender()
+
   }
 
   const [qty, setQty] = useState(props.quantity || 1);

@@ -34,4 +34,7 @@ module.exports = function(router) {
     //search products
     router.post('/products/search', productController.search)
 
+    //delete product in shopping cart
+    router.post('/shoppingcart/delete', productController.shopping_cart_delete)
+
 }

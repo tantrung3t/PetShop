@@ -256,11 +256,26 @@ product.add_product_in_shopping_cart = function (product_id, account_id, shoppin
         }
     })
 
-
-
-
 }
 
+//delete product in shopping cart
+product.shopping_cart_delete = function (body, result) {
+    var strquery = "DELETE FROM `shopping_cart` WHERE account_id = "+ body.account_id +" and product_id = " + body.product_id;
+    db.query(strquery, function (err) {
+        if (err) {
+            result({
+                status: 400,
+                message: "Fail to delete product to database"
+            });
+        }
+        else {
+            result({
+                status: 200,
+                message: "Delete product to database successfully"
+            });
+        }
+    })
+}
 
 
 module.exports = product;

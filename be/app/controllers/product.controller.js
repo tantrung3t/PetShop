@@ -19,6 +19,19 @@ exports.get_all_product = function (req, res) {
     })
 }
 
+exports.get_products_by_brand = function (req, res) {
+    var id = req.params.id;
+    product.get_products_by_brand(id, function (data) {
+        const temp = data.map(ele => {
+            return {
+                brandName: ele.product_brand_name,
+                products: data
+            }
+        })
+        res.send(temp);
+    })
+}
+
 exports.get_thu_an_cun = function (req, res) {
     product.get_thu_an_cun(function (data) {
         res.send(data);

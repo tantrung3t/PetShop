@@ -1,68 +1,22 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 import axios from "axios";
-// const data = [
-//   {
-//     order_id: "1",
-//     products: [
-//       {
-//         product_id: "1",
-//         product_name: "aaa",
-//         product_img: "http://localhost:3003/image/longvanchuyen.png",
-//         product_price: 50000,
-//         orders_detail_quantity: 5,
-//       },
-//       {
-//         product_id: "1",
-//         product_name: "aaa",
-//         product_img: "http://localhost:3003/image/longvanchuyen.png",
-//         product_price: 50000,
-//         orders_detail_quantity: 5,
-//       },
-//     ],
-//     order_status: 0,
-//     order_date: "2022-04-07",
-//     order_address: "CT"
-//   },
-//   {
-//     order_id: "2",
-//     products: [
-//       {
-//         product_id: "1",
-//         product_name: "aaa",
-//         product_img: "http://localhost:3003/image/longvanchuyen.png",
-//         product_price: 50000,
-//         orders_detail_quantity: 5,
-//       },
-//       {
-//         product_id: "2",
-//         product_name: "bbb",
-//         product_img: "http://localhost:3003/image/longvanchuyen.png",
-//         product_price: 150000,
-//         orders_detail_quantity: 15,
-//       },
-//     ],
-//     order_date: "2022-04-07",
-//     order_status: 1,
-//     order_address: "CT"
-//   }
-// ]
 
 export default function ListOrdersScreen() {
   const [orders, setOrders] = useState([]);
-  var ordersCheck = [];
   const url = "http://localhost:3003";
-
+  
   useEffect(() => {
     axios.get("http://localhost:3003/account/orders/" + localStorage.getItem("token"))
-      .then(res => {
-        const data = res.data;
-        setOrders(data)
+    .then(res => {
+      const data = res.data;
+      setOrders(data)
         // console.log(data);
       })
       .catch(error => console.log(error))
   }, []);
-
+  
+  var ordersCheck = [];
   const result = Object.values(orders).filter(order => {
     var orderList = [];
     for (let index = 0; index < ordersCheck.length; index++) {

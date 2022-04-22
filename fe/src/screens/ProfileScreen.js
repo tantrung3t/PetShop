@@ -5,42 +5,8 @@ export default function ProfileScreen() {
 
   const [profile] = useState(JSON.parse(localStorage.getItem("profile")))
 
-
-  // localStorage.setItem("profile", JSON.stringify(profile))
-
-  // const loadData = () => {
-  //   axios.get(`http://localhost:3003/profile/`)
-  //     .then(res => {
-  //       const data = res.data;
-  //       setProfile(data);
-  //     })
-  //     .catch(error => console.log(error));
-  // }
-  // console.log(profile)
-
-  // const [fname, setFname] = useState()
-  // const [lname, setLname] = useState()
-  // const [date, setDate] = useState()
   const [sex, setSex] = useState(0)
-  // const [email, setEmail] = useState()
-  // const [phone, setPhone] = useState()
-  // const [address, setAddress] = useState()
-  // const [tempProfile, setTempProfile] = useState({});
-
-  // useEffect(() => {
-  //   setTempProfile(tempProfile => ({
-  //     ...tempProfile,
-  //     fname: fname,
-  //     lname: lname,
-  //     date: date,
-  //     sex: sex,
-  //     email: email,
-  //     phone: phone,
-  //     address: address
-  //   }))
-  // }, [fname, lname, date, email, phone, address, sex])
-  // console.log(tempProfile)
-
+ 
   const handleSubmit = (event) => {
     event.preventDefault();
     const dataSubmit = new FormData(event.currentTarget);

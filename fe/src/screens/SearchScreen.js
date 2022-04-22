@@ -13,7 +13,7 @@ export default function SearchScreen(props) {
     }
     axios.post('http://localhost:3003/products/search', data)
       .then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
         setProduct(response.data)
       })
       .catch(function (error) {

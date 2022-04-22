@@ -13,6 +13,9 @@ module.exports = function(router) {
     //lay san pham theo brand
     router.get('/brand/:id', productController.get_brand_by_id)
 
+    router.get('/brands', productController.get_products_by_brand)
+
+
     //add product
     router.post('/products', productController.add_product);
 

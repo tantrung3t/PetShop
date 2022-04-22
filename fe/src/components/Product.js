@@ -9,7 +9,7 @@ export default function Product(props) {
         <img src={props.src} alt="img" width="100%" height="200px"  className="home__product-img"></img>
         <div className="p-2">
           <div className="home__product-name">{props.name}</div>
-          <div className="home__product-price">{props.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}  đ</div>
+          <div className="home__product-price">{props.price}  đ</div>
         </div>
       </div>
     </Link>

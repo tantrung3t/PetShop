@@ -11,7 +11,6 @@ import { ProductMiniCartItem } from './components/Product';
 
 import HomeScreen from './screens/HomeScreen';
 import SigninScreen from './screens/SigninScreen'
-import RegisterScreen from './screens/RegisterScreen';
 import ProductsScreen from './screens/ProductsScreen';
 // import AdminScreen from './screens/AdminScreen'
 import CartScreen from './screens/CartScreen'
@@ -193,7 +192,6 @@ function App() {
 
         <main>
           <Route path='/' exact component={HomeScreen} />
-          <Route path='/register' component={RegisterScreen} />
           <Route path='/brand' component={BrandScreen} />
           <Route path='/forgotpassword' component={ForgotPasswordScreen} />
           <Route path='/signin' render={() => {

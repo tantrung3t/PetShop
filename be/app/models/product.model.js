@@ -53,6 +53,18 @@ product.get_all_product = function (id, result) {
     })
 }
 
+product.get_products_by_brand = function (id, result) {
+    var strquery = "SELECT products.product_id, products.product_name, products.product_price, products.product_description, products.product_image, products.product_amount, products.product_sold , products_brand.product_brand_name, products_brand.product_brand_id, products_type.product_type_name, products_type.product_type_id FROM `products`, products_brand, products_type WHERE products.isDelete = 0 and products.product_brand_id = products_brand.product_brand_id and products.product_type_id = products_type.product_type_id ORDER BY products.product_id ASC";
+    db.query(strquery, function (err, data) {
+        if (err) {
+            result(null);
+        }
+        else {
+            result(data);
+        }
+    })
+}
+
 product.get_thu_an_cun = function (result) {
     var strquery = "SELECT  products.product_id, products.product_name, products.product_price, products.product_image, products.product_amount, products.product_sold , products_brand.product_brand_name, products_type.product_type_name   FROM `products`, products_brand, products_type WHERE products.isDelete = 0 and products.product_brand_id = products_brand.product_brand_id and products.product_type_id = products_type.product_type_id and products_type.product_type_id = 1";
     db.query(strquery, function (err, data) {

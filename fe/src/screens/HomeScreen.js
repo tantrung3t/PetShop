@@ -93,7 +93,7 @@ export default function HomeScreen() {
         <div className="home__container">
           <span className="home__title">Sản phẩm bán chạy</span>
           <div className="block-separation my-3"></div>
-          <div className="carousel-control-wrap">
+          <div className="carousel-control-wrap" style={{display: "none"}}>
             <button type="button" className="carousel-control-prev">prev</button>
             <button type="button" className="carousel-control-next">next</button>
           </div>

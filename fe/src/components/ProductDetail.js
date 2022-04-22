@@ -63,22 +63,6 @@ export default function ProductDetail(props) {
     loadData()
   }, [ProductID]);
 
-
-  const handleOrder = (e) => {
-    // var onChangeCart = true;
-    if (localStorage.getItem("user") === "") {
-      console.log("fail")
-      history.push('/signin')
-    } else {
-      e.preventDefault();
-
-      addProductInCart()
-      props.setOnChangeCart(!props.onChangeCart)
-
-      // alert("Bạn đã thêm sản phẩm vào giỏ hàng.")
-    }
-  };
-
   const addProductInCart = () => {
     var dataForm = {
       "token": localStorage.getItem('token'),
@@ -97,6 +81,20 @@ export default function ProductDetail(props) {
     })
   }
 
+  const handleOrder = (e) => {
+    // var onChangeCart = true;
+    if (localStorage.getItem("user") === "") {
+      console.log("fail")
+      history.push('/signin')
+    } else {
+      e.preventDefault();
+
+      addProductInCart()
+      props.setOnChangeCart(!props.onChangeCart)
+
+      alert("Bạn đã thêm sản phẩm vào giỏ hàng.")
+    }
+  };
 
   return (
     <div>

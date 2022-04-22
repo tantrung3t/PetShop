@@ -6,23 +6,21 @@ import { Link } from "react-router-dom";
 
 export default function CartItem(props) {
 
-  const handleRemoveCart = () => {
+  const handleDeleteProduct = () => {
     const profile = JSON.parse(localStorage.getItem("profile"));
-    var data = {
+    console.log("xóa" + props.id)
+    axios.post('http://localhost:3003/shoppingcart/delete', {
       "account_id": profile.account_id,
       "product_id": props.id
-    }
-    console.log("xóa" + props.id)
-    axios.post('http://localhost:3003/shoppingcart/delete', data)
+    })
       .then(function (response) {
         console.log(response);
       })
       .catch(function (error) {
         console.log(error);
       });
-
-    props.callbackRerender()
-
+    props.setIsDelete(!props.isDelete)
+    alert("Xóa sản phẩm thành công!!");
   }
 
   const [qty, setQty] = useState(props.quantity || 1);
@@ -97,7 +95,7 @@ export default function CartItem(props) {
             onClick={handleTotal}
           />
         </div>
-        <Link to={'/product/' + props.id} className="flex " style={{ flex: "1", textAlign: "left" }}>
+        <Link to={'/products/' + props.id} className="flex " style={{ flex: "1", textAlign: "left" }}>
           <img
             className="cart__item--img"
             src={props.src}
@@ -116,7 +114,7 @@ export default function CartItem(props) {
           <input className='qty__btn plus' type='button' value='+' onClick={handleIncrease} disabled={qty >= props.amount} />
         </div>
         <span className="cart__item--money">{money}</span>
-        <div className="cart__item--delete link " onClick={handleRemoveCart}>Xóa</div>
+        <div className="cart__item--delete link " onClick={handleDeleteProduct}>Xóa</div>
       </div>
     </div>
   );

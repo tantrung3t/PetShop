@@ -5,8 +5,6 @@ import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import './CartScreen.css';
 
-
-
 localStorage.setItem("total", 0)
 localStorage.setItem("orders", "")
 
@@ -20,16 +18,14 @@ export default function CartScreens(props) {
 
   const [productsCart, setProductsCart] = useState([]);
   const [totalPayment, setTotalPayment] = useState(0)
+  
   let profile = "";
-
   if (localStorage.getItem("profile") === "") {
     profile = ""
   }
   else {
     profile = JSON.parse(localStorage.getItem("profile"));
   }
-
-
   const [order] = useState({
     fname: profile.info_fname,
     lname: profile.info_lname,
@@ -40,6 +36,9 @@ export default function CartScreens(props) {
     address: profile.info_address
   })
 
+  useEffect(() => {
+    loadData()
+  }, [props.onChangeCart]);
 
   const momoPayment = async(event) => {
     event.preventDefault();
@@ -87,13 +86,7 @@ export default function CartScreens(props) {
       .catch(function (error) {
         console.log(error);
       });
-    
-
   }
-
-  
-
-
 
   const handleCheck = (e) => {
     const { name, checked } = e.target;
@@ -116,11 +109,6 @@ export default function CartScreens(props) {
   const exit_modal = (e) => {
     if (e.target == e.currentTarget) close_modal();
   }
-
-  useEffect(() => {
-    loadData()
-    props.setOnChangeCart(!props.onChangeCart)
-  }, []);
 
   // console.log(order)
   console.log(productsCart)
@@ -156,41 +144,6 @@ export default function CartScreens(props) {
     //delete product in listOrder
     setListOrder(listOrder.filter(item => item.id !== id))
   }
-
-  const callbackRerender = () => {
-    loadData()
-  }
-
-
-  // const [totalPayment, setTotalPayment] = useState(0);
-  // const addTotal_product = (total) =>{
-  //   setTotalPayment(totalPayment + total);
-  //   console.log(total);
-  // }
-
-  // const handleIncrease = (quantity) => {
-  //   console.log(quantity);
-  //   // money = props.price * qty
-  // }
-
-
-  // const handlePayment = () => {
-  //   return (
-  //     <div className="modal fade" id="modalLoginForm" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  //       <div className="modal-dialog" role="document">
-  //         <div className="modal-content">
-  //           aaa
-  //         </div>
-  //       </div>
-  //     </div>
-  //   )
-  // }
-
-  // const handleTotal = () => {
-  //   // document.getElementById
-  //   // productsCart.
-  //   return <div>1</div>
-  // }
 
   const callbackhadleTotal = (total) => {
     console.log("total cha: " + total)
@@ -228,20 +181,11 @@ export default function CartScreens(props) {
             price={product.product_price}
             amount={product.product_amount}
             quantity={product.shopping_cart_amount}
-            // callBackTotal={(price) => {callBackTotal(price)}}
-
-            // total={product.product_amount * product.shopping_cart_amount}
-
-            //truyền thằng bên dưới qua bên CartItem để nó biết được bên thằng cha nó có function addTotal_product(price)
-            //và chỉ cần thằng con nhận props thì viết code xữ lý bên function thằng cha.
-            // checkedAddTotal={(total) => { addTotal_product(total) }}
-            // handleIncreaseQuantity={(quantity) => {handleIncrease(quantity) }}
-
             callbackhadleTotal={(total) => { callbackhadleTotal(total) }}
             callBackAddProductInOrder={(id, quantity) => { callBackAddProductInOrder(id, quantity) }}
             callBackRemoveProductInOrder={(id) => { callBackRemoveProductInOrder(id) }}
-            callbackRerender = {callbackRerender}
-
+            isDelete={props.onChangeCart}
+            setIsDelete={value => props.setOnChangeCart(value)}
           />
         )
       }

@@ -62,7 +62,7 @@ function App() {
     axios.get(`http://localhost:3003/private/` + localStorage.getItem('token'))
       .then(res => {
         const data = res.data;
-        console.log(data)
+        // console.log(data)
         if (data.status === 401) {
           localStorage.setItem('user', "")
           localStorage.setItem('profile', "")
@@ -77,17 +77,10 @@ function App() {
       .then(res => {
         const data = res.data;
         if (data.status !== 401) setProductCart(data);
+        // console.log(data)
       })
       .catch(error => console.log(error));
   }
-
-  // const showCart = (cart) => {
-  //   cart.length === 0 ? console.log("rong") : console.log(cart);
-  // }
-  // showCart(productMiniCartItem);
-
-  // const handleShowCart = () => {
-  // }
 
   const navLinks = [
     {
@@ -160,27 +153,32 @@ function App() {
                   <FontAwesomeIcon icon={faCartShopping} className='header__cart-icon' color='white' />
                   <span className='header__cart-qty'>{productCart.length}</span>
                 </Link>
-                
+
                 {
                   productCart.length === 0 ? (
-                    <div className='header__cart-list center'>
+                    <div className='header__cart-wrap center'>
                       <img src='../assets/img/no-item.png' alt='img' width='100%'></img>
                       <span>Chưa có sản phẩm</span>
                     </div>
                   ) : (
-                    <div className='header__cart-list'>
-                      <span className='px-2' style={{ textTransform: "capitalize" }}>Sản phẩm mới thêm</span>
-                      {
-                        productCart.map((product, index) =>
-                          <ProductMiniCartItem
-                            key={index}
-                            id={product.product_id}
-                            src={url + product.product_image}
-                            name={product.product_name}
-                            price={product.product_price}
-                          />
-                        )
-                      }
+                    <div className='header__cart-wrap'>
+                      <span className='px-2' style={{ textTransform: "capitalize", lineHeight: 2.4 }}>Sản phẩm mới thêm</span>
+                      <ul className='header__cart-list'>
+                        {
+                          productCart.map((product, index) =>
+                            <ProductMiniCartItem
+                              key={index}
+                              id={product.product_id}
+                              src={url + product.product_image}
+                              name={product.product_name}
+                              price={product.product_price}
+                              qty={product.shopping_cart_amount}
+                              isDelete={onChangeCart}
+                              setIsDelete={value => setOnChangeCart(value)}
+                            />
+                          ).reverse().splice(0, 3)
+                        }
+                      </ul>
                       <div className='btn btn-primary' onClick={() => window.location = "/cart"}>Xem Giỏ Hàng</div>
                       {/* <div className='btn btn-primary' onClick={handleShowCart}>Xem Giỏ Hàng</div> */}
                     </div>
@@ -218,10 +216,10 @@ function App() {
           }} />
           <Route path='/profile' render={() => {
             return (localStorage.getItem('user') !== "") ? <ProfileScreen /> : <SigninScreen />
-          }}/>
+          }} />
           <Route path='/changepassword' render={() => {
             return (localStorage.getItem('user') !== "") ? <ChangePasswordScreen /> : <SigninScreen />
-          }}/>
+          }} />
 
           <Route path='/thucancun' component={Thucancun} />
           <Route path='/thucanmeo' component={Thucanmeo} />
@@ -262,12 +260,11 @@ function Products(props) {
       <Route
         path='/products/:id'
         render={
-          properties =>
-            <ProductDetail
-              {...properties}
-              onChangeCart={props.onChangeCart}
-              setOnChangeCart={props.setOnChangeCart}
-            />}
+          properties => <ProductDetail
+                          {...properties}
+                          onChangeCart={props.onChangeCart}
+                          setOnChangeCart={props.setOnChangeCart}
+                        />}
       />
     </Switch>
   )

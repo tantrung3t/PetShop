@@ -6,9 +6,8 @@ import QuantityButton from '../components/QuantityButton';
 
 
 export default function ProductDetail(props) {
-  // ProductDetail.propTypes = {
-  //   props: PropTypes.string
-  // }
+  const ProductID = props.match.params.id
+
   const history = useHistory();
   const url = "http://localhost:3003";
   const [link, setLink] = useState('');
@@ -30,7 +29,7 @@ export default function ProductDetail(props) {
   );
 
   const loadData = () => {
-    axios.get(`http://localhost:3003/product/` + props.id)
+    axios.get(`http://localhost:3003/product/` + ProductID)
       .then(res => {
         const data = res.data;
         setData(data);
@@ -62,11 +61,11 @@ export default function ProductDetail(props) {
 
   useEffect(() => {
     loadData()
-  }, [props.id]);
+  }, [ProductID]);
 
 
   const handleOrder = (e) => {
-    var onChangeCart = true;
+    // var onChangeCart = true;
     if (localStorage.getItem("user") === "") {
       console.log("fail")
       history.push('/signin')
@@ -74,10 +73,8 @@ export default function ProductDetail(props) {
       e.preventDefault();
 
       addProductInCart()
-      props.onChangeCart(!onChangeCart)
+      props.setOnChangeCart(!props.onChangeCart)
 
-      // console.log()
-      // console.log(data[0]);
       // alert("Bạn đã thêm sản phẩm vào giỏ hàng.")
     }
   };
@@ -89,7 +86,7 @@ export default function ProductDetail(props) {
       "shopping_cart_amount": localStorage.getItem('qty')
     }
 
-    console.log(dataForm)
+    // console.log(dataForm)
 
     axios.post('http://localhost:3003/products/cart', dataForm)
     .then(response => {

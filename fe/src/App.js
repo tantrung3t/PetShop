@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import { BrowserRouter as Router, Switch, Route, Link, useParams, useRouteMatch  } from 'react-router-dom'
-import axios from 'axios';  
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link, useParams, useRouteMatch } from 'react-router-dom'
+import axios from 'axios';
 
 // import { Redirect } from 'react-router'
 import './App.css'
@@ -50,7 +50,7 @@ function App() {
   const url = "http://localhost:3003";
 
   const [productCart, setProductCart] = useState([]);
-  const [onChangeCart, setOnChangeCart] = useState()
+  const [onChangeCart, setOnChangeCart] = useState(false)
 
   useEffect(() => {
     checkToken()
@@ -62,12 +62,12 @@ function App() {
       .then(res => {
         const data = res.data;
         console.log(data)
-        if(data.status === 401){
+        if (data.status === 401) {
           localStorage.setItem('user', "")
           localStorage.setItem('profile', "")
         }
-        
-      }) 
+
+      })
       .catch(error => console.log(error));
   }
   const loadData = () => {
@@ -75,11 +75,11 @@ function App() {
     axios.get(`http://localhost:3003/products/cart/` + localStorage.getItem('token'))
       .then(res => {
         const data = res.data;
-        if(data.status !== 401) setProductCart(data);
-      }) 
+        if (data.status !== 401) setProductCart(data);
+      })
       .catch(error => console.log(error));
   }
-  
+
   // const showCart = (cart) => {
   //   cart.length === 0 ? console.log("rong") : console.log(cart);
   // }
@@ -111,7 +111,7 @@ function App() {
       <Route
         path={to}
         exact={isExact}
-        children = {({ match }) => {
+        children={({ match }) => {
           var active = match ? 'active' : '';
           return (
             <li className='nav-item'>
@@ -124,8 +124,8 @@ function App() {
   }
 
   const showNavLink = (navLinks) => {
-    let result = null; 
-    if(navLinks.length > 0) {
+    let result = null;
+    if (navLinks.length > 0) {
       result = navLinks.map((navLink, index) => {
         return (
           <NavLink
@@ -139,7 +139,7 @@ function App() {
     }
     return result;
   }
-console.log(productCart)
+  // console.log(productCart)
   return (
     <Router>
       <div className='grid-container'>
@@ -157,8 +157,9 @@ console.log(productCart)
               <div className='header__cart'>
                 <Link to='/cart' className='header__cart-icon'>
                   <FontAwesomeIcon icon={faCartShopping} className='header__cart-icon' color='white' />
+                  <span className='header__cart-qty'>{productCart.length}</span>
                 </Link>
-                {productCart.length}
+                
                 {
                   productCart.length === 0 ? (
                     <div className='header__cart-list center'>
@@ -167,7 +168,7 @@ console.log(productCart)
                     </div>
                   ) : (
                     <div className='header__cart-list'>
-                      <span className='px-2' style={{textTransform: "capitalize"}}>Sản phẩm mới thêm</span>
+                      <span className='px-2' style={{ textTransform: "capitalize" }}>Sản phẩm mới thêm</span>
                       {
                         productCart.map((product, index) =>
                           <ProductMiniCartItem
@@ -179,7 +180,7 @@ console.log(productCart)
                           />
                         )
                       }
-                      <div className='btn btn-primary' onClick={() => window.location ="/cart"}>Xem Giỏ Hàng</div>
+                      <div className='btn btn-primary' onClick={() => window.location = "/cart"}>Xem Giỏ Hàng</div>
                       {/* <div className='btn btn-primary' onClick={handleShowCart}>Xem Giỏ Hàng</div> */}
                     </div>
                   )
@@ -200,23 +201,23 @@ console.log(productCart)
           }}
           />
           <Route path='/search/:id' component={Search} />
-          <Route path='/products' component={Products} />
+          <Route path='/products' render={() => <Products onChangeCart={onChangeCart} setOnChangeCart={value => setOnChangeCart(value)} />} />
           <Route path='/cart' render={() => {
-            return (localStorage.getItem('user') !== "") ? <CartScreen onChangeCart={value => setOnChangeCart(value)} /> : <SigninScreen />
-          }}/>
+            return (localStorage.getItem('user') !== "") ? <CartScreen onChangeCart={onChangeCart} setOnChangeCart={value => setOnChangeCart(value)} /> : <SigninScreen />
+          }} />
           <Route path='/orders' render={() => {
             return (localStorage.getItem('user') !== "") ? <ListOrdersScreen /> : <SigninScreen />
-          }}/>
+          }} />
           <Route path='/order' render={() => {
             return (localStorage.getItem('user') !== "") ? <Order /> : <SigninScreen />
-          }}/>
-          
-          <Route path='/admin'  render={() => {
+          }} />
+
+          <Route path='/admin' render={() => {
             return (localStorage.getItem('user') === "Admin") ? <Admin /> : <SigninScreen />
-          }}/>
+          }} />
           <Route path='/profile' render={() => {
             return (localStorage.getItem('user') !== "") ? <ProfileScreen /> : <SigninScreen />
-          }}/>
+          }} />
 
           <Route path='/thucancun' component={Thucancun} />
           <Route path='/thucanmeo' component={Thucanmeo} />
@@ -236,25 +237,34 @@ console.log(productCart)
   );
 }
 
-function Search(){
-  let {id} = useParams();
+function Search() {
+  let { id } = useParams();
   return (
-    <SearchScreen id={id}/>
+    <SearchScreen id={id} />
   )
 }
 
-function ProductDetail_Id() {
-  let { id } = useParams();
-  return (
-    <ProductDetail id={id} />
-  )
-}
-function Products(){
+// function ProductDetail_ID(props) {
+//   let { id } = useParams();
+//   return (
+//     <ProductDetail id={id} />
+//   )
+// }
+function Products(props) {
   let { path } = useRouteMatch();
   return (
     <Switch>
       <Route exact path={path} component={ProductsScreen} />
-      <Route path='/products/:id' component={ProductDetail_Id} />
+      <Route
+        path='/products/:id'
+        render={
+          properties =>
+            <ProductDetail
+              {...properties}
+              onChangeCart={props.onChangeCart}
+              setOnChangeCart={props.setOnChangeCart}
+            />}
+      />
     </Switch>
   )
 }

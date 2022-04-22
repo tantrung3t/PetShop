@@ -10,7 +10,7 @@ import './CartScreen.css';
 localStorage.setItem("total", 0)
 localStorage.setItem("orders", "")
 
-export default function CartScreens() {
+export default function CartScreens(props) {
   // console.log("re render")
   const url = "http://localhost:3003";
 
@@ -115,6 +115,7 @@ export default function CartScreens() {
 
   useEffect(() => {
     loadData()
+    props.setOnChangeCart(!props.onChangeCart)
   }, []);
 
   // console.log(order)

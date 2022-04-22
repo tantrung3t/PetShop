@@ -72,7 +72,7 @@ module.exports = function (router) {
         //them tai khoan va mat khau vao csdl
         db.query(strquery_add_username_password, function (err, data){
             //khong tao duoc
-             if(err || data.length == 0) return res.json("Tạo tài khoản thất bại!")
+            if(err || data.length == 0) return res.json("Tạo tài khoản thất bại!")
             //tao dc
             else{
                 var strquery_account_id = "SELECT * FROM `accounts` WHERE account_username = '"+ username_sign_up + "'"

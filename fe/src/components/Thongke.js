@@ -377,6 +377,11 @@ export default function Thongke() {
                     </Link>
                 </div>
                 <div className="admin_title1" >
+                        <Link to='/admin/nhanhang'>
+                            Quản lý nhãn hàng
+                        </Link>
+                    </div>
+                <div className="admin_title1" >
                     <Link to='/admin/dathang'>
                         Quản lý đặt hàng
                     </Link>

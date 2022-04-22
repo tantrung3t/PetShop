@@ -242,7 +242,7 @@ export default function AdminOrder() {
                         </Link>
                     </div>
                     <div className="admin_title1" >
-                        <Link to='/admin/sanpham'>
+                        <Link to='/admin/nhanhang'>
                             Quản lý nhãn hàng
                         </Link>
                     </div>

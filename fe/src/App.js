@@ -32,6 +32,7 @@ import Chuongthucung from './components/Chuongthucung';
 import Thongke from './components/Thongke'
 import AdminProduct from './components/AdminProduct'
 import AdminOrder from './components/AdminOrder';
+import AdminBrand from './components/AdminBrand';
 
 import Thanhtoan from './screens/Thanhtoan'
 
@@ -276,6 +277,7 @@ function Admin() {
       <Route exact path={path} component={Thongke} />
       <Route path='/admin/sanpham' component={AdminProduct} />
       <Route path='/admin/thongke' component={Thongke} />
+      <Route path='/admin/thongke' component={AdminBrand} />
       <Route path='/admin/dathang' component={AdminOrder} />
     </Switch>
   )

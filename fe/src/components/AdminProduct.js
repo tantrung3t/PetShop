@@ -185,7 +185,7 @@ export default function AdminProduct() {
       "token": localStorage.getItem('token'),
       "product_id": id
     }
-    
+
     axios({
       method: 'post',
       url: 'http://localhost:3003/products/delete',
@@ -293,7 +293,7 @@ export default function AdminProduct() {
     event.preventDefault();
     const dataSubmit = new FormData(event.currentTarget);
 
-    
+
     if (isAddProductNew) {
       axios.post('http://localhost:3003/image',
         formData, {
@@ -423,6 +423,11 @@ export default function AdminProduct() {
           <div className="admin_title2" >
             <Link to='/admin/sanpham'>
               Quản lý sản phẩm
+            </Link>
+          </div>
+          <div className="admin_title1" >
+            <Link to='/admin/nhanhang'>
+              Quản lý nhãn hàng
             </Link>
           </div>
           <div className="admin_title1">

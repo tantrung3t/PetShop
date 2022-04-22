@@ -1,3 +1,14 @@
+import { Link } from 'react-router-dom';
+
+const box3 = {
+    width: '200px',
+    height: '200px',
+    margin: '10px',
+    backgroundColor: '#f7f7f7',
+    padding: '10px',
+    border: 'none',
+    borderRadius: '10px',
+}
 
 export default function AdminBrand() {
 

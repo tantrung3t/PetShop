@@ -49,15 +49,56 @@ Account.orderByID = function (orderID, result) {
     })
 }
 
-Account.forgotPassword = function (account_username, result) {
-    var strquery = "SELECT infomation.info_email FROM `accounts`, `infomation` WHERE accounts.account_id = infomation.account_id and account_username = '"+ account_username +"'"
+Account.forgotPassword = function (account_username, randomPassword, result) {
+    var strquery = "SELECT accounts.account_id, infomation.info_email, infomation.info_fname FROM `accounts`, `infomation` WHERE accounts.account_id = infomation.account_id and account_username = '"+ account_username +"'"
 
     db.query(strquery, function (err, data) {
         if (err || data.length === 0) {
             result(null);
         }
         else {
-            result(data[0].info_email);
+            var strqueryUpdatePassword = "UPDATE `accounts` SET `account_password`='"+ randomPassword +"' WHERE account_username = '" + account_username + "'"
+            db.query(strqueryUpdatePassword, function (err, data1){
+                if (err) {
+                    result(null);
+                }
+                else{
+                    result({
+                        info_email: data[0].info_email,
+                        info_fname: data[0].info_fname
+                    });
+                }
+            })
+        }
+    })
+}
+
+Account.changePassword = function (dataBody, result) {
+    var strquery = "SELECT * FROM `accounts` WHERE account_id = '"+ dataBody.account_id +"' and account_password = '"+ dataBody.old +"'"
+    
+    db.query(strquery, function (err, data){
+        if (err || data.length === 0) {
+            result({
+                status: 400,
+                message: "Error"
+            });
+        }
+        else{
+            var strqueryChangePassword = "UPDATE `accounts` SET `account_password`='"+ dataBody.new +"' WHERE account_id = " + dataBody.account_id
+            db.query(strqueryChangePassword, function (err, data){
+                if (err){
+                    result({
+                        status: 400,
+                        message: "Error"
+                    });
+                }
+                else{
+                    result({
+                        status: 200,
+                        message: "Change Password successfully"
+                    });
+                }
+            })
         }
     })
 }

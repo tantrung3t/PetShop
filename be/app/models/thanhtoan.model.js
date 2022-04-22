@@ -16,7 +16,7 @@ payment.inventory_product = function (result) {
 }
 
 payment.cash_payment = function (reqData, result) {
-    var strquery = "INSERT INTO `orders`(`account_id`, `order_status`, `order_address`, `order_payment_momo`) VALUES ('" + reqData.account_id + "','0','" + reqData.order_address + "','0')"
+    var strquery = "INSERT INTO `orders`(`account_id`, `order_status`, `order_address`, `order_payment_momo`, `order_total`) VALUES ('" + reqData.account_id + "','0','" + reqData.order_address + "','0', '"+ reqData.amount +"')"
     var strqueryInsertListOrder = "INSERT INTO `orders_detail` (`order_id`, `product_id`, `orders_detail_quantity`) VALUES "
     db.query(strquery, function (err, data) {
         if (err) {

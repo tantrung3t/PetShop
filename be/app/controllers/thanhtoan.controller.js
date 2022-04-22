@@ -4,7 +4,7 @@ const db = require('../common/connect');
 exports.momo_payment = function (request, response) {
     var dataInsertId;
 
-    var strquery = "INSERT INTO `orders`(`account_id`, `order_status`, `order_address`, `order_payment_momo`) VALUES ('" + request.body.account_id + "','0','" + request.body.order_address + "','1')"
+    var strquery = "INSERT INTO `orders`(`account_id`, `order_status`, `order_address`, `order_payment_momo`, `order_total`) VALUES ('" + request.body.account_id + "','0','" + request.body.order_address + "','1', '"+ request.body.amount +"')"
     var strqueryInsertListOrder = "INSERT INTO `orders_detail` (`order_id`, `product_id`, `orders_detail_quantity`) VALUES "
     db.query(strquery, function (err, data) {
         if (err) {

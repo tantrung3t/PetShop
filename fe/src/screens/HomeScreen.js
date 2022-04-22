@@ -42,8 +42,8 @@ export default function HomeScreen() {
 
   const slideImages = [
     '../assets/img/banner2.jpg',
-    '../assets/img/banner2.jpg',
-    '../assets/img/banner2.jpg'
+    '../assets/img/banner3.png',
+    '../assets/img/banner5.png'
   ];
 
   return (
@@ -51,7 +51,7 @@ export default function HomeScreen() {
       <div className="banner">
         <Slide easing="ease">
           <div className="each-slide">
-            <div style={{'backgroundImage': `url(${slideImages[1]})`}}>
+            <div style={{'backgroundImage': `url(${slideImages[0]})`}}>
               {/* <span>Slide 1</span> */}
             </div>
           </div>

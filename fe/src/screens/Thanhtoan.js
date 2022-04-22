@@ -89,6 +89,9 @@ export default function Thanhtoan() {
                     <div className='Thanhtoan_title1'>
                         Cảm ơn bạn đã ủng hộ chúng tôi
                     </div>
+                    <Link to={'/'} className="btn btn-primary" style={{fontSize: "16px"}}>
+                        Trang chủ
+                    </Link>
                 </div>
             )
         }
@@ -108,6 +111,9 @@ export default function Thanhtoan() {
                     <div className='Thanhtoan_title1'>
                         Vui lòng thanh toán lại hoặc sữ dụng phương thức thanh toán khác
                     </div>
+                    <Link to={'/'} className="btn btn-primary" style={{fontSize: "16px"}}>
+                        Trang chủ
+                    </Link>
                 </div>
             )
         }

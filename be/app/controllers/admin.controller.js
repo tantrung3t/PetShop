@@ -81,3 +81,8 @@ exports.outStockProduct = function (req, res){
         res.send(data);
     })
 }
+exports.addBrand = function (req, res){
+    admin.addBrand(req.body.brand_name, function (data) {
+        res.send(data);
+    })
+}

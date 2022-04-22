@@ -178,4 +178,25 @@ admin.outStockProduct = function (result) {
     })
 }
 
+admin.addBrand = function (brand_name, result) {
+
+    var strquery = "INSERT INTO `products_brand`(`product_brand_name`) VALUES ('"+ brand_name +"')"
+    db.query(strquery, function (err, data) {
+        if (err) {
+            result({
+                status: 400,
+                message: "Error"
+            });
+        }
+        else {
+            result({
+                status: 200,
+                message: "Successful"
+            });
+        }
+    })
+}
+
+
+
 module.exports = admin;

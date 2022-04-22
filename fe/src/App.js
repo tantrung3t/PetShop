@@ -277,7 +277,7 @@ function Admin() {
       <Route exact path={path} component={Thongke} />
       <Route path='/admin/sanpham' component={AdminProduct} />
       <Route path='/admin/thongke' component={Thongke} />
-      <Route path='/admin/thongke' component={AdminBrand} />
+      <Route path='/admin/nhanhang' component={AdminBrand} />
       <Route path='/admin/dathang' component={AdminOrder} />
     </Switch>
   )

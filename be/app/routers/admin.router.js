@@ -23,4 +23,7 @@ module.exports = function(router) {
 
     //san pham sap het hang
     router.get('/admin/statistic/outstockproduct', adminController.outStockProduct)
+
+    //add brand
+    router.post('/admin/brand/add', adminController.addBrand)
 }

@@ -1,0 +1,55 @@
+    .AdminBrand_form_add{
+        text-align: center;
+        width: 20%;
+        height: 200px;
+        margin: 10px;
+        background-color: #ffffff;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
+    }
+
+    .AdminBrand_list{
+        width: 71%;
+        height: 500px;
+        margin: 10px;
+        background-color: #ffffff;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
+    }
+
+    .AdminBrand_title{
+        font-weight: 700;
+        font-size: 18px;
+        color: #005d80;
+        padding: 20px;
+        
+    }
+
+    .AdminBrand_button{
+    margin-top: 10px;
+    justify-content: center;
+    padding: 7px;
+    outline: none;
+    border: 2px solid #f5a623;
+    background-color: #f5a623;
+    color: #f7f7f7;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    }
+
+    .AdminBrand_sub_title_1{
+        width: 120px;
+        font-size: 16px;
+
+    }
+    .AdminBrand_sub_title_2{
+        width: 400px;
+        font-size: 16px;
+
+    }

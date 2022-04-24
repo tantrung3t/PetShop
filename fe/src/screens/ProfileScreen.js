@@ -5,7 +5,6 @@ export default function ProfileScreen() {
 
   const [profile] = useState(JSON.parse(localStorage.getItem("profile")))
   const [sex, setSex] = useState(profile.info_sex)
-  console.log(sex)
 
   const defaultData = {
     account_id: profile.account_id,
@@ -22,7 +21,7 @@ export default function ProfileScreen() {
     event.preventDefault();
 
     const dataSubmit = new FormData(event.currentTarget);
-    if (dataSubmit.get('lname') || dataSubmit.get('fname')) {
+    if (!dataSubmit.get('lname') || !dataSubmit.get('fname')) {
       alert("Họ tên không được để trống!!")
     } else {
       var data = {
@@ -35,7 +34,7 @@ export default function ProfileScreen() {
         info_phone_number: dataSubmit.get('phone'),
         info_sex: sex
       }
-
+console.log(data)
 
       if (JSON.stringify(data) === JSON.stringify(defaultData)) {
         alert("Không có thông tin nào cần thay đổi!!")
@@ -73,7 +72,6 @@ export default function ProfileScreen() {
     isOther = true
   } else isOther = false;
   const handleCheck = (e) => {
-    console.log("value: " + e.target.value);
     let value = e.target.value;
     if (value === "0") {
       isMale = true;
@@ -86,7 +84,7 @@ export default function ProfileScreen() {
     } else isOther = false;
 
     setSex(parseInt(value))
-    console.log("male: " + isMale + " female: " + isFemale + " other: " + isOther)
+    // console.log("male: " + isMale + " female: " + isFemale + " other: " + isOther)
   }
 
   return (
@@ -102,7 +100,7 @@ export default function ProfileScreen() {
                 type="text"
                 id="fname"
                 name="fname"
-                pattern="/^(?!\s*$).+"
+                // pattern="/^(?!\s*$).+"
                 placeholder="Tên"
                 defaultValue={profile.info_fname}
               // onChange={(e) => setFname(e.target.value)}

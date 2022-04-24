@@ -132,7 +132,7 @@ function App() {
       });
     }
     return result;
-  }
+  }    
   // console.log(productCart)
   return (
     <Router>
@@ -192,7 +192,7 @@ function App() {
 
         <main>
           <Route path='/' exact component={HomeScreen} />
-          <Route path='/brand' component={BrandScreen} />
+          <Route path='/brand' component={BrandScreen}/>
           <Route path='/forgotpassword' component={ForgotPasswordScreen} />
           <Route path='/signin' render={() => {
             return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />

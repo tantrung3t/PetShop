@@ -7,13 +7,12 @@ export default function HomeScreen() {
   const url = "http://localhost:3003";
   const [brands, setBrands] = useState([]);
   // console.log(brands)
-
   const loadData = () => {
     axios.get(`http://localhost:3003/brands`)
       .then(res => {
         const data = res.data;
-        setBrands(data);
-        console.log(data)
+        console.log("DATA:", data)
+        setBrands(handleFilter(data))
       })
       .catch(error => console.log(error));
   }
@@ -22,45 +21,39 @@ export default function HomeScreen() {
     loadData()
   }, []);
 
-  var brandCheck = [];
-  const result = Object.values(brands).filter(brand => {
-    var brandList = [];
-    for (let index = 0; index < brandCheck.length; index++) {
-      const element = brandCheck[index];
-      if (brand.brandName === element) {
+  const handleFilter = (data) => {
+    var brandCheck = [];
+    // tempBrands.map(item => (
+    //   item.products.map(product => {
+    //     product.product_brand_name === item.brandName ? brandCheck.push(product) : ''
+    //   })
+    // ))
+    // console.log(brandCheck)
+
+    data.map((item, i) => {
+      if (brandCheck.find(value => value.name === item.product_brand_name)) {
+        let pos = brandCheck.findIndex(ele => ele.name === item.product_brand_name)
+        brandCheck[pos].products.push(item)
         return;
       }
       else {
-        brandList.push(brand);
-      }
-    }
-    if (brandCheck.find(value => value === brand.brandName)) {
-      return;
-    }
-    else {
-      brandCheck.push(brand.brandName)
-    }
-    return brandList;
-  })
-  const resultsBrand = result.filter(brand => {
-    for (let index = 0; index < brand.products.length; index++) {
-      const element = brand.products[index];
-      if (element.product_brand_name !== brand.brandName) {
-        brand.products.splice(index, 1)
-      }
-    }
-    return brand;
-  })
+        brandCheck.push({ name: item.product_brand_name, products: [item] })
 
+        console.log(brandCheck)
+      }
+    })
 
-  console.log(resultsBrand)
+    return brandCheck;
+  }
+
+  console.log(brands)
 
   return (
     <div>
       <div className="grid">
-        {resultsBrand.map((brand, index) => (
+        {brands.map((brand, index) => (
           <div className="home__container" key={index}>
-            <span className="home__title">{brand.brandName}</span>
+            <span className="home__title">{brand.name}</span>
             <div className="block-separation my-3"></div>
             <div className="row row-cols-6 home__products">
               {
@@ -68,7 +61,7 @@ export default function HomeScreen() {
                   <Product
                     key={i}
                     id={product.product_id}
-                    src={ url + product.product_image}
+                    src={url + product.product_image}
                     name={product.product_name}
                     price={product.product_price}
                   />

@@ -2,7 +2,8 @@ import React, { useState } from "react"
 import "./SigninScreen.css"
 import axios from "axios"
 import {Link} from "react-router-dom"
-export default function Account() {
+
+export default function SigninScreen() {
 
   const [isContainerActive, setIsContainerActive] = useState('');
 

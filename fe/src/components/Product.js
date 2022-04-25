@@ -9,7 +9,7 @@ export default function Product(props) {
         <img src={props.src} alt="img" width="100%" height="200px"  className="home__product-img"></img>
         <div className="p-2">
           <div className="home__product-name">{props.name}</div>
-          <div className="home__product-price">{props.price}  đ</div>
+          <div className="home__product-price">{(props.price).toLocaleString("fi-FI")} đ</div>
         </div>
       </div>
     </Link>
@@ -42,7 +42,7 @@ export function ProductMiniCartItem(props) {
         <div className="pl-2" style={{flex: 1}}>
             <div className="product-name--minicart">{props.name}</div>
           <div className='flex'>
-          <div className="product-price--minicart"> {(props.price).toLocaleString("fi-FI", { style: "currency", currency: "VND" })} </div>
+          <div className="product-price--minicart"> {(props.price).toLocaleString("fi-FI", /*{ style: "currency", currency: "VND" }*/)} đ</div>
             <div style={{lineHeight: 1.5, color: "#ccc"}}>
               <span className='mx-1' style={{fontSize: "10px"}}>x</span>
               <span className=''>{props.qty}</span>

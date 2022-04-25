@@ -51,12 +51,13 @@ function App() {
   const url = "http://localhost:3003";
 
   const [productCart, setProductCart] = useState([]);
-  const [onChangeCart, setOnChangeCart] = useState(false)
+  const [isDelete, setIsDelete] = useState(false);
+  const [onChangeCart, setChangeCart] = useState(0)
 
   useEffect(() => {
     checkToken()
     loadData()
-  }, [onChangeCart]);
+  }, [isDelete, onChangeCart]);
 
   const checkToken = () => {
     axios.get(`http://localhost:3003/private/` + localStorage.getItem('token'))
@@ -134,6 +135,43 @@ function App() {
     return result;
   }    
   // console.log(productCart)
+
+  const addProductInCart = (item, qty) => {
+    var dataForm = {
+      "token": localStorage.getItem('token'),
+      "product_id": item.product_id,
+      "shopping_cart_amount": qty
+    }
+
+    // console.log(dataForm)
+
+    axios.post('http://localhost:3003/products/cart', dataForm)
+    .then(response => {
+      console.log(response.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  const removeProductInCart = (item, qty) => {
+    var dataForm = {
+      "token": localStorage.getItem('token'),
+      "product_id": item.product_id,
+      "shopping_cart_amount": qty
+    }
+
+    // console.log(dataForm)
+
+    axios.post('http://localhost:3003/products/removecart', dataForm)
+    .then(response => {
+      console.log(response.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
   return (
     <Router>
       <div className='grid-container'>
@@ -173,14 +211,13 @@ function App() {
                               name={product.product_name}
                               price={product.product_price}
                               qty={product.shopping_cart_amount}
-                              isDelete={onChangeCart}
-                              setIsDelete={value => setOnChangeCart(value)}
+                              isDelete={isDelete}
+                              setIsDelete={value => setIsDelete(value)}
                             />
                           ).reverse().splice(0, 3)
                         }
                       </ul>
                       <div className='btn btn-primary' onClick={() => window.location = "/cart"}>Xem Giỏ Hàng</div>
-                      {/* <div className='btn btn-primary' onClick={handleShowCart}>Xem Giỏ Hàng</div> */}
                     </div>
                   )
                 }
@@ -199,9 +236,20 @@ function App() {
           }}
           />
           <Route path='/search/:id' component={Search} />
-          <Route path='/products' render={() => <Products onChangeCart={onChangeCart} setOnChangeCart={value => setOnChangeCart(value)} />} />
+          <Route path='/products' render={() => <Products 
+                                                  onChangeCart={isDelete} 
+                                                  setChangeCart={value => setIsDelete(value)} 
+                                                  addProductInCart={addProductInCart}
+                                                />
+                                          } />
           <Route path='/cart' render={() => {
-            return (localStorage.getItem('user') !== "") ? <CartScreen onChangeCart={onChangeCart} setOnChangeCart={value => setOnChangeCart(value)} /> : <SigninScreen />
+            return (localStorage.getItem('user') !== "") ? <CartScreen 
+                                                            setChangeCart={value => setChangeCart(value)}
+                                                            isDelete={isDelete} 
+                                                            setIsDelete={value => setIsDelete(value)} 
+                                                            addProductInCart={addProductInCart} 
+                                                            removeProductInCart={removeProductInCart} 
+                                                          /> : <SigninScreen />
           }} />
           <Route path='/orders' render={() => {
             return (localStorage.getItem('user') !== "") ? <ListOrdersScreen /> : <SigninScreen />
@@ -262,7 +310,8 @@ function Products(props) {
           properties => <ProductDetail
                           {...properties}
                           onChangeCart={props.onChangeCart}
-                          setOnChangeCart={props.setOnChangeCart}
+                          setChangeCart={props.setChangeCart}
+                          addProductInCart={props.addProductInCart}
                         />}
       />
     </Switch>

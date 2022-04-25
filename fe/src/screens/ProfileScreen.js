@@ -34,7 +34,6 @@ export default function ProfileScreen() {
         info_phone_number: dataSubmit.get('phone'),
         info_sex: sex
       }
-console.log(data)
 
       if (JSON.stringify(data) === JSON.stringify(defaultData)) {
         alert("Không có thông tin nào cần thay đổi!!")

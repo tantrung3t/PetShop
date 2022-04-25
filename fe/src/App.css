@@ -1225,6 +1225,21 @@ i {
   text-align: center;
 }
 
+.cbx {
+  cursor: pointer;
+}
+
+#cbx::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10rem;
+  height: 1.6rem;
+  background-color: transparent;
+  cursor: pointer;;
+}
+
 /* Infomation Order */
 .orders-container {
   position: relative;

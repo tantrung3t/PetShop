@@ -3,9 +3,8 @@ const db = require('../common/connect');
 
 exports.momo_payment = function (request, response) {
     var dataInsertId;
-
     var strquery = "INSERT INTO `orders`(`account_id`, `order_status`, `order_address`, `order_payment_momo`, `order_total`) VALUES ('" + request.body.account_id + "','0','" + request.body.order_address + "','1', '"+ request.body.amount +"')"
-    var strqueryInsertListOrder = "INSERT INTO `orders_detail` (`order_id`, `product_id`, `orders_detail_quantity`) VALUES "
+    var strqueryInsertListProducts = "INSERT INTO `orders_detail` (`order_id`, `product_id`, `orders_detail_quantity`) VALUES "
     db.query(strquery, function (err, data) {
         if (err) {
             response.send({
@@ -16,12 +15,12 @@ exports.momo_payment = function (request, response) {
         else {
             dataInsertId = data.insertId;
             // result("order: " + data.insertId)
-            request.body.listOrder.map((item, i, row) => {
+            request.body.listProducts.map((item, i, row) => {
                 if (i + 1 === row.length) {
-                    strqueryInsertListOrder += "(" + data.insertId + ", " + item.id + ", " + item.quantity + ");"
+                    strqueryInsertListProducts += "(" + data.insertId + ", " + item.id + ", " + item.quantity + ");"
                 }
                 else {
-                    strqueryInsertListOrder += "(" + data.insertId + ", " + item.id + ", " + item.quantity + "),"
+                    strqueryInsertListProducts += "(" + data.insertId + ", " + item.id + ", " + item.quantity + "),"
                 }
 
                 db.query("DELETE FROM `shopping_cart` WHERE account_id = "+ request.body.account_id +" and product_id = " + item.id, function(err, data){
@@ -34,7 +33,7 @@ exports.momo_payment = function (request, response) {
                 })
             })
 
-            db.query(strqueryInsertListOrder, function (err, data) {
+            db.query(strqueryInsertListProducts, function (err, data) {
                 if (err) {
                     response.send({
                         status: 400,
@@ -143,6 +142,7 @@ exports.momo_payment = function (request, response) {
 
 exports.cash_payment = function (req, res) {
     payment.cash_payment(req.body, function (data) {
+        console.log(data)
         res.send(data);
     })
 }

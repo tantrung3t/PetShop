@@ -214,7 +214,7 @@ product.delete_product = function (product_id, result) {
 
 //get all product from shopping_cart in database
 product.get_product_in_shopping_cart = function (account_id, result) {
-    var strquery = "SELECT shopping_cart.product_id, products.product_image, products.product_price, products.product_name, shopping_cart.shopping_cart_amount FROM `shopping_cart`, `products` WHERE products.isDelete = 0 and shopping_cart.product_id = products.product_id and shopping_cart.account_id = " + account_id
+    var strquery = "SELECT shopping_cart.product_id, products.product_image, products.product_price, products.product_name, products.product_amount, products.product_sold, shopping_cart.shopping_cart_amount FROM `shopping_cart`, `products` WHERE products.isDelete = 0 and shopping_cart.product_id = products.product_id and shopping_cart.account_id = " + account_id
     db.query(strquery, function (err, data) {
         if (err || data.length == 0) {
             result(null);
@@ -269,6 +269,52 @@ product.add_product_in_shopping_cart = function (product_id, account_id, shoppin
     })
 
 }
+
+// Remove Product 
+product.remove_product_in_shopping_cart = function (product_id, account_id, shopping_cart_amount, result) {
+
+    var strquery1 = "SELECT * FROM `shopping_cart` WHERE product_id = " + product_id + " and account_id = " + account_id
+
+    db.query(strquery1, function (err, data) {
+        if (data.length > 0) {
+            var strquery = "UPDATE `shopping_cart` SET `shopping_cart_amount`= shopping_cart_amount - " + shopping_cart_amount +" WHERE product_id = "+ product_id +" and account_id = " + account_id
+            db.query(strquery, function (err, data) {
+                if (err) {
+                    result({
+                        status: 400,
+                        message: "Fail to rm to database"
+                    });
+                }
+                else {
+                    result({
+                        status: 200,
+                        message: "rm to database successfully"
+                    });
+                }
+            })
+        }
+        else {
+            var strquery = "DELETE FROM `shopping_cart` WHERE account_id = "+ data.account_id +" and product_id = " + data.product_id;
+            db.query(strquery, function (err, data) {
+                if (err) {
+                    result({
+                        status: 400,
+                        message: "delete product to database fail"
+
+                    });
+                }
+                else {
+                    result({
+                        status: 200,
+                        message: "delete to database succes"
+                    });
+                }
+            })
+        }
+    })
+
+}
+
 
 //delete product in shopping cart
 product.shopping_cart_delete = function (body, result) {

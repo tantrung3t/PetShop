@@ -9,6 +9,12 @@ exports.list_orders = function (req, res) {
     })
 }
 
+exports.list_orders_nhanhang = function (req, res) {
+    admin.list_orders_nhanhang(function (data) {
+        res.send(data);
+    })
+}
+
 exports.products_orders_by_id = function (req, res) {
     var id = req.params.id;
     admin.products_orders_by_id(id, function (data) {
@@ -42,29 +48,25 @@ exports.orders_and_quantity_sales = function (req, res) {
 }
 
 exports.deny_or_accept_order = function (req, res) {
-    // var token = req.body.token;
-
-    // try {
-    //     //kiem tra neu token hop len thi lam tiếp công việc
-    //     var kq = jwt.verify(token, secretKey)
-    //     product.edit_product(product_edit_data, function (data) {
-    //         res.send(data);
-    //     })
-
-    // }
-    // catch (error) {
-    //     //tra ve loi nieu token het han hoac khong hop le
-    //     return res.json({
-    //         status: 401,
-    //         message: 'Token expires or Deny',
-    //     })
-    // }
+    
     var order_id = req.body.order_id;
     var status_order = req.body.status_order;
     var listProduct = req.body.listProduct;
 
 
     admin.deny_or_accept_order(order_id, status_order,listProduct, function (data) {
+        res.send(data);
+    })
+
+}
+
+exports.yes_or_no = function (req, res) {
+    
+    var order_id = req.body.order_id;
+    var status_order = req.body.status_order;
+
+
+    admin.yes_or_no(order_id, status_order, function (data) {
         res.send(data);
     })
 

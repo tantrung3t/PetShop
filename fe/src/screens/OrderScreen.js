@@ -61,12 +61,16 @@ export default function OrderScreen(props) {
               {/* Chô này cần làm lại phần chuyển đổi từ isodate sang  */}
               <div> {order[0].order_date.split("T")[0].slice(0,8) + (order[0].order_date.split("T")[0].slice(8,10) - 1 + 2)} </div>
               {
-                order[0].order_status === 1 ? (
+                order[0].order_status === 2 ? (
                   <div>Đang giao hàng</div>
-                ) : order[0].order_status === 2 ? (
+                ) : order[0].order_status === 1 ? (
                   <div>Đã giao hàng</div>
+                ) : order[0].order_status === 3 ? (
+                  <div>Người bán không thể chuẩn bị</div>
+                ) : order[0].order_status === 4 ? (
+                  <div>Người mua không nhận hàng</div>
                 ) : (
-                  <div>Đang chuẩn bị hàng</div>
+                  <div>Đang chờ</div>
                 )
               }
             </div>

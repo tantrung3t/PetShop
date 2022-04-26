@@ -150,7 +150,7 @@ export default function AdminProduct() {
   useEffect(() => {
     loadData_products();
     loadData_product_brand()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
 
   //call and render product brand

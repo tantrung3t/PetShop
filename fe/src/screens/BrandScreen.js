@@ -17,20 +17,12 @@ export default function HomeScreen() {
       .catch(error => console.log(error));
   }
 
-
-
   useEffect(() => {
     loadData()
   }, []);
 
   const handleFilter = (data) => {
     var brandCheck = [];
-    // tempBrands.map(item => (
-    //   item.products.map(product => {
-    //     product.product_brand_name === item.brandName ? brandCheck.push(product) : ''
-    //   })
-    // ))
-    // console.log(brandCheck)
 
     data.map((item) => {
       if (brandCheck.find(value => value.name === item.product_brand_name)) {
@@ -44,6 +36,7 @@ export default function HomeScreen() {
         console.log(brandCheck)
       }
     })
+
     return brandCheck;
   }
 

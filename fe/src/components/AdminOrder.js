@@ -161,11 +161,11 @@ export default function AdminOrder() {
     }
 
     const accept_order = () => {
-        AcceptOrDenyOrder(1)
+        AcceptOrDenyOrder(2)
         close_modal();
     }
     const deny_order = () => {
-        AcceptOrDenyOrder(2)
+        AcceptOrDenyOrder(3)
         close_modal();
     }
 
@@ -176,6 +176,7 @@ export default function AdminOrder() {
         setPhone(phone);
         setAddress(address);
         if(payment === 2) setPayment("Đã thanh toán qua ví MoMo")
+        else setPayment("Thanh toán khi nhận hàng")
 
         //loadDataItem
         loadDataOrderDetails(order_id)
@@ -252,7 +253,7 @@ export default function AdminOrder() {
                         </Link>
                     </div>
                     <div className="admin_title1" >
-                    <Link to='/admin/nhanhang'>
+                    <Link to='/admin/danhanhang'>
                         Quản lý nhận hàng
                     </Link>
                 </div>

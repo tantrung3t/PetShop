@@ -14,6 +14,17 @@ admin.list_orders = function (result) {
         }
     })
 }
+admin.list_orders_nhanhang = function (result) {
+    var strquery = "SELECT orders.order_id, orders.order_status, infomation.info_fname, infomation.info_phone_number, orders.order_date, orders.order_address FROM `orders`, `infomation` WHERE orders.order_status = 2 and orders.account_id = infomation.account_id"
+    db.query(strquery, function (err, data) {
+        if (err) {
+            result(null);
+        }
+        else {
+            result(data);
+        }
+    })
+}
 
 admin.products_orders_by_id = function (id, result) {
     var strquery = "SELECT products.product_id, products.product_name, products.product_price, orders_detail.orders_detail_quantity FROM `orders_detail`, `products` WHERE products.product_id = orders_detail.product_id and orders_detail.order_id = " + id
@@ -99,9 +110,26 @@ admin.deny_or_accept_order = function (order_id, status_order,listProduct, resul
             });
         }
     })
-
-
 }
+
+admin.yes_or_no = function (order_id, status_order, result) {
+    var strquery = "UPDATE `orders` SET `order_status`= '" + status_order + "' WHERE order_id = " + order_id
+    db.query(strquery, function (err, data) {
+        if (err) {
+            result({
+                status: 400,
+                message: "Error"
+            });
+        }
+        else {
+            result({
+                status: 200,
+                message: "Successful"
+            });
+        }
+    })
+}
+
 
 admin.sales_last_month = function (result) {
     var strquery = "SELECT sum((products.product_price * orders_detail.orders_detail_quantity)) as total, products_type.product_type_id FROM `orders`, orders_detail, products, products_type WHERE orders.order_status = 1 and orders.order_id = orders_detail.order_id and products.product_id = orders_detail.product_id and products.product_type_id = products_type.product_type_id and MONTH(NOW()) - MONTH(order_date) = 1 group BY products_type.product_type_name"

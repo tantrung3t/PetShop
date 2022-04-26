@@ -1,639 +1,486 @@
-
-
-import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-import axios from 'axios';
+import ItemOrderDetail from './ItemOrderDetail'
 
-import './AdminProduct.css';
-
-const localhost = "http://localhost:3003"
 
 const modalStyle = {
-  'paddingLeft': '10px',
-  'paddingRight': '10px',
-  'display': 'flex',
-  'width': '100%',
-  'justifyContent': 'space-between',
-  'alignItems': 'center'
+    'paddingLeft': '10px',
+    'paddingRight': '10px',
+    'display': 'flex',
+    'width': '100%',
+    'justifyContent': 'space-between',
+    'alignItems': 'center'
 }
 const modalStyle2 = {
-  'paddingLeft': '10px',
-  'paddingRight': '10px',
-  'display': 'flex',
-  'width': '100%',
-  'justifyContent': 'space-between',
-  'alignItems': 'center'
+    'paddingLeft': '200px',
+    'paddingRight': '170px',
+    'display': 'flex',
+    'width': '100%',
+    'justifyContent': 'space-between',
+    'alignItems': 'center'
 }
-
-const bodyStyle = {
-  // 'paddingLeft': '120px',
-  // 'paddingRight': '120px',
+const modalStyleScroll = {
+    'height': '240px',
+    'overflow': 'auto',
 }
+const styleListItem = {
+    'paddingLeft': '200px',
+    'paddingRight': '170px',
+    'width': '100%',
+    'justifyContent': 'space-between',
+    'alignItems': 'center'
+}
+// const styleItem = {
+//     'display': 'flex',
+//     'borderBottom': '1px solid #91c2cc',
+//     'height': '50px',
+//     'justifyContent': 'space-between',
+//     'alignItems': 'center'
+// }
 
 const divStyle1 = {
-  'display': 'flex',
-  'borderBottom': '1px solid #91c2cc',
-  'width': '100%',
-  'height': '60px',
-  'justifyContent': 'space-between',
-  'alignItems': 'center'
+    'display': 'flex',
+    'borderBottom': '1px solid #91c2cc',
+    'width': '100%',
+    'height': '60px',
+    'justifyContent': 'space-between',
+    'alignItems': 'center'
 
 };
 const divStyle2 = {
-  'width': '120px',
+    'width': '120px',
 };
 
 const divStyle3 = {
-  'width': '120px',
-  'fontSize': '700',
-  'fontWeight': 'bold',
-  'color': '#005d80'
+    'width': '120px',
+    'fontSize': '700',
+    'fontWeight': 'bold',
+    'color': '#005d80'
 };
 const divStyle4 = {
-  'width': '160px',
-  'fontSize': '700',
-  'fontWeight': 'bold',
-  'color': '#005d80'
+    'width': '160px',
+    'fontSize': '700',
+    'fontWeight': 'bold',
+    'color': '#005d80'
 };
 const divStyleScroll = {
-  'width': '101%',
-  'height': '400px',
-  'overflow': 'auto',
+    'width': '101%',
+    'height': '400px',
+    'overflow': 'auto',
 }
 
-const buttonStyle1 = {
-  'padding': '10px 20px',
-  'margin': '3px 3px 3px 3px',
-  'outline': 'none',
-  'border': 'none',
-  'backgroundColor': '#e33939',
-  'color': '#f7f7f7',
-  'borderRadius': '6px',
-  'cursor': 'pointer',
-  'fontSize': '12px',
-  'fontWeight': 'bold',
-};
-
-const buttonStyle2 = {
-  'padding': '10px 20px',
-  'margin': '3px 3px 3px 3px',
-  'outline': 'none',
-  'border': 'none',
-  'backgroundColor': '#1e931c',
-  'color': '#f7f7f7',
-  'borderRadius': '6px',
-  'cursor': 'pointer',
-  'fontSize': '12px',
-  'fontWeight': 'bold',
-};
-const preview = {
-  'marginLeft': '10px',
-  'paddingRight': '10px',
-  'border': '2px dashed #91c2cc',
-  'width': '310px',
-  'height': '240px',
-  'fontSize': '22px',
-  'position': 'relative',
-  'borderRadius': '6px',
-  'overflow': 'hidden',
-  'display': 'flex',
-  'alignItems': 'center',
-  'justifyContent': 'center',
-  'flexDirection': 'column',
-  'cursor': 'pointer',
-}
 const box3 = {
-  width: '200px',
-  height: '200px',
-  margin: '10px',
-  backgroundColor: '#f7f7f7',
-  padding: '10px',
-  border: 'none',
-  borderRadius: '10px',
-  // boxShadow: '0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07)'
+    width: '200px',
+    height: '200px',
+    margin: '10px',
+    backgroundColor: '#f7f7f7',
+    padding: '10px',
+    border: 'none',
+    borderRadius: '10px',
 }
 const box4 = {
-  width: "81%",
-  margin: '10px',
-  backgroundColor: '#ffffff',
-  padding: '10px',
-  border: 'none',
-  borderRadius: '10px',
-  boxShadow: '0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07)'
+    width: "81%",
+    margin: '10px',
+    backgroundColor: '#ffffff',
+    padding: '10px',
+    border: 'none',
+    borderRadius: '10px',
+    boxShadow: '0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07)'
 }
+const buttonStyle1 = {
+    'padding': '10px 20px',
+    'margin': '3px 3px 3px 3px',
+    'outline': 'none',
+    'border': 'none',
+    'backgroundColor': '#e33939',
+    'color': '#f7f7f7',
+    'borderRadius': '6px',
+    'cursor': 'pointer',
+    'fontSize': '12px',
+    'fontWeight': 'bold',
+    width: '66px'
+  };
+  
+  const buttonStyle2 = {
+    'padding': '10px 20px',
+    'margin': '3px 3px 3px 3px',
+    'outline': 'none',
+    'border': 'none',
+    'backgroundColor': '#1e931c',
+    'color': '#f7f7f7',
+    'borderRadius': '6px',
+    'cursor': 'pointer',
+    'fontSize': '12px',
+    'fontWeight': 'bold',
+    width: '77px'
+  };
+
 export default function AdminNhanhang() {
 
-  const [hide, setHide] = useState("hide");
-  const [titleModal, settitleModal] = useState("");
-  const [image, setImage] = useState("");
-  const [imageUpload, setImageUpload] = useState("")
-  const [isUploaded, setIsUploaded] = useState(false);
-  const [dataProductBrand, setDataProductBrand] = useState([]);
-  const [data, setData] = useState([]);
-  const [isAddProductNew, setIsAddProductNew] = useState(true);
+    let total = 0;
 
-  //state product upload
-  const [product_id, setProduct_id] = useState("");
-  // const [product_name, setProduct_name] = useState("");
-  // const [product_brand_id, setProduct_brand_id] = useState("");
-  // const [product_type_id, setProduct_type_id] = useState("");
-  // const [product_price, setProduct_price] = useState("");
-  // const [product_amount, setProduct_amount] = useState("");
-  const [product_image, setProduct_image] = useState("");
-  const [product_description, setProduct_description] = useState("");
+    const [dataOrder, setDataOrder] = useState([]);
+    const [dataItem, setDataItem] = useState([]);
 
+    const [hide, setHide] = useState("hide");
+    const [id, setId] = useState("");
+    const [info_name, setName] = useState("");
+    const [info_phone, setPhone] = useState("");
+    const [info_address, setAddress] = useState("");
+    const [payment, setPayment] = useState("Thanh toán khi nhận hàng");
 
-  //init data product brand
-  useEffect(() => {
-    loadData_products();
-    loadData_product_brand()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    useEffect(() => {
+        loadDataOrder()
+    }, [])
 
-  //call and render product brand
-  const loadData_product_brand = () => {
-    axios.get(`http://localhost:3003/products/brand`)
-      .then(res => {
-        const data = res.data;
-        setDataProductBrand(data)
-      })
-      .catch(error => console.log(error));
-  }
-  const render_product_brand = () => {
-    let element = dataProductBrand.map((brand, index) => {
-
-      return <option key={index} value={brand.product_brand_id}>{brand.product_brand_name}</option>
-    })
-    return element;
-  }
-
-  //call data products
-  const loadData_products = () => {
-    axios.get(`http://localhost:3003/products`)
-      .then(res => {
-        const data = res.data;
-        setData(data)
-      })
-      .catch(error => console.log(error));
-  }
-
-  const delete_product = (id) => {
-    const dataDeleteProduct = {
-      "token": localStorage.getItem('token'),
-      "product_id": id
-    }
-
-    axios({
-      method: 'post',
-      url: 'http://localhost:3003/products/delete',
-      data: dataDeleteProduct
-    })
-      .then(function (response) {
-        console.log(response);
-        alert("Sản phẩm đã được xoá!")
-        loadData_products()
-      })
-      .catch(function (error) {
-        console.log(error);
-        alert("Không thể xoá sản phẩm ngày bây giờ vui lòng thử lại!")
-      });
-
-  }
-
-  const edit_product = (index, id, product_name, product_type_id, product_brand_id, product_price, product_amount, product_description, product_image) => {
-    settitleModal("Chỉnh sửa cho sản phẩm có ID = " + id + " index = " + index);
-    setHide("modal");
-    setIsUploaded(true);
-    setIsAddProductNew(false);
-    setImage(localhost + product_image);
-    setProduct_image(product_image);
-    setProduct_id(id);
-
-    document.getElementById("product_name").value = product_name;
-    document.getElementById("product_type_id").value = product_type_id;
-    document.getElementById("product_brand_id").value = product_brand_id;
-    document.getElementById("product_price").value = product_price;
-    document.getElementById("product_amount").value = product_amount;
-
-    setProduct_description(product_description)
-
-  }
-
-  const add_product = () => {
-    settitleModal("Thêm sản phẩm mới")
-    setIsUploaded(false);
-    setImage("");
-    setHide("modal");
-    setIsAddProductNew(true);
-
-    document.getElementById("product_name").value = "";
-    document.getElementById("product_type_id").value = 1;
-    document.getElementById("product_brand_id").value = 1;
-    document.getElementById("product_price").value = "";
-    document.getElementById("product_amount").value = "";
-    setProduct_description("")
-
-  }
-  const close_modal = () => {
-    loadData_products();
-    setHide("modal hide");
-  }
-  const exit_modal = (e) => {
-    if (e.target == e.currentTarget) close_modal();
-  }
-  const clear_all = () => {
-    setIsUploaded(false);
-    setProduct_description("");
-    setImageUpload("")
-  }
-  const renderList = () => {
-    let element = data.map((product, index) => {
-
-      return <Item
-        key={index}
-        index={index}
-        product_id={product.product_id}
-        product_name={product.product_name}
-        product_price={product.product_price}
-        product_sold={product.product_sold}
-        product_brand_name={product.product_brand_name}
-        product_brand_id={product.product_brand_id}
-        product_type_id={product.product_type_id}
-        product_amount={product.product_amount}
-        product_description={product.product_description}
-        product_image={product.product_image}
-        buttonDelete={(product_id) => { delete_product(product_id) }}
-        buttonEdit={(index, product_id, product_name, product_type_id, product_brand_id, product_price, product_amount, product_description, product_image) => { edit_product(index, product_id, product_name, product_type_id, product_brand_id, product_price, product_amount, product_description, product_image) }}
-      />
-    })
-    return element;
-  }
-
-  function handleImageChange(e) {
-    if (e.target.files && e.target.files[0]) {
-      let reader = new FileReader();
-
-      reader.onload = function (e) {
-        setImage(e.target.result)
-        setIsUploaded(true)
-      }
-
-      reader.readAsDataURL(e.target.files[0])
-      setImageUpload(e.target.files[0])
-    }
-  }
-
-  const handleSubmit = (event) => {
-
-    let formData = new FormData();
-    formData.append('file', imageUpload);
-    event.preventDefault();
-    const dataSubmit = new FormData(event.currentTarget);
-
-
-    if (isAddProductNew) {
-      axios.post('http://localhost:3003/image',
-        formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }
-      ).then(function (res) {
-        //upload image thanh cong thì gửi toàn bộ thông tin sản phẩm lên backend
-        const dataAddProduct = {
-          "token": localStorage.getItem('token'),
-          "product_brand_id": dataSubmit.get('product_brand_id'),
-          "product_type_id": dataSubmit.get('product_type_id'),
-          "product_name": dataSubmit.get('product_name'),
-          "product_price": dataSubmit.get('product_price'),
-          "product_description": product_description,
-          "product_amount": dataSubmit.get('product_amount'),
-          "product_sold": "0",
-          "product_image": res.data.filePath
-        }
-        axios({
-          method: 'post',
-          url: 'http://localhost:3003/products',
-          data: dataAddProduct
-        })
-          .then(function (response) {
-            console.log(response);
-            alert("Sản phẩm đã được thêm!")
-          })
-          .catch(function (error) {
-            console.log(error);
-            alert("Không thể thêm sản phẩm ngày bây giờ vui lòng thử lại!")
-          });
-        console.log(dataAddProduct)
-      })
-        .catch(function () {
-          console.log('FAILURE!!');
-          alert("Vui lòng nhập đầy đủ các trường để thực hiện thêm sản phẩm!")
-        });
-
-    }
-    else {
-      if (imageUpload === "") {
-        const dataFixProduct = {
-          "product_id": product_id,
-          "token": localStorage.getItem('token'),
-          "product_brand_id": dataSubmit.get('product_brand_id'),
-          "product_type_id": dataSubmit.get('product_type_id'),
-          "product_name": dataSubmit.get('product_name'),
-          "product_price": dataSubmit.get('product_price'),
-          "product_description": product_description,
-          "product_amount": dataSubmit.get('product_amount'),
-          "product_sold": "0",
-          "product_image": product_image
-        }
-        axios({
-          method: 'post',
-          url: 'http://localhost:3003/products/edit',
-          data: dataFixProduct
-        })
-          .then(function (response) {
-            console.log(response);
-            alert('Sản phẩm đã được chỉnh sửa thành công!')
-          })
-          .catch(function (error) {
-            console.log(error);
-            alert('Không thể chỉnh sửa sản phẩm vào lúc này vui lòng thử lại!')
-          });
-      }
-      else {
-        axios.post('http://localhost:3003/image',
-          formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }
-        ).then(function (res) {
-          //upload image thanh cong thì gửi toàn bộ thông tin sản phẩm lên backend
-          const dataFixProduct = {
-            "product_id": product_id,
+    const AcceptOrDenyOrder = async (status_order) => {
+        const data = {
             "token": localStorage.getItem('token'),
-            "product_brand_id": dataSubmit.get('product_brand_id'),
-            "product_type_id": dataSubmit.get('product_type_id'),
-            "product_name": dataSubmit.get('product_name'),
-            "product_price": dataSubmit.get('product_price'),
-            "product_description": product_description,
-            "product_amount": dataSubmit.get('product_amount'),
-            "product_sold": "0",
-            "product_image": res.data.filePath
-          }
-          axios({
+            "order_id": id,
+            "status_order": status_order,
+            "listProduct": dataItem
+        }
+
+        await axios({
             method: 'post',
-            url: 'http://localhost:3003/products/edit',
-            data: dataFixProduct
-          })
+            url: 'http://localhost:3003/admin/orders/deny_or_accept_order',
+            data: data
+        })
             .then(function (response) {
-              console.log(response);
-              alert('Sản phẩm đã được chỉnh sửa thành công!')
+                console.log(response);
+                loadDataOrder()
             })
             .catch(function (error) {
-              console.log(error);
-              alert('Không thể chỉnh sửa sản phẩm vào lúc này vui lòng thử lại!')
+                console.log(error);
             });
-          console.log(dataFixProduct)
-        })
-          .catch(function () {
-            console.log('FAILURE!!');
-            alert('Không thể chỉnh sửa sản phẩm vào lúc này vui lòng thử lại!')
-          });
-      }
     }
 
+    const callbackNhanhang = async (id) => {
+        const data = {
+            
+            "order_id": id,
+            "status_order": 1,
+        
+        }
+
+        await axios({
+            method: 'post',
+            url: 'http://localhost:3003/admin/orders/yes_or_no',
+            data: data
+        })
+            .then(function (response) {
+                console.log(response);
+                loadDataOrder()
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    const callbackKhongnhan = async (id) => {
+        const data = {
+            
+            "order_id": id,
+            "status_order": 4,
+        
+        }
+
+        await axios({
+            method: 'post',
+            url: 'http://localhost:3003/admin/orders/yes_or_no',
+            data: data
+        })
+            .then(function (response) {
+                console.log(response);
+                loadDataOrder()
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    const loadDataOrder = async () => {
+        await axios.get(`http://localhost:3003/admin/orders/list_nhanhang`)
+            .then(res => {
+                const data = res.data;
+                setDataOrder(data)
+                console.log(data)
+            })
+            .catch(error => console.log(error));
+    }
+
+    const loadDataOrderDetails = async (order_id) => {
+        await axios.get(`http://localhost:3003/admin/order/` + order_id)
+            .then(res => {
+                const data = res.data;
+                setDataItem(data)
+                console.log(data)
+            })
+            .catch(error => console.log(error));
+    }
+    const close_modal = () => {
+        setHide("modal hide");
+    }
+
+    const exit_modal = (e) => {
+        if (e.target == e.currentTarget) close_modal();
+    }
+
+    const accept_order = () => {
+        AcceptOrDenyOrder(1)
+        close_modal();
+    }
+    const deny_order = () => {
+        AcceptOrDenyOrder(2)
+        close_modal();
+    }
+
+    const order_detail_id = (order_id, name, phone, address, payment) => {
+        setHide("modal");
+        setId(order_id);
+        setName(name);
+        setPhone(phone);
+        setAddress(address);
+        if(payment === 2) setPayment("Đã thanh toán qua ví MoMo")
+
+        //loadDataItem
+        loadDataOrderDetails(order_id)
+    }
+
+    // const multiPrice = (quantity, price) => {
+    //     let result = quantity * price
+    //     setTotal([...total, result]);
+    // }
+
+    const renderListItem = () => {
+        let element = dataItem.map((item, index) => {
+
+            total = total + (item.orders_detail_quantity * item.product_price)
+
+            return <ItemOrderDetail
+                key={index}
+                index={index}
+                product_name={item.product_name}
+                orders_detail_quantity={item.orders_detail_quantity}
+                product_id={item.product_id}
+                product_price={item.product_price}
+                product_total={item.orders_detail_quantity * item.product_price}
+            />
+        })
+        return element;
+    }
+    const renderList = () => {
+        if (dataOrder === "") {
+            return (<div></div>)
+        }
+        else {
+            let element = dataOrder.map((product, index) => {
+                return <Item
+                    key={index}
+                    index={index}
+                    order_id={product.order_id}
+                    order_date={product.order_date}
+                    info_name={product.info_fname}
+                    info_address={product.order_address}
+                    info_phone_number={product.info_phone_number}
+                    order_payment_momo={product.order_payment_momo}
+                    order_detail_quantity={product.order_detail_quantity}
+                    callbackNhanhang={(order_id) => { callbackNhanhang(order_id) }}
+                    callbackKhongnhan={(order_id) => { callbackKhongnhan(order_id) }}
+                    order_detail_id={(order_id, info_name, info_phone_number, info_address, order_payment_momo) => { order_detail_id(order_id, info_name, info_phone_number, info_address, order_payment_momo) }}
+                // buttonEdit={(index, product_id, product_name, product_type_id, product_brand_id, product_price, product_amount, product_description, product_image) => { edit_product(index, product_id, product_name, product_type_id, product_brand_id, product_price, product_amount, product_description, product_image) }}
+                />
+            })
+            return element;
+        }
+
+    }
+    return (
+        <div>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <div style={box3}>
+                    <div className="admin_title1">
+                        <Link to='/admin/thongke' >
+                            Thống kê
+                        </Link>
+                    </div>
+                    <div className="admin_title1" >
+                        <Link to='/admin/sanpham'>
+                            Quản lý sản phẩm
+                        </Link>
+                    </div>
+                    <div className="admin_title1" >
+                        <Link to='/admin/nhanhang'>
+                            Quản lý nhãn hàng
+                        </Link>
+                    </div>
+                    <div className="admin_title1" >
+                        <Link to='/admin/dathang'>
+                            Quản lý đặt hàng
+                        </Link>
+                    </div>
+                    <div className="admin_title2" >
+                    <Link to='/admin/danhanhang'>
+                        Quản lý nhận hàng
+                    </Link>
+                </div>
+                    
+                </div>
+                <div style={box4}>
+                    <div style={divStyle1}>
+                        <div style={divStyle3}>
+                            Mã đơn hàng
+                        </div>
+                        <div style={divStyle3}>
+                            Họ và Tên
+                        </div>
+                        <div style={divStyle3}>
+                            Số điện thoại
+                        </div>
+                        <div style={divStyle3}>
+                            Địa chỉ
+                        </div>
+                        <div style={divStyle3}>
+                            Ngày đặt hàng
+                        </div>
+                        <div style={divStyle3}>
+                            Trạng thái
+                        </div>
+                        <div style={divStyle4}>
+                            Tuỳ chỉnh
+                        </div>
+
+                    </div>
+                    <div style={divStyleScroll}>
+                        {renderList()}
+                    </div>
+                </div>
+            </div>
+            <div className={hide} onClick={exit_modal}>
+                <div className="modal__inner">
+                    <div className="modal__header">
+                        <p>Chi tiết đặt hàng DH00{id}</p>
+                        <FontAwesomeIcon icon={faXmarkCircle} fontSize={35} onClick={close_modal} />
+                    </div>
+
+                    <div className="modal__body">
+
+                        <div style={modalStyle}>
+                            <div>
+                                <h4>Người đặt hàng: </h4>
+                                <h3>{info_name}</h3>
+
+                            </div>
+                            <div >
+                                <h4>Số điện thoại:</h4>
+                                <h3>{info_phone}</h3>
+                            </div>
+                            <div>
+                                <h4>Địa chỉ:</h4>
+                                <h3>{info_address}</h3>
+                            </div>
+                        </div>
+
+                        <div style={modalStyle2}>
+                            <div style={divStyle1}>
+                                <div style={divStyle3}>
+                                    ID sản phẩm
+                                </div>
+                                <div style={divStyle3}>
+                                    Tên sản phẩm
+                                </div>
+                                <div style={divStyle3}>
+                                    Đơn giá
+                                </div>
+                                <div style={divStyle3}>
+                                    Số lượng
+                                </div>
+                                <div style={divStyle3}>
+                                    Thành tiền
+                                </div>
+                            </div>
+                        </div>
+                        <div style={modalStyleScroll}>
+
+                            <div style={styleListItem}>
+
+                                {renderListItem()}
+
+                            </div>
+                        </div>
+                        <div style={{paddingLeft: '450px'}}>
+                            {/* <h4>{payment}</h4> */}
+                            <h4>{payment} Tổng thành tiền: {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}đ</h4>
+                        </div>
 
 
+                    </div>
 
-  }
+                    <div className="modal__footer">
+                        <button onClick={accept_order} className="button-accept-order">Chấp nhận</button>
+                        <button onClick={deny_order} className="button-deny-order">Từ chối</button>
+                    </div>
 
-  return (
-    <div style={bodyStyle}>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div style={box3}>
-          <div className="admin_title1">
-            <Link to='/admin/thongke' >
-              Thống kê
-            </Link>
-          </div>
-          <div className="admin_title2" >
-            <Link to='/admin/sanpham'>
-              Quản lý sản phẩm
-            </Link>
-          </div>
-          <div className="admin_title1" >
-            <Link to='/admin/nhanhang'>
-              Quản lý nhãn hàng
-            </Link>
-          </div>
-          <div className="admin_title1">
-            <Link to='/admin/dathang' >
-              Quản lý đặt hàng
-            </Link>
-          </div>
-          <div className="admin_title1" >
-            <Link to='/admin/nhanhang'>
-              Quản lý nhận hàng
-            </Link>
-          </div>
+                </div>
+
+            </div>
         </div>
-        <div style={box4}>
-          <div style={{ float: 'right' }}>
-            <button onClick={add_product} className="button-add-product">Thêm sản phẩm</button>
-          </div>
-          <div style={divStyle1}>
-            <div style={divStyle3}>
-              ID
-            </div>
-            <div style={divStyle3}>
-              Tên sản phẩm
-            </div>
-            <div style={divStyle3}>
-              Giá bán
-            </div>
-            <div style={divStyle3}>
-              Đã bán
-            </div>
-            <div style={divStyle3}>
-              Còn lại
-            </div>
-            <div style={divStyle3}>
-              Thương hiệu
-            </div>
-            <div style={divStyle4}>
-              Tuỳ chỉnh
-            </div>
-          </div>
-          <div style={divStyleScroll}>
-            {renderList()}
-          </div>
-        </div>
-      </div>
-      <div className={hide} onClick={exit_modal}>
-        <div className="modal__inner">
-          <div className="modal__header">
-            <p>{titleModal}</p>
-            <FontAwesomeIcon icon={faXmarkCircle} fontSize={35} onClick={close_modal} />
-          </div>
-          <form onSubmit={handleSubmit}>
-            <div className="modal__body">
-              <div style={modalStyle}>
-                <div>
-                  <h3>Tên sản phẩm</h3>
-                  <input id="product_name" name="product_name" className="input-add-product" type="text" placeholder="Nhập tên sản phẩm" />
-                </div>
-                <div>
-                  <h3>Loại sản phẩm</h3>
-                  <select id="product_type_id" name="product_type_id" className="input-add-product" >
-                    <option value="1">Thức ăn cún</option>
-                    <option value="2">Thức ăn mèo</option>
-                    <option value="3">Đồ chơi thú cưng</option>
-                    <option value="4">Phụ kiện thú cưng</option>
-                    <option value="5">Chuồng thú cưng</option>
-                  </select>
-                </div>
-                <div>
-                  <h3>Thương hiệu</h3>
-                  <select id="product_brand_id" name="product_brand_id" className="input-add-product" >
-                    {render_product_brand()}
-                  </select>
-                </div>
-
-                <div style={{ width: '150px' }}>
-                  <h3>Giá bán</h3>
-                  <input id="product_price" name="product_price" className="input-add-product" type="number" placeholder="Nhập giá sản phẩm" />
-                </div>
-                <div style={{ width: '150px' }}>
-                  <h3>Số lượng</h3>
-                  <input id="product_amount" name="product_amount" className="input-add-product" type="number" placeholder="Nhập số lượng" />
-                </div>
-              </div>
-              <div style={modalStyle2}>
-                <div style={{ width: '635px', height: '300px' }}>
-                  <h3>Mô tả sản phẩm</h3>
-
-                  <div>
-                    <CKEditor
-                      editor={ClassicEditor}
-                      data={product_description}
-                      onReady={editor => {
-                        // You can store the "editor" and use when it is needed.
-                        // console.log('Editor is ready to use!', editor);
-                        editor.editing.view.change((writer) => {
-                          writer.setStyle(
-                            "height",
-                            "200px",
-                            editor.editing.view.document.getRoot()
-                          );
-
-
-                        });
-
-                      }}
-                      onChange={(event, editor) => {
-                        const data = editor.getData();
-                        setProduct_description(data);
-                        // console.log(product_description);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div style={{ width: '400px', height: '300px' }}>
-
-                  <div style={modalStyle}>
-                    <h3 style={{ paddingLeft: '10px' }}>Hình ảnh sản phẩm</h3>
-                  </div>
-                  <div style={preview}>
-                    {
-                      !isUploaded ? (
-                        <>
-                          <label htmlFor="upload-input" className="upload-image">
-                            <img src='../assets/img/image_upload.svg' alt='logo' width='50px' ></img>
-                            <div>Tải ảnh lên</div>
-                            <input
-                              hidden
-                              type="file"
-                              id="upload-input"
-                              accept=".jpg,.jpeg,.png"
-                              onChange={handleImageChange}
-                            />
-                          </label>
-
-                        </>
-                      ) : (
-                        <>
-                          <label htmlFor="upload-input">
-                            <input
-                              hidden
-                              type="file"
-                              id="upload-input"
-                              accept=".jpg,.jpeg,.png"
-                              onChange={handleImageChange}
-                            />
-                            <img className="uploaded-img" id="uploaded-img" src={image} alt="uploaded-img" />
-                          </label>
-
-                        </>
-
-                      )
-                    }
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-
-
-            <div className="modal__footer">
-              <button type="submit" className="modal-save">Lưu</button>
-              <button type="reset" className="modal-cancel" onClick={clear_all}>Xoá tất cả</button>
-            </div>
-          </form>
-        </div>
-
-      </div>
-    </div>
-  )
+    )
 }
 
+
 function Item(props) {
-  const buttonDelete = () => {
-    props.buttonDelete(props.product_id)
-  }
-  const buttonEdit = () => {
-    props.buttonEdit(props.index, props.product_id, props.product_name, props.product_type_id, props.product_brand_id, props.product_price, props.product_amount, props.product_description, props.product_image)
-  }
-  return (
-    <div style={divStyle1}>
-      <div style={divStyle2}>
-        {props.product_id}
-      </div>
-      <div style={divStyle2}>
-        {props.product_name}
-      </div>
-      <div style={divStyle2}>
-        {props.product_price}
-      </div>
-      <div style={divStyle2}>
-        {props.product_sold}
-      </div>
-      <div style={divStyle2}>
-        {props.product_amount - props.product_sold}
-      </div>
-      <div style={divStyle2}>
-        {props.product_brand_name}
-      </div>
-      <div style={divStyle4}>
-        <button className="button-sanpham-hover" onClick={buttonDelete} style={buttonStyle1}>Xoá</button>
-        <button className="button-sanpham-hover" onClick={buttonEdit} style={buttonStyle2}>Sửa</button>
-      </div>
-    </div>
-  )
+    // const buttonDelete = () => {
+    //   props.buttonDelete(props.product_id)
+    // }
+    // const buttonEdit = () => {
+    //   props.buttonEdit(props.index, props.product_id, props.product_name, props.product_type_id, props.product_brand_id, props.product_price, props.product_amount, props.product_description, props.product_image)
+    // }
+
+
+
+   const nhanhang =() => {
+    props.callbackNhanhang(props.order_id)
+   }
+
+   const khongnhan =() => {
+    props.callbackKhongnhan(props.order_id)
+}
+
+
+    const justNow = Date.parse(props.order_date);
+    const date = new Date(justNow)
+
+    return (
+        <div>
+            <div style={divStyle1}>
+                <div style={divStyle2}>
+                    DH00{props.order_id}
+                </div>
+                <div style={divStyle2}>
+                    {props.info_name}
+                </div>
+                <div style={divStyle2}>
+                    {props.info_phone_number}
+                </div>
+                <div style={divStyle2}>
+                    {props.info_address}
+                </div>
+                <div style={divStyle2}>
+                    {date.getFullYear() + "-0" + (date.getMonth() + 1) + "-" + date.getDate()}
+                </div>
+                <div style={divStyle2}>
+                    Chờ xác nhận
+                </div>
+                <div style={divStyle4}>
+                    <button onClick={nhanhang} style={buttonStyle1}>Đã nhận</button>
+                    <button onClick={khongnhan}style={buttonStyle2}>Không nhận</button>
+                </div>
+            </div>
+        </div>
+    )
 }

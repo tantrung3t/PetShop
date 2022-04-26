@@ -24,6 +24,8 @@ export default function ProfileScreen() {
     if (!dataSubmit.get('lname') || !dataSubmit.get('fname')) {
       alert("Họ tên không được để trống!!")
     } else {
+      var sexValue = -1;
+      sex ? sexValue = sex : sexValue
       var data = {
         account_id: profile.account_id,
         info_address: dataSubmit.get('address'),
@@ -32,9 +34,8 @@ export default function ProfileScreen() {
         info_fname: dataSubmit.get('fname'),
         info_lname: dataSubmit.get('lname'),
         info_phone_number: dataSubmit.get('phone'),
-        info_sex: sex
+        info_sex: sexValue
       }
-console.log(data)
 
       if (JSON.stringify(data) === JSON.stringify(defaultData)) {
         alert("Không có thông tin nào cần thay đổi!!")

@@ -44,7 +44,7 @@ export default function SigninScreen() {
 
         if (response.data.profile === undefined) {
           localStorage.setItem('user', "")
-          alert('Dang nhap khong thanh cong')
+          alert('Bạn đã nhập sai tài khoản hoặc mật khẩu!!')
         }
         else {
           localStorage.setItem('user', response.data.profile.info_fname)
@@ -75,7 +75,7 @@ export default function SigninScreen() {
     });
 
     if (dataSubmit.get('username_sign-up') === '' || dataSubmit.get('password_sign-up') === '' || dataSubmit.get('re_password_sign-up') === '' || dataSubmit.get('password_sign-up') === '' || dataSubmit.get('email_sign-up') === '') {
-      alert("Bạn hãy điền đầy đủ thông tin để tiến hành đăng ký!")
+      alert("Vui lòng điền đầy đủ thông tin!!")
     }
     else if (dataSubmit.get('password_sign-up') !== dataSubmit.get('re_password_sign-up')) {
       alert("Mật khẩu nhập lại không đúng")

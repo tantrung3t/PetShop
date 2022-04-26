@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Product from '../components/Product'
 
-export default function HomeScreen() {
+export default function BrandScreen() {
   const url = "http://localhost:3003";
   const [brands, setBrands] = useState([]);
   // console.log(brands)

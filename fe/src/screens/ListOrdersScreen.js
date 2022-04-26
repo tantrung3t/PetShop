@@ -88,11 +88,11 @@ export default function ListOrdersScreen() {
               <span className="block-separation"></span>
               <div className="flex right p-2 ">
                 Thành tiền:&nbsp; 
-                <span style={{color: "var(--primary-bold-color)", fontWeight: "600"}}> {(order.order_total).toLocaleString("fi-FI", { style: "currency", currency: "VND" })} </span>
+                <span style={{color: "#ff383d", fontWeight: "600"}}> {(order.order_total).toLocaleString("fi-FI", { style: "currency", currency: "VND" })} </span>
               </div>
               {/* <div className="m-2" style={{ wordWrap: "break-word", width: "700px" }}>Địa chỉ giao hàng: {order.order_address} </div> */}
             </Link>
-          ))
+          )).reverse()
         }
       </div>
     </div>

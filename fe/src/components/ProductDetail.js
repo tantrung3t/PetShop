@@ -2,39 +2,21 @@ import { React, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
 
-import QuantityButton from '../components/QuantityButton';
-
-
 export default function ProductDetail(props) {
-  const ProductID = props.match.params.id
-
+  const ProductID = props.match.params.id;
+  const { addProductInCart, setChangeCart, onChangeCart } = props;
   const history = useHistory();
   const url = "http://localhost:3003";
   const [link, setLink] = useState('');
-  const [data, setData] = useState(
-    [
-      {
-        product_type_id: "",
-        product_id: "",
-        product_name: "",
-        product_price: "",
-        product_image: "",
-        product_amount: "",
-        product_sold: "",
-        product_description: "",
-        product_brand_name: "",
-        product_type_name: ""
-      }
-    ]
-  );
+  const [product, setProduct] = useState({});
 
   const loadData = () => {
     axios.get(`http://localhost:3003/product/` + ProductID)
       .then(res => {
-        const data = res.data;
-        setData(data);
+        const data = res.data[0];
+        setProduct({...product, ...data});
         // phân loại loại sản phẩm để đưa vào link
-        switch (data[0].product_type_id) {
+        switch (data.product_type_id) {
           case 1:
             setLink('/thucancun');
             break;
@@ -63,22 +45,14 @@ export default function ProductDetail(props) {
     loadData()
   }, [ProductID]);
 
-  const addProductInCart = () => {
-    var dataForm = {
-      "token": localStorage.getItem('token'),
-      "product_id": data[0].product_id,
-      "shopping_cart_amount": localStorage.getItem('qty')
-    }
+  const [qty, setQty] = useState( 1 );
 
-    // console.log(dataForm)
+  const handleIncrease = () => {
+    setQty(qty + 1);
+  }
 
-    axios.post('http://localhost:3003/products/cart', dataForm)
-    .then(response => {
-      console.log(response.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  const handleDecrease = () => {
+    setQty(qty - 1);
   }
 
   const handleOrder = (e) => {
@@ -88,45 +62,49 @@ export default function ProductDetail(props) {
       history.push('/signin')
     } else {
       e.preventDefault();
-
-      addProductInCart()
-      props.setOnChangeCart(!props.onChangeCart)
+      addProductInCart(product, qty);
+      setChangeCart(!onChangeCart);
 
       alert("Bạn đã thêm sản phẩm vào giỏ hàng.")
     }
   };
-
   return (
     <div>
       <div className='path'>
         <div className='grid'> 
-          <Link to={'/'}>Trang chủ</Link> / <Link to={'/products'}>Sản phẩm</Link> / <Link to={link}>{data[0].product_type_name}</Link> / {data[0].product_name}
+          <Link to={'/'}>Trang chủ</Link> / <Link to={'/products'}>Sản phẩm</Link> / <Link to={link}>{product.product_type_name}</Link> / {product.product_name}
         </div>
       </div>
       <div className='grid flex beetween'>
         <div className='product__img'>
           <img
-            src={url + data[0].product_image}
+            src={url + product.product_image}
             alt='image_product'
             className='product__img--primary'
           />
         </div>
         <div className='product__info'>
-          <span className='product__name'>{data[0].product_name}</span>
+          <span className='product__name'>{product.product_name}</span>
           <div className='block-separation'></div>
-          <div className='product__price'>{data[0].product_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} đ</div>
+          <div className='product__price'>{(product?.product_price || 0).toLocaleString("fi-FI",)} đ</div>
           <div className='block-separation'></div>
-          <div className='product__brand'>Thương hiệu: <Link to='' className='primary'>{data[0].product_brand_name}</Link></div>
-          <div className='product__type'>Loại: <Link to={link} className='primary'>{data[0].product_type_name}</Link></div>
-          <div className='product__description' dangerouslySetInnerHTML={{ __html: data[0].product_description }}></div>
+          <div className='product__brand'>Thương hiệu: <Link to='' className='primary'>{product.product_brand_name}</Link></div>
+          <div className='product__type'>Loại: <Link to={link} className='primary'>{product.product_type_name}</Link></div>
+          <div className='product__description' dangerouslySetInnerHTML={{ __html: product.product_description }}></div>
           <div className='block-separation'></div>
           <div className='flex beetween my-2'>
-            <span className='product__amount'>Số lượng: {data[0].product_amount}</span>
-            <span className='product__sold'>Đã bán: {data[0].product_sold}</span>
+            <span className='product__amount'>Số lượng: {product.product_amount - product.product_sold}</span>
+            <span className='product__sold'>Đã bán: {product.product_sold}</span>
           </div>
           <div className='flex beetween'>
-            <QuantityButton product_amount={data[0].product__amount} />
-            <button id='order' className='btn btn-primary' onClick={handleOrder} disabled={data[0].product_amount < 1}>Thêm vào giỏ hàng</button>
+          <div className='qty--wrap'>
+            <input className='qty__btn minus' type='button' value='-' onClick={handleDecrease} disabled={qty === 1} />
+            <input className='qty__input' type='number' min='1' max={props.product_amount} value={qty}
+              onChange={(e) => e.target.value = qty}
+            />
+            <input className='qty__btn plus' type='button' value='+' onClick={handleIncrease} disabled={qty >= product.product_amount - product.product_sold} />
+          </div>
+            <button id='order' className='btn btn-primary' onClick={handleOrder} disabled={product.product_amount < 1}>Thêm vào giỏ hàng</button>
           </div>
         </div>
       </div>

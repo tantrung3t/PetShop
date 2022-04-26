@@ -1,8 +1,11 @@
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import "./SigninScreen.css"
 import axios from "axios"
-import {Link} from "react-router-dom"
-export default function Account() {
+import { Link } from "react-router-dom"
+
+export default function SigninScreen() {
+  const username = useRef(null)
+  const password = useRef(null)
 
   const [isContainerActive, setIsContainerActive] = useState('');
 
@@ -92,13 +95,19 @@ export default function Account() {
       axios(config)
         .then(function (response) {
           console.log(JSON.stringify(response.data));
-          response.data.status === 200 ? alert("Đăng ký thành công") : alert("Đăng ký thất bại")
+          response.data.status === 200 ? (
+            alert("Đăng ký thành công"),
+            username.current.value = dataSubmit.get('username_sign-up'),
+            password.current.value = dataSubmit.get('password_sign-up'),
+            setIsContainerActive(""),
+            event.target.reset()
+          ) : alert("Đăng ký thất bại, tên đăng nhập đã có người sử dụng!!")
         })
         .catch(function (error) {
           console.log(error);
         });
     }
-    
+
   }
 
   return (
@@ -120,8 +129,8 @@ export default function Account() {
           <form onSubmit={handleSignIn} className="form-sign">
             <h1 className="h1-sign">Đăng nhập</h1>
 
-            <input name="username" className="input-sign" type="text" placeholder="Tên tài khoản" />
-            <input name="password" className="input-sign" type="password" placeholder="Mật khẩu" />
+            <input ref={username} name="username" className="input-sign" type="text" placeholder="Tên tài khoản" />
+            <input ref={password} name="password" className="input-sign" type="password" placeholder="Mật khẩu" />
             <Link to="/forgotpassword" className="title-forgotPassword">Quên mật khẩu?</Link>
             <button type="submit" className="button-sign">Đăng nhập</button>
 

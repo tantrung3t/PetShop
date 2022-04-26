@@ -126,7 +126,7 @@ export default function AdminBrand() {
                         </Link>
                     </div>
                     <div className="admin_title1" >
-                    <Link to='/admin/nhanhang'>
+                    <Link to='/admin/danhanhang'>
                         Quản lý nhận hàng
                     </Link>
                 </div>

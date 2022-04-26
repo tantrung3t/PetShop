@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
@@ -124,7 +126,7 @@ const box4 = {
   borderRadius: '10px',
   boxShadow: '0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07)'
 }
-export default function AdminProduct() {
+export default function AdminNhanhang() {
 
   const [hide, setHide] = useState("hide");
   const [titleModal, settitleModal] = useState("");
@@ -436,7 +438,7 @@ export default function AdminProduct() {
             </Link>
           </div>
           <div className="admin_title1" >
-            <Link to='/admin/danhanhang'>
+            <Link to='/admin/nhanhang'>
               Quản lý nhận hàng
             </Link>
           </div>

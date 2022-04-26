@@ -22,13 +22,13 @@ exports.get_all_product = function (req, res) {
 exports.get_products_by_brand = function (req, res) {
     var id = req.params.id;
     product.get_products_by_brand(id, function (data) {
-        const temp = data.map(ele => {
-            return {
-                brandName: ele.product_brand_name,
-                products: data
-            }
-        })
-        res.send(temp);
+        // const temp = data.map(ele => {
+        //     return {
+        //         brandName: ele.product_brand_name,
+        //         products: data
+        //     }
+        // })
+        res.send(data);
     })
 }
 

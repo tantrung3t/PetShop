@@ -32,6 +32,7 @@ import Thongke from './components/Thongke'
 import AdminProduct from './components/AdminProduct'
 import AdminOrder from './components/AdminOrder';
 import AdminBrand from './components/AdminBrand';
+import AdminNhanhang from './components/AdminNhanhang';
 
 import Thanhtoan from './screens/Thanhtoan'
 
@@ -132,7 +133,7 @@ function App() {
       });
     }
     return result;
-  }
+  }    
   // console.log(productCart)
   return (
     <Router>
@@ -192,7 +193,7 @@ function App() {
 
         <main>
           <Route path='/' exact component={HomeScreen} />
-          <Route path='/brand' component={BrandScreen} />
+          <Route path='/brand' component={BrandScreen}/>
           <Route path='/forgotpassword' component={ForgotPasswordScreen} />
           <Route path='/signin' render={() => {
             return (localStorage.getItem('user') !== "") ? <HomeScreen /> : <SigninScreen />
@@ -277,6 +278,7 @@ function Admin() {
       <Route path='/admin/thongke' component={Thongke} />
       <Route path='/admin/nhanhang' component={AdminBrand} />
       <Route path='/admin/dathang' component={AdminOrder} />
+      <Route path='/admin/danhanhang' component={AdminNhanhang} />
     </Switch>
   )
 }

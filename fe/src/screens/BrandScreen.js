@@ -18,10 +18,7 @@ export default function HomeScreen() {
       .catch(error => console.log(error));
   }
 
-  useEffect(() => {
-    loadData()
-  }, []);
-
+  
   var brandCheck = [];
   const result = Object.values(brands).filter(brand => {
     var brandList = [];
@@ -52,6 +49,9 @@ export default function HomeScreen() {
     return brand;
   })
 
+  useEffect(() => {
+    loadData()
+  }, []);
 
   console.log(resultsBrand)
 

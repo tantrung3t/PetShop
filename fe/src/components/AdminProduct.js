@@ -435,6 +435,11 @@ export default function AdminProduct() {
               Quản lý đặt hàng
             </Link>
           </div>
+          <div className="admin_title1" >
+            <Link to='/admin/nhanhang'>
+              Quản lý nhận hàng
+            </Link>
+          </div>
         </div>
         <div style={box4}>
           <div style={{ float: 'right' }}>

@@ -20,7 +20,6 @@ export default function ProfileScreen() {
       info_lname: dataSubmit.get('lname'),
       info_phone_number: dataSubmit.get('phone'),
       info_sex: sex
-
     }
 
     axios.post('http://localhost:3003/account/update', data)

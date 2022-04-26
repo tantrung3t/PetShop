@@ -51,7 +51,7 @@ export default function ListOrdersScreen() {
             <Link to={'/order/' + order.order_id} key={index} className="flex column m-3 order__item" style={{ minWidth: "60%" }}>
               <div className="flex beetween p-2" style={{ backgroundColor: "var(--primary-color)", color: "#fff" }}>
                 <div> Mã đơn hàng: #DH00{order.order_id} </div>
-                <div> {order.order_date.split("T")[0]} </div>
+                <div> {order.order_date.split("T")[0].slice(0,8) + (order.order_date.split("T")[0].slice(8,10) - 1 + 2)} </div>
                 {
                   order.order_status === 1 ? (
                     <div>Đang giao hàng</div>

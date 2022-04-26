@@ -42,50 +42,61 @@ export default function CartScreens(props) {
 
   const momoPayment = async(event) => {
     event.preventDefault();
-    const databody = {
-      "amount": totalPayment,
-      "account_id": profile.account_id,
-      "order_address": document.getElementById("info-order__address").value,
-      listOrder
+    if(document.getElementById("info-order__address").value === "" || document.getElementById("info-order__phone") === ""){
+      alert("Vui lòng cập nhật thông tin trước khi đặt hàng")
     }
-    await axios({
-      method: 'post',
-      url: 'http://localhost:3003/payment/momo_payment',
-      data: databody
-    })
-      .then(function (response) {
-        const data = response.data;
-        console.log(data)
-        window.location = data.payUrl
+    else{
+      const databody = {
+        "amount": totalPayment,
+        "account_id": profile.account_id,
+        "order_address": document.getElementById("info-order__address").value,
+        listOrder
+      }
+      await axios({
+        method: 'post',
+        url: 'http://localhost:3003/payment/momo_payment',
+        data: databody
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+        .then(function (response) {
+          const data = response.data;
+          console.log(data)
+          window.location = data.payUrl
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
 
   }
 
   const cashPayment = async(event) => {
     event.preventDefault();
-    const databody = {
-      "amount": totalPayment,
-      "account_id": profile.account_id,
-      "order_address": document.getElementById("info-order__address").value,
-      listOrder
+    
+    if(document.getElementById("info-order__address").value === "" || document.getElementById("info-order__phone") === ""){
+      alert("Vui lòng cập nhật thông tin trước khi đặt hàng")
     }
-
-    await axios({
-      method: 'post',
-      url: 'http://localhost:3003/payment/cash_payment',
-      data: databody
-    })
-      .then(function (response) {
-        const data = response.data;
-        console.log(data)
-        window.location = "http://localhost:3000/thanhtoan?payment=cashPayment"
+    else{
+      const databody = {
+        "amount": totalPayment,
+        "account_id": profile.account_id,
+        "order_address": document.getElementById("info-order__address").value,
+        listOrder
+      }
+  
+      await axios({
+        method: 'post',
+        url: 'http://localhost:3003/payment/cash_payment',
+        data: databody
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+        .then(function (response) {
+          const data = response.data;
+          console.log(data)
+          window.location = "http://localhost:3000/thanhtoan?payment=cashPayment"
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   }
 
   const handleCheck = (e) => {

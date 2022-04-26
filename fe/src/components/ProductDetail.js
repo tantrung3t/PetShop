@@ -121,11 +121,11 @@ export default function ProductDetail(props) {
           <div className='product__description' dangerouslySetInnerHTML={{ __html: data[0].product_description }}></div>
           <div className='block-separation'></div>
           <div className='flex beetween my-2'>
-            <span className='product__amount'>Số lượng: {data[0].product_amount}</span>
+            <span className='product__amount'>Số lượng: {data[0].product_amount-data[0].product_sold}</span>
             <span className='product__sold'>Đã bán: {data[0].product_sold}</span>
           </div>
           <div className='flex beetween'>
-            <QuantityButton product_amount={data[0].product__amount} />
+            <QuantityButton product_amount={data[0].product_amount-data[0].product_sold} />
             <button id='order' className='btn btn-primary' onClick={handleOrder} disabled={data[0].product_amount < 1}>Thêm vào giỏ hàng</button>
           </div>
         </div>

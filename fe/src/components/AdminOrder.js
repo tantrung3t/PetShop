@@ -251,6 +251,11 @@ export default function AdminOrder() {
                             Quản lý đặt hàng
                         </Link>
                     </div>
+                    <div className="admin_title1" >
+                    <Link to='/admin/nhanhang'>
+                        Quản lý nhận hàng
+                    </Link>
+                </div>
                     
                 </div>
                 <div style={box4}>
@@ -363,6 +368,9 @@ function Item(props) {
     const order_detail_id = () => {
         props.order_detail_id(props.order_id, props.info_name, props.info_phone_number, props.info_address, props.order_payment_momo)
     }
+    const justNow = Date.parse(props.order_date);
+    const date = new Date(justNow)
+
     return (
         <div>
             <div style={divStyle1}>
@@ -379,7 +387,7 @@ function Item(props) {
                     {props.info_address}
                 </div>
                 <div style={divStyle2}>
-                    {props.order_date.split("T")[0]}
+                    {date.getFullYear() + "-0" + (date.getMonth() + 1) + "-" + date.getDate()}
                 </div>
 
                 <div style={divStyle4}>

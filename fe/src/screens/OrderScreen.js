@@ -58,7 +58,8 @@ export default function OrderScreen(props) {
           <div className="flex column m-3 order__item" style={{ minWidth: "60%" }}>
             <div className="flex beetween p-2" style={{ backgroundColor: "var(--primary-color)", color: "#fff" }}>
               <div> Mã đơn hàng: #DH00{order[0].order_id} </div>
-              <div> {order[0].order_date.split("T")[0]} </div>
+              {/* Chô này cần làm lại phần chuyển đổi từ isodate sang  */}
+              <div> {order[0].order_date.split("T")[0].slice(0,8) + (order[0].order_date.split("T")[0].slice(8,10) - 1 + 2)} </div>
               {
                 order[0].order_status === 1 ? (
                   <div>Đang giao hàng</div>

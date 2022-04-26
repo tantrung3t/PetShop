@@ -18,13 +18,15 @@ Account.account_orders = function (account_id, result) {
 }
 
 Account.update_account = function (dataBody, result) {
+    console.log(dataBody)
     var strquery = "UPDATE `infomation` SET `info_fname`='"+ dataBody.info_fname +"',`info_lname`='"+ dataBody.info_lname +"',`info_date`='"+ dataBody.info_date + "',`info_address`='"+ dataBody.info_address +"',`info_phone_number`='"+ dataBody.info_phone_number +"',`info_email`='"+ dataBody.info_email +"', `info_sex`='"+ dataBody.info_sex +"' WHERE account_id = " + dataBody.account_id
     
     db.query(strquery, function (err, data) {
         if (err) {
             result({
                 status: 400,
-                message: "Error update database"
+                message: "Error update database",
+                err: err
             });
         }
         else {

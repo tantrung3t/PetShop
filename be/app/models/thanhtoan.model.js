@@ -16,6 +16,8 @@ payment.inventory_product = function (result) {
 }
 
 payment.cash_payment = function (reqData, result) {
+    // console.log(reqData)
+    // result("aaa")
     var strquery = "INSERT INTO `orders`(`account_id`, `order_status`, `order_address`, `order_payment_momo`, `order_total`) VALUES ('" + reqData.account_id + "','0','" + reqData.order_address + "','0', '"+ reqData.amount +"')"
     var strqueryInsertListProducts = "INSERT INTO `orders_detail` (`order_id`, `product_id`, `orders_detail_quantity`) VALUES "
     db.query(strquery, function (err, data) {
@@ -30,13 +32,12 @@ payment.cash_payment = function (reqData, result) {
             // result("order: " + data.insertId)
             reqData.listProducts.map((item, i, row) => {
                 if (i + 1 === row.length) {
-                    strqueryInsertListProducts += "(" + data.insertId + ", " + item.id + ", " + item.quantity + ");"
+                    strqueryInsertListProducts += "(" + data.insertId + ", " + item.product_id + ", " + item.shopping_cart_amount + ");"
                 }
                 else {
-                    strqueryInsertListProducts += "(" + data.insertId + ", " + item.id + ", " + item.quantity + "),"
+                    strqueryInsertListProducts += "(" + data.insertId + ", " + item.product_id + ", " + item.shopping_cart_amount + "),"
                 }
-
-                db.query("DELETE FROM `shopping_cart` WHERE account_id = "+ reqData.account_id +" and product_id = " + item.id, function(err, data){
+                db.query("DELETE FROM `shopping_cart` WHERE account_id = "+ reqData.account_id +" and product_id = " + item.product_id, function(err, data){
                     if(err){
                         result({
                             status: 400,
@@ -46,18 +47,25 @@ payment.cash_payment = function (reqData, result) {
                 })
             })
 
+            // console.log(strqueryInsertListProducts);
+
             db.query(strqueryInsertListProducts, function (err, data) {
                 if (err) {
+                    console.log(err)
                     result({
                         status: 400,
-                        message: "Error insert to database"
+                        message: "Error insert to database",
+                        err: err
                     });
                 }
                 else {
+                    // console.log("ok")
                     result({
                         status: 200,
-                        message: "Insert to database successfully!"
+                        message: "succ insert to database",
+                        err: err
                     });
+                    return;
                 }
             })
         }

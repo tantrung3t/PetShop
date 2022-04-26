@@ -17,13 +17,13 @@ exports.momo_payment = function (request, response) {
             // result("order: " + data.insertId)
             request.body.listProducts.map((item, i, row) => {
                 if (i + 1 === row.length) {
-                    strqueryInsertListProducts += "(" + data.insertId + ", " + item.id + ", " + item.quantity + ");"
+                    strqueryInsertListProducts += "(" + data.insertId + ", " + item.product_id + ", " + item.shopping_cart_amount + ");"
                 }
                 else {
-                    strqueryInsertListProducts += "(" + data.insertId + ", " + item.id + ", " + item.quantity + "),"
+                    strqueryInsertListProducts += "(" + data.insertId + ", " + item.product_id + ", " + item.shopping_cart_amount + "),"
                 }
 
-                db.query("DELETE FROM `shopping_cart` WHERE account_id = "+ request.body.account_id +" and product_id = " + item.id, function(err, data){
+                db.query("DELETE FROM `shopping_cart` WHERE account_id = "+ request.body.account_id +" and product_id = " + item.product_id, function(err, data){
                     if(err){
                         response.send({
                             status: 400,
@@ -142,7 +142,6 @@ exports.momo_payment = function (request, response) {
 
 exports.cash_payment = function (req, res) {
     payment.cash_payment(req.body, function (data) {
-        console.log(data)
         res.send(data);
     })
 }

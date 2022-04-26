@@ -12,10 +12,7 @@ export default function CartScreens(props) {
   const { addProductInCart, removeProductInCart } = props;
   const [productsCart, setProductsCart] = useState([]);
   var total = 0;
-
   const [modal, setModal] = useState("modal hide");
-  // const [listProducts, setListProducts] = useState([])
-  // const [totalPayment, setTotalPayment] = useState(0)
   
   let profile = "";
   if (localStorage.getItem("profile") === "") {
@@ -76,38 +73,33 @@ export default function CartScreens(props) {
         });
       props.setIsDelete(!props.isDelete)
     })
-    // alert("Xóa sản phẩm thành công!!");
+    alert("Xóa sản phẩm thành công!!");
   }
   const choosePayment = () => {
     listProducts = productsCart.filter(product => product.isChecked ? product : "")
+    // console.log(listProducts)
     
-    console.log(listProducts)
     if (listProducts.length === 0 || profile === "") {
       if (profile === "") alert("Vui lòng đăng nhập để tiến hàng đặt hàng!")
       else alert("Vui lòng chọn sản phẩm muốn mua để tiến hàng đặt hàng!")
     }
     else {
       setModal("modal")
-      // document.getElementById("info-order__total").value = totalPayment;
-      // console.log(totalPayment)
-      console.log(listProducts)
     }
   }
 
   const momoPayment = async(event) => {
     event.preventDefault();
-    console.log(listProducts)
     const databody = {
       "amount": total,
       "account_id": profile.account_id,
       "order_address": document.getElementById("info-order__address").value,
       listProducts
     }
-    console.log(databody)
+    // console.log(databody)
     await axios.post('http://localhost:3003/payment/momo_payment', databody)
       .then(function (response) {
         const data = response.data;
-        // console.log(data)
         window.location = data.payUrl
       })
       .catch(function (error) {
@@ -123,16 +115,11 @@ export default function CartScreens(props) {
       "order_address": document.getElementById("info-order__address").value,
       listProducts
     }
-    console.log(databody)
-    // await axios({
-    //   method: 'post',
-    //   url: 'http://localhost:3003/payment/cash_payment',
-    //   data: databody
-    // })
+    // console.log(databody)
+
     await axios.post('http://localhost:3003/payment/cash_payment', databody)
       .then(function (response) {
         const data = response.data;
-        console.log(data)
         window.location = "http://localhost:3000/thanhtoan?payment=cashPayment"
       })
       .catch(function (error) {

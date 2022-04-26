@@ -11,7 +11,7 @@ export default function HomeScreen() {
     axios.get(`http://localhost:3003/brands`)
       .then(res => {
         const data = res.data;
-        console.log("DATA:", data)
+        // console.log("DATA:", data)
         setBrands(handleFilter(data))
       })
       .catch(error => console.log(error));
@@ -23,12 +23,6 @@ export default function HomeScreen() {
 
   const handleFilter = (data) => {
     var brandCheck = [];
-    // tempBrands.map(item => (
-    //   item.products.map(product => {
-    //     product.product_brand_name === item.brandName ? brandCheck.push(product) : ''
-    //   })
-    // ))
-    // console.log(brandCheck)
 
     data.map((item, i) => {
       if (brandCheck.find(value => value.name === item.product_brand_name)) {
@@ -39,14 +33,14 @@ export default function HomeScreen() {
       else {
         brandCheck.push({ name: item.product_brand_name, products: [item] })
 
-        console.log(brandCheck)
+        // console.log(brandCheck)
       }
     })
 
     return brandCheck;
   }
 
-  console.log(brands)
+  // console.log(brands)
 
   return (
     <div>

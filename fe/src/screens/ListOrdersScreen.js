@@ -22,11 +22,9 @@ export default function ListOrdersScreen() {
     for (let index = 0; index < ordersCheck.length; index++) {
       const element = ordersCheck[index];
       if (order.order_id === element) {
-        // console.log("aa")
         return;
       }
       else {
-        // console.log("aaaa");
         orderList.push(order);
       }
     }
@@ -36,12 +34,8 @@ export default function ListOrdersScreen() {
     else {
       ordersCheck.push(order.order_id)
     }
-    // console.log("orderCheck: " + ordersCheck);
     return orderList;
   })
-
-  // console.log(result)
-  // console.log(orders)
   return (
     <div className="grid">
       <div className="orders-container">
@@ -51,14 +45,18 @@ export default function ListOrdersScreen() {
             <Link to={'/order/' + order.order_id} key={index} className="flex column m-3 order__item" style={{ minWidth: "60%" }}>
               <div className="flex beetween p-2" style={{ backgroundColor: "var(--primary-color)", color: "#fff" }}>
                 <div> Mã đơn hàng: #DH00{order.order_id} </div>
-                <div> {order.order_date.split("T")[0]} </div>
+                <div> {order.order_date.split("T")[0].slice(0,8) + (order.order_date.split("T")[0].slice(8,10) - 1 + 2)} </div>
                 {
-                  order.order_status === 1 ? (
+                  order.order_status === 2 ? (
                     <div>Đang giao hàng</div>
-                  ) : order.order_status === 2 ? (
+                  ) : order.order_status === 1 ? (
                     <div>Đã giao hàng</div>
+                  ) : order.order_status === 3 ? (
+                    <div>Người bán từ chối tiền thanh toán sẽ được hoàn trả</div>
+                  ) : order.order_status === 4 ? (
+                    <div>Người mua không nhận hàng</div>
                   ) : (
-                    <div>Đang chuẩn bị hàng</div>
+                    <div>Đang chờ</div>
                   )
                 }
               </div>
@@ -90,7 +88,6 @@ export default function ListOrdersScreen() {
                 Thành tiền:&nbsp; 
                 <span style={{color: "#ff383d", fontWeight: "600"}}> {(order.order_total).toLocaleString("fi-FI", { style: "currency", currency: "VND" })} </span>
               </div>
-              {/* <div className="m-2" style={{ wordWrap: "break-word", width: "700px" }}>Địa chỉ giao hàng: {order.order_address} </div> */}
             </Link>
           )).reverse()
         }

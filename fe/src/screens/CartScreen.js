@@ -109,6 +109,7 @@ export default function CartScreens(props) {
 
   const cashPayment = async(event) => {
     event.preventDefault();
+<<<<<<< HEAD
     const databody = {
       "amount": total,
       "account_id": profile.account_id,
@@ -126,6 +127,50 @@ export default function CartScreens(props) {
         console.log(error);
       });
   }  
+=======
+    
+    if(document.getElementById("info-order__address").value === "" || document.getElementById("info-order__phone") === ""){
+      alert("Vui lòng cập nhật thông tin trước khi đặt hàng")
+    }
+    else{
+      const databody = {
+        "amount": totalPayment,
+        "account_id": profile.account_id,
+        "order_address": document.getElementById("info-order__address").value,
+        listOrder
+      }
+  
+      await axios({
+        method: 'post',
+        url: 'http://localhost:3003/payment/cash_payment',
+        data: databody
+      })
+        .then(function (response) {
+          const data = response.data;
+          console.log(data)
+          window.location = "http://localhost:3000/thanhtoan?payment=cashPayment"
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  }
+
+  const handleCheck = (e) => {
+    const { name, checked } = e.target;
+    if (name === "allSelect") {
+      let tempProduct = productsCart.map((product) => {
+        return { ...product, isChecked: checked };
+      });
+      setProductsCart(tempProduct);
+    } else {
+      let tempProduct = productsCart.map((product) =>
+        name == product.product_id ? { ...product, isChecked: checked } : product
+      );
+      setProductsCart(tempProduct);
+    }
+  };
+>>>>>>> 516091d39a9dff6a60321ffba752a870b686a0f7
 
   const close_modal = () => {
     setModal("modal hide");

@@ -11,7 +11,7 @@ export default function BrandScreen() {
     axios.get(`http://localhost:3003/brands`)
       .then(res => {
         const data = res.data;
-        console.log("DATA:", data)
+        // console.log("DATA:", data)
         setBrands(handleFilter(data))
       })
       .catch(error => console.log(error));
@@ -23,14 +23,7 @@ export default function BrandScreen() {
 
   const handleFilter = (data) => {
     var brandCheck = [];
-    // tempBrands.map(item => (
-    //   item.products.map(product => {
-    //     product.product_brand_name === item.brandName ? brandCheck.push(product) : ''
-    //   })
-    // ))
-    // console.log(brandCheck)
-
-    data.map((item, i) => {
+    data.map((item) => {
       if (brandCheck.find(value => value.name === item.product_brand_name)) {
         let pos = brandCheck.findIndex(ele => ele.name === item.product_brand_name)
         brandCheck[pos].products.push(item)
@@ -38,15 +31,10 @@ export default function BrandScreen() {
       }
       else {
         brandCheck.push({ name: item.product_brand_name, products: [item] })
-
-        console.log(brandCheck)
       }
     })
-
     return brandCheck;
   }
-
-  console.log(brands)
 
   return (
     <div>

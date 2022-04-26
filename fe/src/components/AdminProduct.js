@@ -150,7 +150,7 @@ export default function AdminProduct() {
   useEffect(() => {
     loadData_products();
     loadData_product_brand()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
 
   //call and render product brand
@@ -433,6 +433,11 @@ export default function AdminProduct() {
           <div className="admin_title1">
             <Link to='/admin/dathang' >
               Quản lý đặt hàng
+            </Link>
+          </div>
+          <div className="admin_title1" >
+            <Link to='/admin/danhanhang'>
+              Quản lý nhận hàng
             </Link>
           </div>
         </div>

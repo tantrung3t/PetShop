@@ -57,23 +57,23 @@ export default function ProductsScreen() {
                   thức ăn cho cún
                 </div>
               </li>
-              <li className="category__item">
-                <div className="category__item-link" onClick={() => {setType("products/thucanmeo")}}>
+              <li className="category__item" onClick={() => {setType("products/thucanmeo")}}>
+                <div className="category__item-link">
                   thức ăn cho mèo
                 </div>
               </li>
-              <li className="category__item">
-                <div className="category__item-link" onClick={() => {setType("products/dochoithucung")}}>
+              <li className="category__item" onClick={() => {setType("products/dochoithucung")}}>
+                <div className="category__item-link">
                   đồ chơi thú cưng
                 </div>
               </li>
-              <li className="category__item">
-                <div className="category__item-link" onClick={() => {setType("products/phukienthucung")}}>
+              <li className="category__item" onClick={() => {setType("products/phukienthucung")}}>
+                <div className="category__item-link">
                   Phụ kiện thú cưng
                 </div>
               </li>
-              <li className="category__item">
-                <div className="category__item-link" onClick={() => {setType("products/chuongthucung")}}>
+              <li className="category__item" onClick={() => {setType("products/chuongthucung")}}>
+                <div className="category__item-link">
                   chuồng thú cưng
                 </div>
               </li>

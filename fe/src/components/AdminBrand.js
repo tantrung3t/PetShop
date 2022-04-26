@@ -125,6 +125,11 @@ export default function AdminBrand() {
                             Quản lý đặt hàng
                         </Link>
                     </div>
+                    <div className="admin_title1" >
+                    <Link to='/admin/danhanhang'>
+                        Quản lý nhận hàng
+                    </Link>
+                </div>
                 </div>
                 <div style={box4}>
                     <div className="AdminBrand_form_add">

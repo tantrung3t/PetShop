@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
-import './AdminOrder.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -92,8 +91,35 @@ const box4 = {
     borderRadius: '10px',
     boxShadow: '0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07)'
 }
+const buttonStyle1 = {
+    'padding': '10px 20px',
+    'margin': '3px 3px 3px 3px',
+    'outline': 'none',
+    'border': 'none',
+    'backgroundColor': '#e33939',
+    'color': '#f7f7f7',
+    'borderRadius': '6px',
+    'cursor': 'pointer',
+    'fontSize': '12px',
+    'fontWeight': 'bold',
+    width: '66px'
+  };
+  
+  const buttonStyle2 = {
+    'padding': '10px 20px',
+    'margin': '3px 3px 3px 3px',
+    'outline': 'none',
+    'border': 'none',
+    'backgroundColor': '#1e931c',
+    'color': '#f7f7f7',
+    'borderRadius': '6px',
+    'cursor': 'pointer',
+    'fontSize': '12px',
+    'fontWeight': 'bold',
+    width: '77px'
+  };
 
-export default function AdminOrder() {
+export default function AdminNhanhang() {
 
     let total = 0;
 
@@ -133,8 +159,52 @@ export default function AdminOrder() {
             });
     }
 
+    const callbackNhanhang = async (id) => {
+        const data = {
+            
+            "order_id": id,
+            "status_order": 1,
+        
+        }
+
+        await axios({
+            method: 'post',
+            url: 'http://localhost:3003/admin/orders/yes_or_no',
+            data: data
+        })
+            .then(function (response) {
+                console.log(response);
+                loadDataOrder()
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    const callbackKhongnhan = async (id) => {
+        const data = {
+            
+            "order_id": id,
+            "status_order": 4,
+        
+        }
+
+        await axios({
+            method: 'post',
+            url: 'http://localhost:3003/admin/orders/yes_or_no',
+            data: data
+        })
+            .then(function (response) {
+                console.log(response);
+                loadDataOrder()
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     const loadDataOrder = async () => {
-        await axios.get(`http://localhost:3003/admin/orders/list`)
+        await axios.get(`http://localhost:3003/admin/orders/list_nhanhang`)
             .then(res => {
                 const data = res.data;
                 setDataOrder(data)
@@ -161,11 +231,11 @@ export default function AdminOrder() {
     }
 
     const accept_order = () => {
-        AcceptOrDenyOrder(2)
+        AcceptOrDenyOrder(1)
         close_modal();
     }
     const deny_order = () => {
-        AcceptOrDenyOrder(3)
+        AcceptOrDenyOrder(2)
         close_modal();
     }
 
@@ -176,7 +246,6 @@ export default function AdminOrder() {
         setPhone(phone);
         setAddress(address);
         if(payment === 2) setPayment("Đã thanh toán qua ví MoMo")
-        else setPayment("Thanh toán khi nhận hàng")
 
         //loadDataItem
         loadDataOrderDetails(order_id)
@@ -220,6 +289,8 @@ export default function AdminOrder() {
                     info_phone_number={product.info_phone_number}
                     order_payment_momo={product.order_payment_momo}
                     order_detail_quantity={product.order_detail_quantity}
+                    callbackNhanhang={(order_id) => { callbackNhanhang(order_id) }}
+                    callbackKhongnhan={(order_id) => { callbackKhongnhan(order_id) }}
                     order_detail_id={(order_id, info_name, info_phone_number, info_address, order_payment_momo) => { order_detail_id(order_id, info_name, info_phone_number, info_address, order_payment_momo) }}
                 // buttonEdit={(index, product_id, product_name, product_type_id, product_brand_id, product_price, product_amount, product_description, product_image) => { edit_product(index, product_id, product_name, product_type_id, product_brand_id, product_price, product_amount, product_description, product_image) }}
                 />
@@ -247,12 +318,12 @@ export default function AdminOrder() {
                             Quản lý nhãn hàng
                         </Link>
                     </div>
-                    <div className="admin_title2" >
+                    <div className="admin_title1" >
                         <Link to='/admin/dathang'>
                             Quản lý đặt hàng
                         </Link>
                     </div>
-                    <div className="admin_title1" >
+                    <div className="admin_title2" >
                     <Link to='/admin/danhanhang'>
                         Quản lý nhận hàng
                     </Link>
@@ -275,6 +346,9 @@ export default function AdminOrder() {
                         </div>
                         <div style={divStyle3}>
                             Ngày đặt hàng
+                        </div>
+                        <div style={divStyle3}>
+                            Trạng thái
                         </div>
                         <div style={divStyle4}>
                             Tuỳ chỉnh
@@ -366,9 +440,18 @@ function Item(props) {
     // const buttonEdit = () => {
     //   props.buttonEdit(props.index, props.product_id, props.product_name, props.product_type_id, props.product_brand_id, props.product_price, props.product_amount, props.product_description, props.product_image)
     // }
-    const order_detail_id = () => {
-        props.order_detail_id(props.order_id, props.info_name, props.info_phone_number, props.info_address, props.order_payment_momo)
-    }
+
+
+
+   const nhanhang =() => {
+    props.callbackNhanhang(props.order_id)
+   }
+
+   const khongnhan =() => {
+    props.callbackKhongnhan(props.order_id)
+}
+
+
     const justNow = Date.parse(props.order_date);
     const date = new Date(justNow)
 
@@ -390,11 +473,12 @@ function Item(props) {
                 <div style={divStyle2}>
                     {date.getFullYear() + "-0" + (date.getMonth() + 1) + "-" + date.getDate()}
                 </div>
-
+                <div style={divStyle2}>
+                    Chờ xác nhận
+                </div>
                 <div style={divStyle4}>
-                    {/* <button className="button-sanpham-hover" onClick={buttonDelete} style={buttonStyle1}>Xoá</button> */}
-                    {/* <button className="button-sanpham-hover" onClick={buttonEdit} style={buttonStyle2}>Sửa</button> */}
-                    <button className="button-order-detail" onClick={order_detail_id}>Chi tiết đặt hàng</button>
+                    <button onClick={nhanhang} style={buttonStyle1}>Đã nhận</button>
+                    <button onClick={khongnhan}style={buttonStyle2}>Không nhận</button>
                 </div>
             </div>
         </div>

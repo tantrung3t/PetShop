@@ -386,6 +386,11 @@ export default function Thongke() {
                         Quản lý đặt hàng
                     </Link>
                 </div>
+                <div className="admin_title1" >
+                    <Link to='/admin/danhanhang'>
+                        Quản lý nhận hàng
+                    </Link>
+                </div>
             </div>
             <div style={{ paddingLeft: '10px', paddingRight: '10px', width: '1250px' }}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>

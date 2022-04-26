@@ -2,10 +2,14 @@ module.exports = function(router) {
     var adminController = require('../controllers/admin.controller');
 
     router.get('/admin/orders/list', adminController.list_orders);
+    router.get('/admin/orders/list_nhanhang', adminController.list_orders_nhanhang);
+
     router.get('/admin/order/:id', adminController.products_orders_by_id);
 
     //accept or deny order
     router.post('/admin/orders/deny_or_accept_order', adminController.deny_or_accept_order)
+
+    router.post('/admin/orders/yes_or_no', adminController.yes_or_no)
 
     //thong ke 4 thang
     router.get('/admin/statistic/4month', adminController.statistic_4month)

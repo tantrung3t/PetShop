@@ -57,8 +57,8 @@ exports.forgotPassword = function (req, res) {
                 port: 465,
                 secure: true,
                 auth: {
-                    user: 't2kpetshop@gmail.com', //Tài khoản gmail vừa tạo
-                    pass: 't2kpetshopb1805828' //Mật khẩu tài khoản gmail vừa tạo
+                    user: '', //Tài khoản gmail vừa tạo
+                    pass: '' //Mật khẩu tài khoản gmail vừa tạo
                 },
                 tls: {
                     // do not fail on invalid certs
